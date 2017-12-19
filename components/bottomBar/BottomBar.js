@@ -3,6 +3,8 @@ import { View, Text, Platform } from 'react-native';
 import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import Icon from 'react-native-vector-icons/FontAwesome'; // 4.4.2
 
+import Profil from '../profil/Profil';
+
 const Cadeaux = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text>Cadeaux</Text>
@@ -15,10 +17,8 @@ const Sondages = () => (
   </View>
 );
 
-const Profil = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Profil</Text>
-  </View>
+const profil = () => (
+  <Profil />
 );
 
 const BottomBar = TabNavigator({
@@ -51,7 +51,7 @@ const BottomBar = TabNavigator({
     },
   },
   Profil: {
-    screen: Profil,
+    screen: profil,
     navigationOptions: {
       tabBarLabel: 'Profil',
       tabBarIcon: ({ tintColor, focused }) => (
