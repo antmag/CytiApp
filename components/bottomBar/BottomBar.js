@@ -3,6 +3,8 @@ import { View, Text, Platform } from 'react-native';
 import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import Icon from 'react-native-vector-icons/FontAwesome'; // 4.4.2
 
+import Sondage from '../sondage/Sondage';
+
 const Cadeaux = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text>Cadeaux</Text>
@@ -10,9 +12,7 @@ const Cadeaux = () => (
 );
 
 const Sondages = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Sondages</Text>
-  </View>
+  <Sondage />
 );
 
 const Profil = () => (
