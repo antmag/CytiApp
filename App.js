@@ -5,12 +5,9 @@
  */
 
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import BottomBar from './components/bottomBar/BottomBar';
 
@@ -35,10 +32,11 @@ export default class App extends Component<{}> {
       //     {instructions}
       //   </Text>
       // </View>
-
-      <View style={{flex:1}}>
-        <BottomBar />
-      </View>
+      <MuiThemeProvider>
+        <View style={{flex:1}}>
+          <BottomBar />
+        </View>
+      </MuiThemeProvider>  
     );
   }
 }
