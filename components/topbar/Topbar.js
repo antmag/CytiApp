@@ -8,13 +8,7 @@ export default class Topbar extends Component<{}> {
     render() {
       return (
           
-        <View
-            style={{
-                flexDirection: 'row',
-                height: 100,
-                padding: 20,
-            }}
-        >
+        <View style={{height: 60, backgroundColor:'#abcdef'}} >
             <Text>Topbar</Text>
         </View>    
   

@@ -36,7 +36,7 @@ export default class App extends Component<{}> {
       //     {instructions}
       //   </Text>
       // </View>
-      <View style={styles.container}>
+      <View style={{flex:1}}>
         <Topbar />
         <BottomBar />
       </View>  
