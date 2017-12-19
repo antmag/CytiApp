@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import BottomBar from './components/bottomBar/BottomBar';
+import Topbar from './components/topbar/Topbar';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -35,8 +36,10 @@ export default class App extends Component<{}> {
       //     {instructions}
       //   </Text>
       // </View>
-
-      <BottomBar />
+      <View style={styles.container}>
+        <Topbar />
+        <BottomBar />
+      </View>  
 
     );
   }
