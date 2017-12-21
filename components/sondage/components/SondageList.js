@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import Animation from 'lottie-react-native';
+
+import SondagePreview from './SondagePreview';
 
 import anim from '../../../assets/animations/soda_loader.json';
 
 export default class SondageList extends Component {
-  // componentDidMount() {
-  //   this.animation.play();
-  // }
 
   launchAnimation(){
     this.animation.play(30,120);
@@ -16,7 +15,22 @@ export default class SondageList extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
+        <FlatList
+          data={[
+            {key: 'Les vernis à ongles'},
+            {key: 'Les marques de prêt à porter'},
+            {key: 'Les desserts'},
+            {key: 'Les courses de Noël'},
+            {key: 'Un super Sondage'},
+            {key: 'Encore un autre'},
+            {key: 'Un sondage sur pleins de questions'},
+          ]}
+          renderItem={({item}) => <SondagePreview 
+                                    title={item.key}
+                                    image='../../../assets/images/survey.jpg' 
+                                  />}
+        />
+        {/* <Button
               onPress={() => {this.launchAnimation();}}
               title="push to launch"
         />  
@@ -32,8 +46,7 @@ export default class SondageList extends Component {
             // loop={true}
             source={anim}
           />
-        </View>
-
+        </View> */}
       </View>
     );
   }
@@ -42,14 +55,9 @@ export default class SondageList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#A6207E'
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    //backgroundColor: '#A6207E'
+    backgroundColor: 'white'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff'
-  }
 });
