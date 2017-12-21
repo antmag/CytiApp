@@ -49,7 +49,7 @@ constructor(props) {
       return (
       <Provider store={store} >
         <View style={{flex:1}}>
-          <Text style={styles.welcome}>Welcome to CYTI App</Text>
+          <BottomBar />
         </View>
       </Provider>
     );
