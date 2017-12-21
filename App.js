@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import BottomBar from './components/bottomBar/BottomBar';
+import Topbar from './components/topbar/Topbar';
 
 import FBLoginView from './components/loginPage/LoginPage';
 
@@ -49,6 +50,7 @@ constructor(props) {
       return (
       <Provider store={store} >
         <View style={{flex:1}}>
+          <Topbar />
           <BottomBar />
         </View>
       </Provider>
