@@ -50,6 +50,7 @@ constructor(props) {
       return (
       <Provider store={store} >
         <View style={{flex:1}}>
+          <Topbar />
           <BottomBar />
         </View>
       </Provider>
