@@ -41,7 +41,6 @@ class FBLoginView extends Component {
                 onLogin={function(data){
                   console.log("Logged in!");
                   console.log(data.type);
-                  //store.dispatch(setConnectedUser(data));
                   _this.setState({ connected : data.type });
                   _this.setState({ user : data.credentials });
                 }}
@@ -51,8 +50,6 @@ class FBLoginView extends Component {
                 }}
                 onLoginFound={function(data){
                   console.log("Existing login found.");
-                  //this.props.dispatch(setConnectedUser(data));
-                  _this.props.handleDestroyItem(data);
                   _this.setState({ connected : data.type });
                   _this.setState({ user : data.credentials });
                 }}
