@@ -13,52 +13,89 @@ import FBLoginView from './components/loginPage/LoginPage';
 
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
+import {Provider} from 'react-redux';
+import { createStore } from 'redux';
+import globalReducer from './reducers';
+import {setConnectedUser } from './actions';
+
+const store = createStore(globalReducer);
+
 var LoginBehavior = {
   'ios': FBLoginManager.LoginBehaviors.Browser,
   'android': FBLoginManager.LoginBehaviors.Native
 }
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, data){
+  if (!error) {
+    console.log("Login data: ", data);
+  } else {
+    console.log("Error: ", error);
+  }
+})
+
+
 
 export default class App extends Component<{}> {
-  render() {
-    return (
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>
-      //     Welcome to CYTi!
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     Learn how to Capitalize Your Time ;)
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     {instructions}
-      //   </Text>
-      // </View>
-      //<View style={{flex:1}}>
-        //<BottomBar />
-      //</View>
 
-      <View style={{flex:1}}>
-        <Text style={styles.welcome}>Welcome to CYTI App</Text>
-        <FBLogin
-            buttonView={<FBLoginView/>}
-            ref={(fbLogin) => { this.fbLogin = fbLogin }}
-            loginBehavior={LoginBehavior[Platform.OS]}
-            permissions={["email","user_friends"]}
-            onLogin={function(e){console.log(e)}}
-            onLoginFound={function(e){console.log(e)}}
-            onLoginNotFound={function(e){console.log(e)}}
-            onLogout={function(e){console.log(e)}}
-            onCancel={function(e){console.log(e)}}
-            onPermissionsMissing={function(e){console.log(e)}}
-        />
-      </View>
+constructor(props) {
+     super(props);
+     this.state ={ isLoggedIn: false };
+
+}
+  
+  render() {
+    var _this = this;
+    if(_this.state.connected == "success"){
+      return (
+      <Provider store={store} >
+        <View style={{flex:1}}>
+          <Text style={styles.welcome}>Welcome to CYTI App</Text>
+        </View>
+      </Provider>
     );
+    }else{
+      return (
+        <Provider store={store} >
+          <View style={{flex:1}}>
+            <Text style={styles.welcome}>Welcome to CYTI App</Text>
+              <FBLogin style={styles.buttonFb}
+                ref={(fbLogin) => { this.fbLogin = fbLogin }}
+                permissions={["email","user_friends"]}
+                loginBehavior={LoginBehavior[Platform.OS]}
+                onLogin={function(data){
+                  console.log("Logged in!");
+                  console.log(data.type);
+                  _this.setState({ connected : data.type });
+                  _this.setState({ user : data.credentials });
+                }}
+                onLogout={function(){
+                  console.log("Logged out.");
+                  _this.setState({ user : null });
+                }}
+                onLoginFound={function(data){
+                  console.log("Existing login found.");
+                  _this.setState({ connected : data.type });
+                  _this.setState({ user : data.credentials });
+                }}
+                onLoginNotFound={function(){
+                  console.log("No user logged in.");
+                  _this.setState({ user : null });
+                }}
+                onError={function(data){
+                  console.log("ERROR");
+                }}
+                onCancel={function(){
+                  console.log("User cancelled.");
+                }}
+                onPermissionsMissing={function(data){
+                  console.log("Check permissions!");
+                  console.log(data);
+                }}
+              />
+          </View>
+        </Provider>
+      );
+    }
   }
 }
 
@@ -70,9 +107,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  buttonFb: {
+    margin: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   instructions: {
     textAlign: 'center',
