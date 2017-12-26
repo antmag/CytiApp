@@ -75,7 +75,7 @@ class SondageList extends Component {
     return (
       <View style={styles.container}>
           <ListView
-            data={(this.props.filter && !(this.props.filter.theme == "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : thid.state.sondages}
+            data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
             renderRow={this.renderRow}
           />
       </View>
