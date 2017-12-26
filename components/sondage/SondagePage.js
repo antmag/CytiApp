@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, View, Animated, Button } from 'react-native';
 import { DropDownMenu } from '@shoutem/ui';
 
 import Filter from './components/Filter';
 import SondageList from './components/SondageList';
 
-export default class SondagePage extends Component {
+import {updateFilter} from '../../actions';
+
+class SondagePage extends Component {
 
   constructor(props){
     super(props);
@@ -17,6 +20,12 @@ export default class SondagePage extends Component {
         { title: 'Shopping', value: 'Shopping' },
       ]
     }
+    this.setNewFilter = this.setNewFilter.bind(this);
+  }
+
+  setNewFilter(filter){
+    this.setState({selectedFilter : filter});
+    this.props.dispatch(updateFilter(filter.value));
   }
 
   render() {
@@ -27,7 +36,7 @@ export default class SondagePage extends Component {
               styleName="horizontal"
               options={this.state.filters}
               selectedOption={this.state.selectedFilter ? this.state.selectedFilter : this.state.filters[0]}
-              onOptionSelected={(filter) => this.setState({ selectedFilter: filter })}
+              onOptionSelected={(filter) => {this.setNewFilter(filter)}}
               titleProperty="title"
               valueProperty="value"
             />
@@ -39,3 +48,4 @@ export default class SondagePage extends Component {
   }
 }
 
+export default connect()(SondagePage);
