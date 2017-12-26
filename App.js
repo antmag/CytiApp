@@ -40,17 +40,18 @@ export default class App extends Component<{}> {
 
 constructor(props) {
      super(props);
-     this.state ={ isLoggedIn: false };
+     this.state ={ connected: "false" };
 
 }
   
   render() {
     var _this = this;
-    if(_this.state.connected == "success"){
-      return (
+    //if(_this.state.connected == "success"){
+    if(store.getState().profilReducer.connected.profile){
+    return (
       <Provider store={store} >
         <View style={{flex:1}}>
-          <Topbar />
+          <Topbar userName={_this.state.username} />
           <BottomBar />
         </View>
       </Provider>
@@ -70,6 +71,7 @@ constructor(props) {
                   store.dispatch(setConnectedUser(data));
                   _this.setState({ connected : data.type });
                   _this.setState({ user : data.credentials });
+                  _this.setState({ username : data.profile.first_name });
                 }}
                 onLogout={function(){
                   console.log("Logged out.");
@@ -77,8 +79,7 @@ constructor(props) {
                 }}
                 onLoginFound={function(data){
                   console.log("Existing login found.");
-                  store.dispatch(setConnectedUser(data));
-                  _this.setState({ connected : data.type });
+                  //store.dispatch(setConnectedUser(data));
                   _this.setState({ user : data.credentials });
                 }}
                 onLoginNotFound={function(){
