@@ -5,7 +5,9 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Platform, Text, View } from 'react-native';
+
+//import { Text, View } from '@shoutem/ui';
 
 import BottomBar from './components/bottomBar/BottomBar';
 import Topbar from './components/topbar/Topbar';
