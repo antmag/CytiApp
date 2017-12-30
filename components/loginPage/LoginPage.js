@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Platform, Text, View } from '@shoutem/ui';
 import PropTypes from 'prop-types';
 import {setConnectedUser } from '../../actions';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
