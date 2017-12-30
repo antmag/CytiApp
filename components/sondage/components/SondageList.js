@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { ListView } from '@shoutem/ui';
+import { StyleSheet } from 'react-native';
+import { ListView, View, Text, Spinner } from '@shoutem/ui';
 import Animation from 'lottie-react-native';
 
 import SondagePreview from './SondagePreview';
 
-import anim from '../../../assets/animations/soda_loader.json';
+import anim from '../../../assets/animations/loader.json';
 
 class SondageList extends Component {
 
@@ -16,6 +16,7 @@ class SondageList extends Component {
 
     //TODO: Récuperer la vraie liste des sondages par appel au serveur
     this.state = {
+      isLoading: true,
       sondages : [
         {key: 'Les vernis à ongles',
         image: "../../../assets/images/survey.jpg",
@@ -57,10 +58,6 @@ class SondageList extends Component {
 
   }
 
-  launchAnimation(){
-    this.animation.play(30,120);
-  }
-
   renderRow(sondage){
     return(
       <SondagePreview 
@@ -71,9 +68,48 @@ class SondageList extends Component {
     );
   }
 
+  componentDidMount() {
+
+    //Play the loader animation
+    this.animation.play();
+
+    //TODO: Replace adress with the serveur
+    return fetch('https://facebook.github.io/react-native/movies.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          //TODO: Décommenter la ligne
+          // sondages: responseJson,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+    
+    if(this.state.isLoading){
+      return(
+        <View styleName="vertical h-center v-center">
+          <Animation
+            ref={animation => {
+              this.animation = animation;
+            }}
+            style={{
+              width: 200,
+              height: 200
+            }}
+            loop={true}
+            source={anim}
+          />
+        </View>  
+      );
+    }
+    
     return (
-      <View style={styles.container}>
+      <View>
           <ListView
             data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
             renderRow={this.renderRow}
