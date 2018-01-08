@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet } from 'react-native';
-import { Platform, Text, View } from '@shoutem/ui';
-import PropTypes from 'prop-types';
-import {setConnectedUser } from '../../actions';
+import { StyleSheet, Platform } from 'react-native';
+import { Text, View } from '@shoutem/ui';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
+
+import {setConnectedUser} from '../../actions';
 
 var LoginBehavior = {
   'ios': FBLoginManager.LoginBehaviors.Browser,
@@ -18,7 +18,6 @@ FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, da
     console.log("Error: ", error);
   }
 })
-//var Icon = require('react-native-vector-icons/FontAwesome');
 
 /**
   Example FBLoginView class
@@ -26,54 +25,68 @@ FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, da
   - this is not meant to be a full example but highlights what you have access to
   - If you use a touchable component, you will need to set the onPress event like below
 **/
-class FBLoginView extends Component {
+class LoginPage extends Component {
 
   constructor(props) {
-      super(props);
-    }
+    super(props);
+  }
 
-    render(){
-        var _this = this;
-        return (
-           <FBLogin style={styles.buttonFb}
-                ref={(fbLogin) => { this.fbLogin = fbLogin }}
-                permissions={["email","user_friends"]}
-                loginBehavior={LoginBehavior[Platform.OS]}
-                onLogin={function(data){
-                  console.log("Logged in!");
-                  console.log(data.type);
-                  _this.setState({ connected : data.type });
-                  _this.setState({ user : data.credentials });
-                }}
-                onLogout={function(){
-                  console.log("Logged out.");
-                  _this.setState({ user : null });
-                }}
-                onLoginFound={function(data){
-                  console.log("Existing login found.");
-                  _this.setState({ connected : data.type });
-                  _this.setState({ user : data.credentials });
-                }}
-                onLoginNotFound={function(){
-                  console.log("No user logged in.");
-                  _this.setState({ user : null });
-                }}
-                onError={function(data){
-                  console.log("ERROR");
-                }}
-                onCancel={function(){
-                  console.log("User cancelled.");
-                }}
-                onPermissionsMissing={function(data){
-                  console.log("Check permissions!");
-                  console.log(data);
-                }}
-              />
-      )
-    }
+  render(){
+    var _this = this;
+    return (
+      <View style={{flex:1}}>
+        <Text style={styles.welcome}>Welcome to CYTI App</Text>
+        <FBLogin style={styles.buttonFb}
+              ref={(fbLogin) => { this.fbLogin = fbLogin }}
+              permissions={["email","user_friends"]}
+              loginBehavior={LoginBehavior[Platform.OS]}
+              onLogin={function(data){
+                console.log("Logged in!");
+                console.log(data.type);
+                // _this.setState({ connected : data.type });
+                // _this.setState({ user : data.credentials });
+                _this.props.dispatch(setConnectedUser(data));
+                _this.props.navigation.navigate('Homepage');
+              }}
+              onLogout={function(){
+                console.log("Logged out.");
+                // _this.setState({ user : null });
+              }}
+              onLoginFound={function(data){
+                console.log("Existing login found.");
+                // _this.setState({ connected : data.type });
+                // _this.setState({ user : data.credentials });
+              }}
+              onLoginNotFound={function(){
+                console.log("No user logged in.");
+                // _this.setState({ user : null });
+              }}
+              onError={function(data){
+                console.log("ERROR");
+              }}
+              onCancel={function(){
+                console.log("User cancelled.");
+              }}
+              onPermissionsMissing={function(data){
+                console.log("Check permissions!");
+                console.log(data);
+              }}
+            />
+        </View>
+  )}
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    textAlign: 'center',
+    margin: 10,
+  },
   buttonFb: {
     margin: 10,
     paddingTop: 20,
@@ -81,6 +94,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
 });
 
-export default FBLoginView;
+export default connect()(LoginPage);

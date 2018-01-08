@@ -6,13 +6,14 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Platform, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 //import { Text, View } from '@shoutem/ui';
 
 import BottomBar from './components/bottomBar/BottomBar';
 import Topbar from './components/topbar/Topbar';
 
-import FBLoginView from './components/loginPage/LoginPage';
+import LoginPage from './components/loginPage/LoginPage';
 
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
@@ -36,18 +37,59 @@ FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, da
   }
 })
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    textAlign: 'center',
+    margin: 10,
+  },
+  buttonFb: {
+    margin: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
 
 
-export default class App extends Component<{}> {
+const Navigator = StackNavigator({
+  Login: {
+    screen: LoginPage,
+  },
+  Homepage:{
+    screen: BottomBar,
+  },
+},{
+  initialRouteName: 'Login',
+  headerMode: 'none',
+});
 
-constructor(props) {
-     super(props);
-     this.state ={ connected: "false" };
+export default class App extends Component {
 
-}
+  constructor(props) {
+      super(props);
+      this.state ={ connected: "false" };
+
+  }
   
   render() {
-    var _this = this;
+    return (
+      <Provider store={store}>
+        <Navigator />
+      </Provider>  
+    );
+    /*var _this = this;
     //if(_this.state.connected == "success"){
     if(store.getState().profilReducer.connected.profile){
     return (
@@ -102,31 +144,8 @@ constructor(props) {
           </View>
         </Provider>
       );
-    }
+    }*/
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    textAlign: 'center',
-    margin: 10,
-  },
-  buttonFb: {
-    margin: 10,
-    paddingTop: 20,
-    paddingBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+

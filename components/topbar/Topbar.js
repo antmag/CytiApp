@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {NavigationActions} from 'react-navigation';
 import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image } from '@shoutem/ui';
 
 import {setConnectedUser} from '../../actions';
@@ -24,7 +25,7 @@ class Topbar extends Component {
               />
               <Text>{this.props.userName}</Text>
               <Button styleName="clear"
-                      onPress={() => this.props.dispatch(setConnectedUser(null)) }
+                      onPress={() => NavigationActions.back() }
               >
                 <Icon name="exit-to-app" />
               </Button>  
