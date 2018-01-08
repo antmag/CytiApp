@@ -37,6 +37,7 @@ class ReponseSondage extends Component {
 
     constructor(props){
         super(props);
+        this.setupQuestions = this.setupQuestions.bind(this);
         this.state = {
             "questions": {
                 "0":
@@ -111,42 +112,52 @@ class ReponseSondage extends Component {
         }
     }
 
+    setupQuestions(){
+      let questionList = [];
+      let questionListLength = Object.keys(this.state.questions).length;
+      for(let i=0;i<questionListLength;i++){
+        questionList.push((
+          <View>
+            <Heading>{this.state.questions[i].txt}</Heading>
+          </View>
+        ));
+      }
+      return questionList;
+    }
+
     render() {
         
-        return(
-            <Screen>
-                <NavigationBar
-                    styleName="inline"
-                    hasHistory
-                    centerComponent={
-                        <Title styleName="bold h-center" numberOfLines={1}>
-                            {this.props.sondage.title}
-                        </Title>
-                    }
-                    navigateBack={ () => {
-                        const navigateBack = NavigationActions.back()
-                        this.props.navigation.dispatch(navigateBack);
-                    }}
-                />
-                
-                <Swiper style={styles.wrapper}
-                  dot={<View style={{backgroundColor: 'rgba(0,0,0,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-                  activeDot={<View style={{backgroundColor: '#000', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-                  paginationStyle={{
-                    bottom: 40
+      let questions = this.setupQuestions();
+
+      return(
+          <Screen>
+              <NavigationBar
+                  styleName="inline"
+                  hasHistory
+                  centerComponent={
+                      <Title styleName="bold h-center" numberOfLines={1}>
+                          {this.props.sondage.title}
+                      </Title>
+                  }
+                  navigateBack={ () => {
+                      const navigateBack = NavigationActions.back()
+                      this.props.navigation.dispatch(navigateBack);
                   }}
-                  loop={false}>
-                  <View>
-                    <Heading>Question 1</Heading>
-                  </View>
-                  <View>
-                    <Heading>Question 2</Heading>
-                  </View>
-                  <View>
-                      <Heading>Question 3</Heading>
-                  </View>
-                </Swiper>
-            </Screen>  
+              />
+              
+              <Swiper style={styles.wrapper}
+                dot={<View style={{backgroundColor: 'rgba(0,0,0,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+                activeDot={<View style={{backgroundColor: '#000', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
+                paginationStyle={{
+                  bottom: 40
+                }}
+                loop={false}
+                bounces={true}>
+
+                {questions}                
+
+              </Swiper>
+          </Screen>  
         );
     }
 }
