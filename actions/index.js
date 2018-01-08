@@ -11,3 +11,18 @@ export const updateFilter=(selectedFilter)=>{
         obj: selectedFilter
     };
 }
+
+export const setNavigator=(navigator) => {
+    return {
+        type: 'SET_NAVIGATOR',
+        obj: navigator
+    };
+}
+
+
+export const updateSelectedSondage = (sondage) => {
+    return {
+        type: 'UPDATE_SONDAGE',
+        obj: sondage
+    };
+}
