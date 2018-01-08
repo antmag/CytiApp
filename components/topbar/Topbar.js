@@ -23,7 +23,7 @@ class Topbar extends Component {
                 styleName="small-avatar"
                 source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
               />
-              <Text>{this.props.userName}</Text>
+              <Text>{this.props.userData.profile.first_name}</Text>
               <Button styleName="clear"
                       onPress={() => NavigationActions.back() }
               >
@@ -37,4 +37,10 @@ class Topbar extends Component {
     }
   }
 
-  export default connect()(Topbar);
+  const mapStateToProps = (state, ownProps) => {
+    return{
+      userData : state.profilReducer.connected,
+    }
+  }
+
+  export default connect(mapStateToProps)(Topbar);
