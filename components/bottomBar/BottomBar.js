@@ -5,11 +5,10 @@ import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
 // import Icon from 'react-native-vector-icons/FontAwesome'; // 4.4.2
 
 import SondagePage from '../sondage/SondagePage';
+import CadeauxPage from '../cadeaux/CadeauxPage';
 
 const Cadeaux = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Cadeaux</Text>
-  </View>
+  <CadeauxPage />
 );
 
 const Sondages = () => (

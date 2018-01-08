@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image, TouchableOpacity } from '@shoutem/ui';
+import {NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image, TouchableOpacity } from '@shoutem/ui';
+import {NavigationActions} from 'react-navigation';
 
 class ReducPreview extends Component {
  
@@ -10,13 +11,17 @@ class ReducPreview extends Component {
 
   onPress = () => {
     console.log("pressed");
-    this.popupDialog.show();
   }
 
   render() {
     
     return (
-        <TouchableOpacity onPress={this.onPress}>
+          <TouchableOpacity
+                onPress={() => {
+                    const navigate = NavigationActions.navigate({routeName:'ReductionCadeaux'});
+                    this.props.navigation.dispatch(navigate);
+                }}
+          >
           <View style={{marginRight:50 }}>
             <Icon name="trophy" />
           </View>
@@ -26,4 +31,10 @@ class ReducPreview extends Component {
 }
 
 
-  export default connect()(ReducPreview);
+const mapStateToProps = (state, ownProps) => {
+    return{
+      navigation : state.navigationReducer.navigator,
+    }
+  }
+
+export default connect(mapStateToProps)(ReducPreview);

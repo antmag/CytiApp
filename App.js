@@ -12,6 +12,8 @@ import { StackNavigator } from 'react-navigation';
 import Main from './components/Main';
 import ReponseSondage from './components/sondage/components/ReponseSondage';
 import LoginPage from './components/loginPage/LoginPage';
+import ReductionCadeaux from './components/cadeaux/components/ReductionCadeaux';
+import PhysiqueCadeaux from './components/cadeaux/components/PhysiqueCadeaux';
 
 
 import {Provider} from 'react-redux';
@@ -19,6 +21,7 @@ import { createStore } from 'redux';
 import globalReducer from './reducers';
 
 const store = createStore(globalReducer);
+
 
 const Navigator = StackNavigator({
   Login: {
@@ -29,6 +32,12 @@ const Navigator = StackNavigator({
   },
   ReponseSondage:{
     screen: ReponseSondage,
+  },
+  ReductionCadeaux:{
+    screen: ReductionCadeaux,
+  },
+  PhysiqueCadeaux:{
+    screen: PhysiqueCadeaux,
   }
 },{
   initialRouteName: 'Login',
