@@ -21,11 +21,14 @@ class Topbar extends Component {
             <View styleName="horizontal v-center">
               <Image
                 styleName="small-avatar"
-                source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
+                source={{ uri: this.props.userData.profile.picture.data.url}}
               />
               <Text>{this.props.userData.profile.first_name}</Text>
               <Button styleName="clear"
-                      onPress={() => NavigationActions.back() }
+                      onPress={() => {
+                        const navigateBack = NavigationActions.back();
+                        this.props.navigation.dispatch(navigateBack); 
+                      }}
               >
                 <Icon name="exit-to-app" />
               </Button>  
