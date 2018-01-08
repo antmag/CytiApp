@@ -1,24 +1,24 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 import BottomBar from './bottomBar/BottomBar';
 import Topbar from './topbar/Topbar';
 
-export default class Main extends Component{
+import {setNavigator} from '../actions';
 
-    constructor(props){
-        super(props);
-    }
+class Main extends Component{
 
     render(){
+        this.props.dispatch(setNavigator(this.props.navigation));
         return (
             <View style={{flex:1}}>
-                <Topbar />
+                <Topbar navigation={this.props.navigation}/>
                 <BottomBar />
             </View>
         );
     }
-
-
 }
+
+export default connect()(Main);

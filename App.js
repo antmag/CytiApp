@@ -10,7 +10,7 @@ import { StackNavigator } from 'react-navigation';
 
 
 import Main from './components/Main';
-
+import ReponseSondage from './components/sondage/components/ReponseSondage';
 import LoginPage from './components/loginPage/LoginPage';
 
 
@@ -27,6 +27,9 @@ const Navigator = StackNavigator({
   Homepage:{
     screen: Main,
   },
+  ReponseSondage:{
+    screen: ReponseSondage,
+  }
 },{
   initialRouteName: 'Login',
   headerMode: 'none',
