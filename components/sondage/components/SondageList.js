@@ -71,7 +71,8 @@ class SondageList extends Component {
   componentDidMount() {
 
     //Play the loader animation
-    this.animation.play();
+
+    //this.animation.play();
 
     //TODO: Replace adress with the serveur
     return fetch('https://facebook.github.io/react-native/movies.json')
@@ -98,8 +99,8 @@ class SondageList extends Component {
               this.animation = animation;
             }}
             style={{
-              width: 200,
-              height: 200
+              width: 100,
+              height: 100
             }}
             loop={true}
             source={anim}
@@ -118,6 +119,7 @@ class SondageList extends Component {
     );
   }
 }
+
 
 const mapStateToProps = (state, ownProps) => {
   return{
