@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-
+import { connect } from 'react-redux';
+import {NavigationActions} from 'react-navigation';
 import { Caption, Image, View, Icon, Row, Divider, TouchableOpacity, Subtitle, Button, Text } from '@shoutem/ui';
 
-export default class SondagePreview extends Component {
+import {updateSelectedSondage} from '../../../actions';
+
+class SondagePreview extends Component {
     
     constructor(props){
         super(props);
@@ -16,8 +19,20 @@ export default class SondagePreview extends Component {
     }
 
     render() {
+
         return (
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
+                    this.props.navigation.dispatch(navigate);
+                    this.props.dispatch(updateSelectedSondage({
+                        title: this.props.title,
+                        description: this.props.description,
+                        image: this.props.image,
+                        duree: this.props.duree,
+                    }));
+                }}
+            >
                 <Row>
                     <Image
                         styleName="small rounded-corners top"
@@ -33,3 +48,11 @@ export default class SondagePreview extends Component {
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return{
+      navigation : state.navigationReducer.navigator,
+    }
+  }
+
+export default connect(mapStateToProps)(SondagePreview);
