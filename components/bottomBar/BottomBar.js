@@ -34,6 +34,7 @@ const BottomBar = TabNavigator({
         //   style={{ color: tintColor }}
         // />
         <Icon name="gift" />
+
       ),
     },
   },

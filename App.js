@@ -14,6 +14,8 @@ import ReponseSondage from './components/sondage/components/ReponseSondage';
 import LoginPage from './components/loginPage/LoginPage';
 import ReductionCadeaux from './components/cadeaux/components/ReductionCadeaux';
 import PhysiqueCadeaux from './components/cadeaux/components/PhysiqueCadeaux';
+import SelectedReduction from './components/cadeaux/components/SelectedReduction';
+import SelectedCadeau from './components/cadeaux/components/SelectedCadeau';
 
 
 import {Provider} from 'react-redux';
@@ -38,6 +40,12 @@ const Navigator = StackNavigator({
   },
   PhysiqueCadeaux:{
     screen: PhysiqueCadeaux,
+  },
+  SelectedReduction:{
+    screen: SelectedReduction,
+  },
+  SelectedCadeau:{
+    screen: SelectedCadeau,
   }
 },{
   initialRouteName: 'Login',

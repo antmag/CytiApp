@@ -20,12 +20,15 @@ class CadeauxPage extends Component {
         </View>
         <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
               <Image 
-                styleName="small-avatar"
+                style={{ height: 80,
+                  width: 80,
+                  borderRadius: 50,
+                  marginBottom: 20}}
                 source={{ uri: this.props.userData.profile.picture.data.url}}
               />
         </View>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>165 Points</Text>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'orange'}}>
+          <Text style={{color: 'white', fontSize: 20}}>165 Points</Text>
         </View>
       </View>
     );

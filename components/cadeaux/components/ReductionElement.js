@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import { Caption, Image, View, Icon, Row, Divider, TouchableOpacity, Subtitle, Button, Text } from '@shoutem/ui';
 
-import {updateSelectedSondage} from '../../../actions';
+import {updateSelectedReduction} from '../../../actions';
 
 class ReductionElement extends Component {
     
@@ -21,6 +21,18 @@ class ReductionElement extends Component {
 
         return (
             <View>
+
+                <TouchableOpacity
+                        onPress={() => {
+                            const navigate = NavigationActions.navigate({routeName:'SelectedReduction'});
+                            this.props.navigation.dispatch(navigate);
+                            this.props.dispatch(updateSelectedReduction({
+                            title: this.props.title,
+                            description: this.props.description,
+                            image: this.props.image,
+                        }));
+                        }}
+                >
                 <Row>
                     <Image
                         styleName="small rounded-corners top"
@@ -28,9 +40,11 @@ class ReductionElement extends Component {
                     />
                     <View styleName="vertical stretch space-between">
                         <Subtitle>{this.state.title}</Subtitle>
+                        <Subtitle>{this.state.points} points</Subtitle>
                         <Caption>{this.state.description}</Caption>
                     </View>
                 </Row>
+                </TouchableOpacity>
                 <Divider styleName="line" />
             </View>
         );

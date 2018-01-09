@@ -1,0 +1,41 @@
+{
+    "sondages" : [
+        {"key": "Tee shirt Nike style",
+        "points": "125",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+        {"key": "Tee shirt Lacoste",
+        "points": "25",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+        {"key": "Tee shirt Sergio Tachini",
+        "points": "145",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+        {"key": "Tee shirt Puma",
+        "points": "115",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+        {"key": "Tee shirt Under Armour",
+        "points": "12",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+        {"key": "Tee shirt Hilfiger",
+        "points": "1253",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+        {"key": "Tee shirt Adidas",
+        "points": "1",
+        "image": "../../../assets/images/survey.jpg",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
+        },
+      ]
+    
+}
+

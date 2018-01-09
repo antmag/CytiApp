@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image, TouchableOpacity } from '@shoutem/ui';
+import { NavigationBar, Caption, View, Heading, Title, Button, Text, Image, TouchableOpacity } from '@shoutem/ui';
 import {NavigationActions} from 'react-navigation';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import IconBadge from 'react-native-icon-badge';
 
 class CadeauxPreview extends Component {
  
@@ -19,7 +21,19 @@ class CadeauxPreview extends Component {
                 }}
           >
           <View style={{marginLeft:50 }}>
-            <Icon name="gift" />
+            <IconBadge
+              MainElement={
+                <Icon name="present" size={60}/>
+              }
+              BadgeElement={
+                <Text style={{color:'#FFFFFF'}}>4</Text>
+              }
+              IconBadgeStyle={
+                {width:20,
+                height:20,
+                backgroundColor: '#FF0000'}
+              }
+            />
           </View>
         </TouchableOpacity>
     );

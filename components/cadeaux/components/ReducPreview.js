@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image, TouchableOpacity } from '@shoutem/ui';
+import {NavigationBar, Caption, View, Heading, Title, Button, Text, Image, TouchableOpacity } from '@shoutem/ui';
 import {NavigationActions} from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IconBadge from 'react-native-icon-badge';
 
 class ReducPreview extends Component {
  
@@ -23,7 +25,19 @@ class ReducPreview extends Component {
                 }}
           >
           <View style={{marginRight:50 }}>
-            <Icon name="trophy" />
+            <IconBadge
+              MainElement={
+                <Icon name="ticket" size={60}/>
+              }
+              BadgeElement={
+                <Text style={{color:'#FFFFFF'}}>2</Text>
+              }
+              IconBadgeStyle={
+                {width:20,
+                height:20,
+                backgroundColor: '#FF0000'}
+              }
+            />
           </View>
         </TouchableOpacity>
     );

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Screen, NavigationBar, Caption, View, ListView, Heading, Icon, Title, Button, Text, Image } from '@shoutem/ui';
+import { Screen, NavigationBar, Caption, View, ListView, Heading, Icon, Title, Button, Text, Image , TouchableOpacity} from '@shoutem/ui';
 import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
-import anim from '../../../assets/animations/loader.json';
+import anim from '../../../assets/animations/trophy.json';
 import ReductionElement from './ReductionElement';
+import SelectedReduction from './SelectedReduction';
 
 
 class ReductionCadeaux extends Component {
@@ -17,31 +18,38 @@ class ReductionCadeaux extends Component {
     this.state = {
       isLoading: true,
       sondages : [
-        {key: 'Tee shirt Nike',
+        {key: 'Tee shirt Nike style',
+        points: '125',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {key: 'Tee shirt Lacoste',
+        points: '25',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {key: 'Tee shirt Sergio Tachini',
+        points: '145',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {key: 'Tee shirt Puma',
+        points: '115',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {key: 'Tee shirt Under Armour',
+        points: '12',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {key: 'Tee shirt Hilfiger',
+        points: '1253',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {key: 'Tee shirt Adidas',
+        points: '1',
         image: "../../../assets/images/survey.jpg",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
@@ -53,11 +61,11 @@ class ReductionCadeaux extends Component {
   
   renderRow(reduction){
     return(
-    <ReductionElement 
-        title={reduction.key}
-        image={reduction.image}
-        description={reduction.description}
-    />
+      <ReductionElement 
+          title={reduction.key}
+          image={reduction.image}
+          description={reduction.description}
+      />
     );
   }
 
@@ -65,7 +73,7 @@ class ReductionCadeaux extends Component {
 
     //Play the loader animation
 
-    //this.animation.play();
+    this.animation.play();
 
     //TODO: Replace adress with the serveur
     return fetch('https://facebook.github.io/react-native/movies.json')
@@ -82,11 +90,12 @@ class ReductionCadeaux extends Component {
       });
   }
 
+
   render() {
     
     if(this.state.isLoading){
       return(
-        <View styleName="vertical h-center v-center">
+        <View styleName="fill-parent vertical h-center v-center">
           <Animation
             ref={animation => {
               this.animation = animation;
