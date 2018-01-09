@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { Screen, NavigationBar, Caption, View, ListView, Heading,Button, Icon, Title, Text, Image , TouchableOpacity} from '@shoutem/ui';
+import { Screen, NavigationBar, Caption, View, ListView, Heading,Button, Icon, Title, Subtitle, Tile, Text, Image , TouchableOpacity} from '@shoutem/ui';
 import PopupDialog, { SlideAnimation, DialogTitle } from 'react-native-popup-dialog';
  
 const slideAnimation = new SlideAnimation({
@@ -33,15 +33,22 @@ class SelectedCadeau extends Component {
                         this.props.navigation.dispatch(navigateBack);
                     }}
                 />
-                <View style={{ flex: 1 }}>
-                <View style={{ flex: 3 }}>
-                    <Image
-                      styleName="medium-square"
-                      source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
-                    />
-                </View>
-                <View style={{ flex: 3 }}>
-                    <Text>{this.props.selectedCadeau.description}</Text>
+                <View style={{ flex: 7 }}>
+                    <Tile>
+                      <Image
+                        styleName="large-banner"
+                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-7.png' }}
+                      >
+                      </Image>
+                      <View styleName="content">
+                        <Title>{this.props.selectedCadeau.title}</Title>
+                        <Subtitle>{this.props.selectedCadeau.points} points</Subtitle>
+                        <View styleName="horizontal space-between">
+                         
+                          <Caption>{this.props.selectedCadeau.description}</Caption>
+                        </View>
+                      </View>
+                    </Tile>
                 </View>
                 <View style={{ flex: 1 }}>
                     <Button
@@ -51,7 +58,7 @@ class SelectedCadeau extends Component {
                           this.popupDialog.show();
                         }}
                     >
-                        <Text>RECEIVE ON MAILBOX</Text>
+                        <Text>RECEIVE AT HOME</Text>
                     </Button>
                 </View>
                 <PopupDialog
@@ -60,8 +67,8 @@ class SelectedCadeau extends Component {
                     dialogAnimation={slideAnimation}
                   >
                     <View style={{ flex: 9, justifyContent: 'center', alignItems: 'center'}}>
-                      <Text>You will use 45 points for this voucher</Text>
-                      <Text>Are you sure to collect it?</Text>
+                      <Text>You will use {this.props.selectedCadeau.points} points for : {this.props.selectedCadeau.title}</Text>
+                      <Text>Are you sure to order it?</Text>
                     </View>
                     <View style={{ flex: 3 }}>
                       <View styleName="horizontal flexible">
@@ -80,7 +87,6 @@ class SelectedCadeau extends Component {
                       </View>
                     </View>
                 </PopupDialog>
-                </View>
             </Screen>  
 
         );

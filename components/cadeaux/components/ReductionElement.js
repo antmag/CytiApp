@@ -12,6 +12,7 @@ class ReductionElement extends Component {
         super(props);
         this.state = {
             title : this.props.title,
+            points: this.props.points,
             description : this.props.description,
             image : this.props.image
         };
@@ -28,6 +29,7 @@ class ReductionElement extends Component {
                             this.props.navigation.dispatch(navigate);
                             this.props.dispatch(updateSelectedReduction({
                             title: this.props.title,
+                            points: this.props.points,
                             description: this.props.description,
                             image: this.props.image,
                         }));

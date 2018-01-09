@@ -5,6 +5,7 @@ import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
 import anim from '../../../assets/animations/gift.json';
 import CadeauxElement from './CadeauxElement';
+import * as contentMapTmp from './sondages.json';
 
 
 class PhysiqueCadeaux extends Component {
@@ -16,43 +17,7 @@ class PhysiqueCadeaux extends Component {
     //TODO: Récuperer la vraie liste des sondages par appel au serveur
     this.state = {
       isLoading: true,
-      sondages : [
-        {key: 'Tee shirt Nike style',
-        points: '125',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Lacoste',
-        points: '25',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Sergio Tachini',
-        points: '145',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Puma',
-        points: '115',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Under Armour',
-        points: '12',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Hilfiger',
-        points: '1253',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Adidas',
-        points: '1',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-      ]
+      contentMap:contentMapTmp,
     }
 
   }
@@ -71,12 +36,13 @@ class PhysiqueCadeaux extends Component {
 
 
 
+
   componentDidMount() {
 
     //Play the loader animation
 
     this.animation.play();
-    
+
     //TODO: Replace adress with the serveur
     return fetch('https://facebook.github.io/react-native/movies.json')
       .then((response) => response.json())
@@ -94,7 +60,7 @@ class PhysiqueCadeaux extends Component {
 
 
   render() {
-    
+
     if(this.state.isLoading){
       return(
         <View styleName="fill-parent vertical h-center v-center">
@@ -129,8 +95,9 @@ class PhysiqueCadeaux extends Component {
                     }}
                 />
                 <View>
+
                   <ListView 
-                    data={this.state.sondages}
+                    data={this.state.contentMap.sondages}
                     renderRow={this.renderRow}
                   />
                 </View>
@@ -143,6 +110,7 @@ class PhysiqueCadeaux extends Component {
 const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
+        cadeauxReducer : state.cadeauReducer.listCadeaux,
     }
 }
 

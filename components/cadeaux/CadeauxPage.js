@@ -3,15 +3,24 @@ import { connect } from 'react-redux';
 import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image } from '@shoutem/ui';
 import CadeauxPreview from './components/CadeauxPreview';
 import ReducPreview from './components/ReducPreview';
+import * as contentMapTmp from './components/sondages.json';
+import {updateAvailablesCadeaux} from '../../actions';
 
 class CadeauxPage extends Component {
  
   constructor(props){
     super(props);
+    this.state = {
+      isLoading: true,
+      contentMap:contentMapTmp,
+    }
+    this.props.dispatch(updateAvailablesCadeaux({
+        listCadeaux: this.state.contentMap,
+    }));
   }
 
   render() {
-    
+
     return (
       <View style={{ flex: 1}}>
         <View style={{ flex: 3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -31,6 +40,8 @@ class CadeauxPage extends Component {
           <Text style={{color: 'white', fontSize: 20}}>165 Points</Text>
         </View>
       </View>
+
+
     );
   }
 }

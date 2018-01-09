@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { Screen, NavigationBar, Caption, View, ListView, Heading,Button, Icon, Title, Text, Image , TouchableOpacity} from '@shoutem/ui';
+import { Screen, NavigationBar, Caption, View, ListView, Heading,Button, Icon, Title, Tile, Subtitle, Text, Image , TouchableOpacity} from '@shoutem/ui';
 import PopupDialog, { SlideAnimation, DialogTitle } from 'react-native-popup-dialog';
  
 const slideAnimation = new SlideAnimation({
@@ -19,7 +19,7 @@ class SelectedReduction extends Component {
 
         return (
 
-            <Screen>
+             <Screen>
                 <NavigationBar
                     styleName="inline"
                     hasHistory
@@ -33,15 +33,22 @@ class SelectedReduction extends Component {
                         this.props.navigation.dispatch(navigateBack);
                     }}
                 />
-                <View style={{ flex: 1 }}>
-                <View style={{ flex: 3 }}>
-                    <Image
-                      styleName="medium-square"
-                      source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
-                    />
-                </View>
-                <View style={{ flex: 3 }}>
-                    <Text>{this.props.selectedReduction.description}</Text>
+                <View style={{ flex: 7 }}>
+                    <Tile>
+                      <Image
+                        styleName="large-banner"
+                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-7.png' }}
+                      >
+                      </Image>
+                      <View styleName="content">
+                        <Title>{this.props.selectedReduction.title}</Title>
+                        <Subtitle>{this.props.selectedReduction.points} points</Subtitle>
+                        <View styleName="horizontal space-between">
+                         
+                          <Caption>{this.props.selectedReduction.description}</Caption>
+                        </View>
+                      </View>
+                    </Tile>
                 </View>
                 <View style={{ flex: 1 }}>
                     <Button
@@ -51,7 +58,7 @@ class SelectedReduction extends Component {
                           this.popupDialog.show();
                         }}
                     >
-                        <Text>RECEIVE ON MAILBOX</Text>
+                        <Text>RECEIVE ON YOUR MAILBOX</Text>
                     </Button>
                 </View>
                 <PopupDialog
@@ -60,8 +67,8 @@ class SelectedReduction extends Component {
                     dialogAnimation={slideAnimation}
                   >
                     <View style={{ flex: 9, justifyContent: 'center', alignItems: 'center'}}>
-                      <Text>You will use 45 points for this voucher</Text>
-                      <Text>Are you sure to collect it?</Text>
+                      <Text>You will use {this.props.selectedReduction.points} points for : {this.props.selectedReduction.title}</Text>
+                      <Text>Are you sure to order it?</Text>
                     </View>
                     <View style={{ flex: 3 }}>
                       <View styleName="horizontal flexible">
@@ -80,7 +87,6 @@ class SelectedReduction extends Component {
                       </View>
                     </View>
                 </PopupDialog>
-                </View>
             </Screen>  
 
         );

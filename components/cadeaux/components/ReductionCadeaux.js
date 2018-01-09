@@ -6,6 +6,7 @@ import Animation from 'lottie-react-native';
 import anim from '../../../assets/animations/trophy.json';
 import ReductionElement from './ReductionElement';
 import SelectedReduction from './SelectedReduction';
+import * as contentMapTmp from './sondages.json';
 
 
 class ReductionCadeaux extends Component {
@@ -17,43 +18,8 @@ class ReductionCadeaux extends Component {
     //TODO: Récuperer la vraie liste des sondages par appel au serveur
     this.state = {
       isLoading: true,
-      sondages : [
-        {key: 'Tee shirt Nike style',
-        points: '125',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Lacoste',
-        points: '25',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Sergio Tachini',
-        points: '145',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Puma',
-        points: '115',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Under Armour',
-        points: '12',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Hilfiger',
-        points: '1253',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-        {key: 'Tee shirt Adidas',
-        points: '1',
-        image: "../../../assets/images/survey.jpg",
-        description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
-        },
-      ]
+      contentMap:contentMapTmp,
+      
     }
 
   }
@@ -63,6 +29,7 @@ class ReductionCadeaux extends Component {
     return(
       <ReductionElement 
           title={reduction.key}
+          points={reduction.points}
           image={reduction.image}
           description={reduction.description}
       />
@@ -128,7 +95,7 @@ class ReductionCadeaux extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.state.sondages}
+                    data={this.state.contentMap.sondages}
                     renderRow={this.renderRow}
                   />
                 </View>

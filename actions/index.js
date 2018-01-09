@@ -40,3 +40,10 @@ export const updateSelectedCadeau = (cadeau) => {
         obj: cadeau
     };
 }
+
+export const updateAvailablesCadeaux = (listCadeaux) => {
+    return {
+        type: 'SET_AVAILABLES_CADEAU',
+        obj: listCadeaux
+    };
+}
