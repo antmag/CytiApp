@@ -6,22 +6,26 @@ import {NavigationActions} from 'react-navigation';
 import { Screen, NavigationBar, Title, Card, View, Divider, Button, Text, Icon, Heading } from '@shoutem/ui';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
+import ReponseOuiNon from './ReponseOuiNon';
+import ReponseUnique from './ReponseUnique';
+import ReponseMultiple from './ReponseMultiple';
+
 // Types de questions possibles:
 // Yes-no
 // Choix multiple parmis liste
 // Choix unique parmis liste 
 
 const { width, height } = Dimensions.get('window');
+let _carousel;
 
 class ReponseSondage extends Component {
 
     constructor(props){
         super(props);
         this.setupQuestions = this.setupQuestions.bind(this);
-        this.reponseOuiNon = this.reponseOuiNon.bind(this);
         this.state = {
-            entries : [],
             activeSlide : 0,
+            reponses : {},
             "questions": {
                 "0":
                 {
@@ -92,40 +96,33 @@ class ReponseSondage extends Component {
                   }
                 }
               }
-        }
-    }
-
-    reponseOuiNon(){
-
+        };
     }
 
     _renderItem ({item, index}) {
-      console.log(this.state);
+      
+      let template;
+      if(item.question_type === 'YesNo')
+        template = (<ReponseOuiNon 
+                      next = { () => _carousel.snapToNext()}
+                    />);
+      else if (item.question_type === 'unique')
+        template = (<ReponseUnique 
+                      next = { () => _carousel.snapToNext()} 
+                      reponses = { item.answers }
+                    />);
+      else if (item.question_type === 'multiple')
+        template = (<ReponseMultiple 
+                      next={ () => _carousel.snapToNext()} 
+                      reponses = { item.answers }  
+                    />);
+
       return (
           <Card style={{width : width * 0.85, flex : 1, marginTop : 50, marginBottom : 50}}>
             <View styleName="content">
               <Title styleName="md-gutter-bottom h-center">{item.txt}</Title>
               <Divider styleName="line" />
-              <View styleName="vertical flexible" style={{flex : 1}}>
-                <Button styleName="full-width" onPress={() => { this._carousel.snapToNext(); }}>
-                  <Heading>OUI</Heading>
-                </Button>
-                <Divider styleName="line" />
-                <Button styleName="full-width">
-                  <Heading>NON</Heading>
-                </Button>
-              </View>  
-              {/* <Divider styleName="line" />
-              <View styleName="horizontal flexible">
-                <Button styleName="full-width" onPress={() => this._carousel.snapToPrev()}>
-                  <Icon name="left-arrow" />
-                  <Text>Précédent</Text>
-                </Button>
-                <Button styleName="full-width" onPress={() => this._carousel.snapToNext()}>
-                  <Text>Suivant</Text>
-                  <Icon name="right-arrow" />
-                </Button>
-              </View> */}
+              {template}
             </View> 
           </Card>
       );
@@ -139,8 +136,6 @@ class ReponseSondage extends Component {
       }
       return questionList;
     }
-
-
 
     render() {
         
@@ -163,7 +158,7 @@ class ReponseSondage extends Component {
               />
 
               <Carousel
-                ref={(c) => { this._carousel = c; }}
+                ref={(c) =>  _carousel = c }
                 data = { questions }
                 renderItem = { this._renderItem }
                 sliderWidth = { width }
@@ -174,12 +169,11 @@ class ReponseSondage extends Component {
               />
 
               <Pagination
-                activeDotIndex = { this._carousel ?this._carousel.currentIndex : this.state.activeSlide }
+                activeDotIndex = {this.state.activeSlide }
                 dotsLength = { questions.length }
-                carouselRef = { this._carousel }
+                carouselRef = { _carousel }
                 tappableDots = { true }
               />
-
           </Screen>  
         );
     }

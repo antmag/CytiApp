@@ -10,7 +10,7 @@ import { StackNavigator } from 'react-navigation';
 
 
 import Main from './components/Main';
-import ReponseSondage from './components/sondage/components/ReponseSondage';
+import ReponseSondage from './components/sondage/components/reponses/ReponseSondage';
 import LoginPage from './components/loginPage/LoginPage';
 
 
