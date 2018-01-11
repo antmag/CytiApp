@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import {View,
-    Image,
-    StatusBar,
-    Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 
-import { Screen, NavigationBar, Title, Heading } from '@shoutem/ui';
-import Swiper from 'react-native-swiper';
-import Animation from 'lottie-react-native';
-
-import anim from '../../../assets/animations/emoji_tongue.json';
+import { Screen, NavigationBar, Title, Card, View, Divider, Button, Text, Icon, Heading } from '@shoutem/ui';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 // Types de questions possibles:
 // Yes-no
@@ -18,26 +12,16 @@ import anim from '../../../assets/animations/emoji_tongue.json';
 // Choix unique parmis liste 
 
 const { width, height } = Dimensions.get('window');
-const styles = {
-    wrapper: {
-      // backgroundColor: '#f00'
-    },
-  
-    slide: {
-      //flex: 1,
-      backgroundColor: 'transparent'
-    },
-    container: {
-      flex: 1,
-    },
-  }
-
 
 class ReponseSondage extends Component {
 
     constructor(props){
         super(props);
+        this.setupQuestions = this.setupQuestions.bind(this);
+        this.reponseOuiNon = this.reponseOuiNon.bind(this);
         this.state = {
+            entries : [],
+            activeSlide : 0,
             "questions": {
                 "0":
                 {
@@ -111,42 +95,92 @@ class ReponseSondage extends Component {
         }
     }
 
+    reponseOuiNon(){
+
+    }
+
+    _renderItem ({item, index}) {
+      console.log(this.state);
+      return (
+          <Card style={{width : width * 0.85, flex : 1, marginTop : 50, marginBottom : 50}}>
+            <View styleName="content">
+              <Title styleName="md-gutter-bottom h-center">{item.txt}</Title>
+              <Divider styleName="line" />
+              <View styleName="vertical flexible" style={{flex : 1}}>
+                <Button styleName="full-width" onPress={() => { this._carousel.snapToNext(); }}>
+                  <Heading>OUI</Heading>
+                </Button>
+                <Divider styleName="line" />
+                <Button styleName="full-width">
+                  <Heading>NON</Heading>
+                </Button>
+              </View>  
+              {/* <Divider styleName="line" />
+              <View styleName="horizontal flexible">
+                <Button styleName="full-width" onPress={() => this._carousel.snapToPrev()}>
+                  <Icon name="left-arrow" />
+                  <Text>Précédent</Text>
+                </Button>
+                <Button styleName="full-width" onPress={() => this._carousel.snapToNext()}>
+                  <Text>Suivant</Text>
+                  <Icon name="right-arrow" />
+                </Button>
+              </View> */}
+            </View> 
+          </Card>
+      );
+    }
+
+    setupQuestions(){
+      let questionList = [];
+      let questionListLength = Object.keys(this.state.questions).length;
+      for(let i=0;i<questionListLength;i++){
+        questionList.push(this.state.questions[i]);
+      }
+      return questionList;
+    }
+
+
+
     render() {
         
-        return(
-            <Screen>
-                <NavigationBar
-                    styleName="inline"
-                    hasHistory
-                    centerComponent={
-                        <Title styleName="bold h-center" numberOfLines={1}>
-                            {this.props.sondage.title}
-                        </Title>
-                    }
-                    navigateBack={ () => {
-                        const navigateBack = NavigationActions.back()
-                        this.props.navigation.dispatch(navigateBack);
-                    }}
-                />
-                
-                <Swiper style={styles.wrapper}
-                  dot={<View style={{backgroundColor: 'rgba(0,0,0,.3)', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-                  activeDot={<View style={{backgroundColor: '#000', width: 13, height: 13, borderRadius: 7, marginLeft: 7, marginRight: 7}} />}
-                  paginationStyle={{
-                    bottom: 40
+      let questions = this.setupQuestions();
+
+      return(
+          <Screen>
+              <NavigationBar
+                  styleName="inline"
+                  hasHistory
+                  centerComponent={
+                      <Title styleName="bold h-center" numberOfLines={1}>
+                          {this.props.sondage.title}
+                      </Title>
+                  }
+                  navigateBack={ () => {
+                      const navigateBack = NavigationActions.back()
+                      this.props.navigation.dispatch(navigateBack);
                   }}
-                  loop={false}>
-                  <View>
-                    <Heading>Question 1</Heading>
-                  </View>
-                  <View>
-                    <Heading>Question 2</Heading>
-                  </View>
-                  <View>
-                      <Heading>Question 3</Heading>
-                  </View>
-                </Swiper>
-            </Screen>  
+              />
+
+              <Carousel
+                ref={(c) => { this._carousel = c; }}
+                data = { questions }
+                renderItem = { this._renderItem }
+                sliderWidth = { width }
+                itemWidth = { width * 0.85 }
+                onSnapToItem={(index) => this.setState({ activeSlide: index }) }
+                enableSnap={true}
+                enableMomentum={true}
+              />
+
+              <Pagination
+                activeDotIndex = { this._carousel ?this._carousel.currentIndex : this.state.activeSlide }
+                dotsLength = { questions.length }
+                carouselRef = { this._carousel }
+                tappableDots = { true }
+              />
+
+          </Screen>  
         );
     }
 }
