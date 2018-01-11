@@ -5,9 +5,6 @@ import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
 import anim from '../../../assets/animations/trophy.json';
 import ReductionElement from './ReductionElement';
-import SelectedReduction from './SelectedReduction';
-import * as contentMapTmp from './sondages.json';
-
 
 class ReductionCadeaux extends Component {
  
@@ -17,9 +14,7 @@ class ReductionCadeaux extends Component {
 
     //TODO: Récuperer la vraie liste des sondages par appel au serveur
     this.state = {
-      isLoading: true,
-      contentMap:contentMapTmp,
-      
+      isLoading: true,      
     }
 
   }
@@ -95,7 +90,7 @@ class ReductionCadeaux extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.state.contentMap.sondages}
+                    data={this.props.reductionReducer.listReductions.reductions}
                     renderRow={this.renderRow}
                   />
                 </View>
@@ -108,6 +103,8 @@ class ReductionCadeaux extends Component {
 const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
+        reductionReducer : state.reductionReducer.listReductions,
+
     }
 }
 

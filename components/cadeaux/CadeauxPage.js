@@ -5,6 +5,8 @@ import CadeauxPreview from './components/CadeauxPreview';
 import ReducPreview from './components/ReducPreview';
 import * as contentMapTmp from './components/sondages.json';
 import {updateAvailablesCadeaux} from '../../actions';
+import {updateAvailablesReductions} from '../../actions';
+
 
 class CadeauxPage extends Component {
  
@@ -13,16 +15,58 @@ class CadeauxPage extends Component {
     this.state = {
       isLoading: true,
       contentMap:contentMapTmp,
+      countCadeaux : 0,
+      countReductions :0,
     }
+  }
+
+  componentDidMount() {
+  
+    var a = this.state.contentMap.sondages;
+
+    var myJSONCadeaux = {
+      cadeaux: []
+    };
+
+    var myJSONReductions = {
+      reductions: []
+    };
+    var countCadeaux=0;
+    var countReductions=0;
+
+    a.map(function(item) {        
+      if(item.type==1){
+        countCadeaux++;
+        myJSONCadeaux.cadeaux.push(
+          item
+        );
+      }
+      else if(item.type==2){
+        countReductions++;
+        myJSONReductions.reductions.push(
+          item
+        );
+      }
+    });
+    console.log(countReductions);
+    console.log(this.state.countReductions);
+
+    this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
+
     this.props.dispatch(updateAvailablesCadeaux({
-        listCadeaux: this.state.contentMap,
+        listCadeaux: myJSONCadeaux,
     }));
+
+    this.props.dispatch(updateAvailablesReductions({
+        listReductions: myJSONReductions,
+    }));
+
   }
 
   render() {
 
     return (
-      <View style={{ flex: 1}}>
+/*      <View style={{ flex: 1}}>
         <View style={{ flex: 3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <CadeauxPreview/>
           <ReducPreview/>
@@ -39,9 +83,19 @@ class CadeauxPage extends Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'orange'}}>
           <Text style={{color: 'white', fontSize: 20}}>165 Points</Text>
         </View>
+      </View>*/
+      <View style={{ flex: 1 , flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
+        <View style={{ flex: 2}}>
+          <CadeauxPreview countCadeaux={this.state.countCadeaux}/>
+        </View>
+        <View style={{ flex: 2}}>
+          <ReducPreview countReductions={this.state.countReductions}/>
+        </View>
+        <View style={{flex: 1, backgroundColor: 'orange'}}>
+          <Text style={{color: 'white', fontSize: 20}}>165 Points</Text>
+        </View>
       </View>
-
-
+      
     );
   }
 }

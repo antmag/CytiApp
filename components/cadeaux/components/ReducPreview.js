@@ -11,14 +11,15 @@ class ReducPreview extends Component {
     super(props);
   }
 
+
   onPress = () => {
     console.log("pressed");
   }
 
   render() {
-    
+
     return (
-          <TouchableOpacity
+/*          <TouchableOpacity
                 onPress={() => {
                     const navigate = NavigationActions.navigate({routeName:'ReductionCadeaux'});
                     this.props.navigation.dispatch(navigate);
@@ -31,6 +32,30 @@ class ReducPreview extends Component {
               }
               BadgeElement={
                 <Text style={{color:'#FFFFFF'}}>2</Text>
+              }
+              IconBadgeStyle={
+                {width:20,
+                height:20,
+                backgroundColor: '#FF0000'}
+              }
+            />
+          </View>
+        </TouchableOpacity>*/
+          <TouchableOpacity
+                onPress={() => {
+                    const navigate = NavigationActions.navigate({routeName:'ReductionCadeaux'});
+                    this.props.navigation.dispatch(navigate);
+                }}
+          >
+
+
+          <View style={{justifyContent: 'center'}}>
+            <IconBadge
+              MainElement={
+                <Icon name="ticket" size={80}/>
+              }
+              BadgeElement={
+                <Text style={{color:'#FFFFFF'}}>{this.props.countReductions}</Text>
               }
               IconBadgeStyle={
                 {width:20,

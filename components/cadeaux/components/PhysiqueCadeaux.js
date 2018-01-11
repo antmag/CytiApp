@@ -5,8 +5,6 @@ import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
 import anim from '../../../assets/animations/gift.json';
 import CadeauxElement from './CadeauxElement';
-import * as contentMapTmp from './sondages.json';
-
 
 class PhysiqueCadeaux extends Component {
  
@@ -17,7 +15,6 @@ class PhysiqueCadeaux extends Component {
     //TODO: Récuperer la vraie liste des sondages par appel au serveur
     this.state = {
       isLoading: true,
-      contentMap:contentMapTmp,
     }
 
   }
@@ -97,7 +94,7 @@ class PhysiqueCadeaux extends Component {
                 <View>
 
                   <ListView 
-                    data={this.state.contentMap.sondages}
+                    data={this.props.cadeauxReducer.listCadeaux.cadeaux}
                     renderRow={this.renderRow}
                   />
                 </View>

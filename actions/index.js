@@ -47,3 +47,10 @@ export const updateAvailablesCadeaux = (listCadeaux) => {
         obj: listCadeaux
     };
 }
+
+export const updateAvailablesReductions = (listCadeaux) => {
+    return {
+        type: 'SET_AVAILABLES_REDUCTION',
+        obj: listCadeaux
+    };
+}

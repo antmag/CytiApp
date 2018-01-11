@@ -97,6 +97,7 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         selectedCadeau: state.cadeauReducer.cadeau,
+    
     }
 }
 

@@ -14,7 +14,7 @@ class CadeauxPreview extends Component {
   render() {
     
     return (
-          <TouchableOpacity
+/*          <TouchableOpacity
                 onPress={() => {
                     const navigate = NavigationActions.navigate({routeName:'PhysiqueCadeaux'});
                     this.props.navigation.dispatch(navigate);
@@ -27,6 +27,29 @@ class CadeauxPreview extends Component {
               }
               BadgeElement={
                 <Text style={{color:'#FFFFFF'}}>4</Text>
+              }
+              IconBadgeStyle={
+                {width:20,
+                height:20,
+                backgroundColor: '#FF0000'}
+              }
+            />
+          </View>
+        </TouchableOpacity>*/
+
+          <TouchableOpacity
+                onPress={() => {
+                    const navigate = NavigationActions.navigate({routeName:'PhysiqueCadeaux'});
+                    this.props.navigation.dispatch(navigate);
+                }}
+          >
+          <View style={{}}>
+            <IconBadge
+              MainElement={
+                <Icon name="present" size={80}/>
+              }
+              BadgeElement={
+                <Text style={{color:'#FFFFFF'}}>{this.props.countCadeaux}</Text>
               }
               IconBadgeStyle={
                 {width:20,
