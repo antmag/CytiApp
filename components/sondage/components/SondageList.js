@@ -72,7 +72,7 @@ class SondageList extends Component {
 
     //Play the loader animation
 
-    //this.animation.play();
+    this.animation.play();
 
     //TODO: Replace adress with the serveur
     return fetch('https://facebook.github.io/react-native/movies.json')
@@ -93,7 +93,7 @@ class SondageList extends Component {
     
     if(this.state.isLoading){
       return(
-        <View styleName="vertical h-center v-center">
+        <View styleName="fill-parent vertical h-center v-center">
           <Animation
             ref={animation => {
               this.animation = animation;
