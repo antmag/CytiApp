@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
+import Animation from 'lottie-react-native'; 
 
 import { Screen, NavigationBar, Title, Card, View, Divider, Button, Text, Icon, Heading } from '@shoutem/ui';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -9,6 +10,8 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import ReponseOuiNon from './ReponseOuiNon';
 import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
+
+import anim from '../../../../assets/animations/loader.json';
 
 // Types de questions possibles:
 // Yes-no
@@ -24,6 +27,7 @@ class ReponseSondage extends Component {
         super(props);
         this.setupQuestions = this.setupQuestions.bind(this);
         this.state = {
+            isLoading : true,
             activeSlide : 0,
             reponses : {},
             "questions": {
@@ -137,8 +141,59 @@ class ReponseSondage extends Component {
       return questionList;
     }
 
+    componentDidMount() {
+      
+      //TODO: Replace adress with the serveur
+      return fetch('https://facebook.github.io/react-native/movies.json')
+      // return fetch('https://facebook.github.io/react-native/movies.json')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+            isLoading: false,
+            //TODO: Décommenter la ligne
+            // reponses: responseJson,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
     render() {
-        
+      
+      if(this.state.isLoading){
+        return(
+          <Screen>
+            <NavigationBar
+                styleName="inline"
+                hasHistory
+                centerComponent={
+                    <Title styleName="bold h-center" numberOfLines={1}>
+                        {this.props.sondage.title}
+                    </Title>
+                }
+                navigateBack={ () => {
+                    const navigateBack = NavigationActions.back()
+                    this.props.navigation.dispatch(navigateBack);
+                }}
+            />
+            <View styleName="vertical h-center v-center" style={{flex:1}}>
+              <Animation
+                ref={animation => {
+                  this.animation = animation;
+                }}
+                style={{
+                  width: 200,
+                  height: 200
+                }}
+                loop={true}
+                source={anim}
+              />
+            </View> 
+          </Screen> 
+        );
+      }
+
       let questions = this.setupQuestions();
 
       return(

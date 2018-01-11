@@ -7,35 +7,55 @@ export default class ReponseUnique extends Component {
 
     constructor(props){
         super(props);
-        this.setupReponses = this.setupReponses.bind(this);
-        _this = this;
-    }
 
-    setupReponses(){
+        //Setup the answers
         let reponseList = [];
         let reponseListLength = Object.keys(this.props.reponses).length;
         for(let i=0;i<reponseListLength;i++){
-            reponseList.push(this.props.reponses[i]);
+            reponseList.push({
+                value : this.props.reponses[i],
+                selected : false
+            });
         }
-        return reponseList;
+        
+        this.state = {
+            reponses : reponseList
+        }
+
+        _this = this;
     }
 
     renderRow(reponse){
+        
+        if(reponse.selected){
+            return(
+                <Button styleName="full-width secondary" onPress={() => {
+                    //TODO: change the answer
+                    reponse.selected = false;
+                    _this.props.next();
+                }}>
+                    <Text>{reponse.value.txt}</Text>
+                </Button>
+            );
+        }
+        
         return(
-            <Button styleName="full-width" onPress={() =>  _this.props.next() }>
-                <Text>{reponse.txt}</Text>
+            <Button styleName="full-width" onPress={() => {
+                //TODO: change the answer
+                reponse.selected = true;
+                _this.props.next();
+            }}>
+                <Text>{reponse.value.txt}</Text>
             </Button>
         );
     }
 
     render(){
 
-        const reponses = this.setupReponses();
-
         return (
             <View style={{flex:1}} styleName="v-center">
                 <ListView
-                    data={reponses}
+                    data={this.state.reponses}
                     renderRow={this.renderRow}
                 />
             </View>

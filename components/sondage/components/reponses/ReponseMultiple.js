@@ -5,35 +5,62 @@ export default class ReponseMultiple extends Component {
 
     constructor(props){
         super(props);
-        this.setupReponses = this.setupReponses.bind(this);
-    }
-
-    setupReponses(){
+        
+        //Setup the answers
         let reponseList = [];
         let reponseListLength = Object.keys(this.props.reponses).length;
         for(let i=0;i<reponseListLength;i++){
-            reponseList.push(this.props.reponses[i]);
+            reponseList.push({
+                value : this.props.reponses[i],
+                selected : false
+            });
         }
-        return reponseList;
+        
+        this.state = {
+            reponses : reponseList
+        }
+
+        this.renderRow = this.renderRow.bind(this);
     }
 
     renderRow(reponse){
+        
+        if(this.state.reponses[reponse.value.id_answer].selected){
+            return(
+                <Button styleName="full-width muted" onPress={() => {
+                    //TODO: change the answer
+                    this.state.reponses[reponse.value.id_answer].selected = false;
+                    this.setState(this.state);
+                    setOpacityTo(1);
+                    console.log('Unselect');
+                    console.log('State: ' + this.state.reponses[reponse.value.id_answer].selected);
+                }}>
+                    <Text>{reponse.value.txt}</Text>
+                </Button>
+            );
+        }
+        
         return(
-            <Button styleName="full-width">
-                <Text>{reponse.txt}</Text>
+            <Button styleName="full-width" onPress={() => {
+                //TODO: change the answer
+                this.state.reponses[reponse.value.id_answer].selected = true;
+                this.setState(this.state);
+                setOpacityTo(0);
+                console.log('Select');
+                console.log('State: ' + this.state.reponses[reponse.value.id_answer].selected);
+            }}>
+                <Text>{reponse.value.txt}</Text>
             </Button>    
         );
     }
 
     render(){
 
-        const reponses = this.setupReponses();
-
         return (
             <View style={{flex:1}}>
                 <View style={{flex:6, paddingBottom:5}}>
                     <ListView
-                        data={reponses}
+                        data={this.state.reponses}
                         renderRow={this.renderRow}
                     />
                 </View>
