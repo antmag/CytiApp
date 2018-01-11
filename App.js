@@ -5,53 +5,68 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Platform, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
-import BottomBar from './components/bottomBar/BottomBar';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+import Main from './components/Main';
+import ReponseSondage from './components/sondage/components/ReponseSondage';
+import LoginPage from './components/loginPage/LoginPage';
+import ReductionCadeaux from './components/cadeaux/components/ReductionCadeaux';
+import PhysiqueCadeaux from './components/cadeaux/components/PhysiqueCadeaux';
+import SelectedReduction from './components/cadeaux/components/SelectedReduction';
+import SelectedCadeau from './components/cadeaux/components/SelectedCadeau';
+
+
+import {Provider} from 'react-redux';
+import { createStore } from 'redux';
+import globalReducer from './reducers';
+
+const store = createStore(globalReducer);
+
+
+const Navigator = StackNavigator({
+  Login: {
+    screen: LoginPage,
+  },
+  Homepage:{
+    screen: Main,
+  },
+  ReponseSondage:{
+    screen: ReponseSondage,
+  },
+  ReductionCadeaux:{
+    screen: ReductionCadeaux,
+  },
+  PhysiqueCadeaux:{
+    screen: PhysiqueCadeaux,
+  },
+  SelectedReduction:{
+    screen: SelectedReduction,
+  },
+  SelectedCadeau:{
+    screen: SelectedCadeau,
+  }
+},{
+  initialRouteName: 'Login',
+  headerMode: 'none',
 });
 
-export default class App extends Component<{}> {
+export default class App extends Component {
+
+  constructor(props) {
+      super(props);
+      this.state ={ connected: "false" };
+
+  }
+  
   render() {
     return (
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>
-      //     Welcome to CYTi!
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     Learn how to Capitalize Your Time ;)
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     {instructions}
-      //   </Text>
-      // </View>
-      <View style={{flex:1}}>
-        <BottomBar />
-      </View>
+      <Provider store={store}>
+        <Navigator />
+      </Provider>  
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
