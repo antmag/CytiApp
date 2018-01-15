@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Platform, Text } from 'react-native';
-import { View } from '@shoutem/ui';
+import { StyleSheet, Platform } from 'react-native';
+import { View, Divider, TextInput, Row, Title, Button, Text } from '@shoutem/ui';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
 import {setConnectedUser} from '../../actions';
@@ -26,40 +26,65 @@ class LoginPage extends Component {
   }
 
   render(){
+    
     var _this = this;
+    
     return (
-      <View style={{flex:1}}>
-        <Text style={styles.welcome}>Welcome to CYTI App</Text>
-        <FBLogin style={styles.buttonFb}
-              ref={(fbLogin) => { this.fbLogin = fbLogin }}
-              permissions={["email","user_friends"]}
-              loginBehavior={LoginBehavior[Platform.OS]}
-              onLogin={function(data){
-                console.log("Logged in!");
-                console.log(data.type);
-                _this.props.dispatch(setConnectedUser(data));
-                _this.props.navigation.navigate('Homepage');
-              }}
-              onLogout={function(){
-                console.log("Logged out.");
-              }}
-              onLoginFound={function(data){
-                console.log("Existing login found.");
-              }}
-              onLoginNotFound={function(){
-                console.log("No user logged in.");
-              }}
-              onError={function(data){
-                console.log("ERROR");
-              }}
-              onCancel={function(){
-                console.log("User cancelled.");
-              }}
-              onPermissionsMissing={function(data){
-                console.log("Check permissions!");
-                console.log(data);
-              }}
+      <View styleName="vertical v-center h-center">
+        
+        <Title styleName="xl-gutter-bottom xl-gutter-top">Welcome to CYTi App</Title>
+        
+          <Row styleName="small">
+            <TextInput
+              placeholder={'Username or email'}
+              style={{flex:1}}
             />
+          </Row>
+          <Divider styleName="line" />
+          <Row styleName="small">
+            <TextInput
+              placeholder={'Password'}
+              secureTextEntry
+              style={{flex:1}}
+            />
+          </Row>  
+
+          <Button styleName="secondary sm-gutter-top" style={{width:'100%'}}>
+            <Text>LOGIN</Text>
+          </Button>
+
+        <View style={{height:60}}>
+          <FBLogin style={styles.buttonFb}
+                ref={(fbLogin) => { this.fbLogin = fbLogin }}
+                permissions={["email","user_friends"]}
+                loginBehavior={LoginBehavior[Platform.OS]}
+                onLogin={function(data){
+                  console.log("Logged in!");
+                  console.log(data.type);
+                  _this.props.dispatch(setConnectedUser(data));
+                  _this.props.navigation.navigate('Homepage');
+                }}
+                onLogout={function(){
+                  console.log("Logged out.");
+                }}
+                onLoginFound={function(data){
+                  console.log("Existing login found.");
+                }}
+                onLoginNotFound={function(){
+                  console.log("No user logged in.");
+                }}
+                onError={function(data){
+                  console.log("ERROR");
+                }}
+                onCancel={function(){
+                  console.log("User cancelled.");
+                }}
+                onPermissionsMissing={function(data){
+                  console.log("Check permissions!");
+                  console.log(data);
+                }}
+              />
+            </View>
         </View>
   )}
 }

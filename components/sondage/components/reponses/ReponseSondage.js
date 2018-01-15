@@ -193,6 +193,7 @@ class ReponseSondage extends Component {
       
       this.animation.play();
 
+      console.log(this.props.sondage.id);
       //TODO: Replace adress with the serveur
       return fetch('https://facebook.github.io/react-native/movies.json')
       // return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)

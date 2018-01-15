@@ -115,8 +115,8 @@ class SondageList extends Component {
               this.animation = animation;
             }}
             style={{
-              width: 100,
-              height: 100
+              width: 200,
+              height: 200
             }}
             loop={true}
             source={anim}
