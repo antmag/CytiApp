@@ -25,82 +25,107 @@ class ReponseSondage extends Component {
 
     constructor(props){
         super(props);
-        this.setupQuestions = this.setupQuestions.bind(this);
         this.state = {
             isLoading : true,
             activeSlide : 0,
-            reponses : {},
-            "questions": {
-                "0":
+            reponses : [],
+            questions: [
                 {
+                  "_id" : "0",
                   "position" : 0,
                   "txt" : "Te maquilles tu régulièrement ?",
                   "question_type" : "YesNo",
                   "mandatory" : true,
-                  "answers" : {}
+                  "answers" : []
                 },
-                "1":
                 {
+                  "_id" : "1",
                   "position": 1,
                   "txt" : "Comment réveiller des yeux fatigués ?",
                   "question_type" : "unique",
                   "mandatory" : true,
-                  "answers" : {
-                    "0":
+                  "answers" : [
                     {
-                      "id_answer" : "",
+                      "_id" : "0",
+                      "id_answer" : "0",
                       "position": "0",
                       "txt" : "La solution make-up"
                     },
-                    "1":
                     {
+                      "_id" : "1",
                       "id_answer" : "1",
                       "position": "1",
                       "txt" : "La solution médicale"
                     }
-                  }
+                  ]
                 },
-                "2":
                 {
+                  "_id" : "2",
                   "position": 2,
                   "txt" : "Qu'est ce qui est important pour toi ?",
                   "question_type" : "multiple",
                   "mandatory" : false,
-                  "answers" : {
-                    "0":
+                  "answers" : [
                     {
+                      "_id" : "0",
                       "id_answer" : "0",
                       "position": "0",
                       "txt" : "Le nez"
                     },
-                    "1":
                     {
+                      "_id" : "1",
                       "id_answer" : "1",
                       "position": "1",
                       "txt" : "La bouche"
                     },
-                    "2":
                     {
+                      "_id" : "2",
                       "id_answer" : "2",
                       "position": "2",
                       "txt" : "Les yeux"
                     },
-                    "3":
                     {
+                      "_id" : "3",
                       "id_answer" : "3",
                       "position": "3",
                       "txt" : "Le teint"
                     },
-                    "4":
                     {
+                      "_id" : "4",
                       "id_answer" : "4",
                       "position": "4",
                       "txt" : "Les cheveux"
                     }
-                  }
+                  ]
                 }
-              }
+              ]
         };
+        this._renderItem = this._renderItem.bind(this);
+        this.addMultipleAnswer = this.addMultipleAnswer.bind(this);
+        this.addUniqueAnswer = this.addUniqueAnswer.bind(this);
+    }
+
+    addUniqueAnswer(id, reponse){
+      this.state.reponses[id] = reponse;
+    }
+
+    addMultipleAnswer(id, reponse){
+      //Si le tableau n'existe pas on le créé
+      if(this.state.reponses[id] === undefined){
+        this.state.reponses[id] = [];
+        this.state.reponses[id].push(reponse);
+        return;
+      }
+
+      let index = this.state.reponses[id].indexOf(reponse);
+      if(index !== -1){
+        this.state.reponses[id].splice(index,1);
+      } else {
+        this.state.reponses[id].push(reponse);
+      }
+
+      console.log(this.state.reponses);
+
     }
 
     _renderItem ({item, index}) {
@@ -108,17 +133,23 @@ class ReponseSondage extends Component {
       let template;
       if(item.question_type === 'YesNo')
         template = (<ReponseOuiNon 
+                      id = { item._id }
                       next = { () => _carousel.snapToNext()}
+                      addAnswer = { this.addUniqueAnswer }
                     />);
       else if (item.question_type === 'unique')
         template = (<ReponseUnique 
+                      id = { item._id }
                       next = { () => _carousel.snapToNext()} 
                       reponses = { item.answers }
+                      addAnswer = { this.addUniqueAnswer }
                     />);
       else if (item.question_type === 'multiple')
         template = (<ReponseMultiple 
+                      id = { item._id }
                       next={ () => _carousel.snapToNext()} 
-                      reponses = { item.answers }  
+                      reponses = { item.answers } 
+                      addAnswer = { this.addMultipleAnswer }
                     />);
 
       return (
@@ -130,15 +161,6 @@ class ReponseSondage extends Component {
             </View> 
           </Card>
       );
-    }
-
-    setupQuestions(){
-      let questionList = [];
-      let questionListLength = Object.keys(this.state.questions).length;
-      for(let i=0;i<questionListLength;i++){
-        questionList.push(this.state.questions[i]);
-      }
-      return questionList;
     }
 
     componentDidMount() {
@@ -194,8 +216,6 @@ class ReponseSondage extends Component {
         );
       }
 
-      let questions = this.setupQuestions();
-
       return(
           <Screen>
               <NavigationBar
@@ -214,7 +234,7 @@ class ReponseSondage extends Component {
 
               <Carousel
                 ref={(c) =>  _carousel = c }
-                data = { questions }
+                data = { this.state.questions }
                 renderItem = { this._renderItem }
                 sliderWidth = { width }
                 itemWidth = { width * 0.85 }
@@ -224,9 +244,9 @@ class ReponseSondage extends Component {
               />
 
               <Pagination
-                activeDotIndex = {this.state.activeSlide }
-                dotsLength = { questions.length }
                 carouselRef = { _carousel }
+                activeDotIndex = {this.state.activeSlide }
+                dotsLength = { this.state.questions.length }
                 tappableDots = { true }
               />
           </Screen>  

@@ -11,11 +11,17 @@ export default class ReponseOuiNon extends Component {
 
         return(
             <View styleName="vertical flexible" style={{flex : 1}}>
-                <Button styleName="full-width" onPress={() =>  this.props.next() }>
+                <Button styleName="full-width" onPress={() =>  {
+                    this.props.addAnswer(this.props.id, 'yes');
+                    this.props.next(); 
+                }}>
                     <Heading>OUI</Heading>
                 </Button>
                 <Divider styleName="line" />
-                <Button styleName="full-width" onPress={() =>  this.props.next() }>
+                <Button styleName="full-width" onPress={() =>  {
+                    this.props.addAnswer(this.props.id, 'no');
+                    this.props.next(); 
+                }}>
                     <Heading>NON</Heading>
                 </Button>
             </View>
