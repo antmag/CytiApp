@@ -102,11 +102,22 @@ class ReponseSondage extends Component {
         };
         this._renderItem = this._renderItem.bind(this);
         this.addMultipleAnswer = this.addMultipleAnswer.bind(this);
-        this.addUniqueAnswer = this.addUniqueAnswer.bind(this);
+        this.sendUniqueAnswer = this.sendUniqueAnswer.bind(this);
+        this.sendMultipleAnswer = this.sendMultipleAnswer.bind(this);
     }
 
-    addUniqueAnswer(id, reponse){
-      this.state.reponses[id] = reponse;
+    sendUniqueAnswer(id, reponse){
+      let reponseJson = JSON.stringify({
+        "id_contact": this.props.user.profile.id,
+        "id_survey": this.props.sondage.id,
+        "id_question": id,
+        "id_reponse": [reponse]
+      }); 
+      // fetch('http://195.154.107.158:1337/',{
+      //   method: 'POST',
+      //   body: reponseJson
+      // });
+      console.log(reponseJson);
     }
 
     addMultipleAnswer(id, reponse){
@@ -123,9 +134,23 @@ class ReponseSondage extends Component {
       } else {
         this.state.reponses[id].push(reponse);
       }
+    }
 
-      console.log(this.state.reponses);
+    sendMultipleAnswer(id){
 
+      if(this.state.reponses[id] === undefined) return;
+
+      let reponseJson = JSON.stringify({
+        "id_contact": this.props.user.profile.id,
+        "id_survey": this.props.sondage.id,
+        "id_question": id,
+        "id_reponse": this.state.reponses[id]
+      }); 
+      // fetch('http://195.154.107.158:1337/',{
+      //   method: 'POST',
+      //   body: reponseJson
+      // });
+      console.log(reponseJson);
     }
 
     _renderItem ({item, index}) {
@@ -135,14 +160,14 @@ class ReponseSondage extends Component {
         template = (<ReponseOuiNon 
                       id = { item._id }
                       next = { () => _carousel.snapToNext()}
-                      addAnswer = { this.addUniqueAnswer }
+                      addAnswer = { this.sendUniqueAnswer }
                     />);
       else if (item.question_type === 'unique')
         template = (<ReponseUnique 
                       id = { item._id }
                       next = { () => _carousel.snapToNext()} 
                       reponses = { item.answers }
-                      addAnswer = { this.addUniqueAnswer }
+                      addAnswer = { this.sendUniqueAnswer }
                     />);
       else if (item.question_type === 'multiple')
         template = (<ReponseMultiple 
@@ -150,6 +175,7 @@ class ReponseSondage extends Component {
                       next={ () => _carousel.snapToNext()} 
                       reponses = { item.answers } 
                       addAnswer = { this.addMultipleAnswer }
+                      sendAnswer = { this.sendMultipleAnswer }
                     />);
 
       return (
@@ -165,9 +191,11 @@ class ReponseSondage extends Component {
 
     componentDidMount() {
       
+      this.animation.play();
+
       //TODO: Replace adress with the serveur
       return fetch('https://facebook.github.io/react-native/movies.json')
-      // return fetch('https://facebook.github.io/react-native/movies.json')
+      // return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
@@ -258,6 +286,7 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         sondage: state.sondageReducer.sondage,
+        user: state.profilReducer.connected
     }
 }
 

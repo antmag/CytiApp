@@ -66,7 +66,10 @@ export default class ReponseMultiple extends Component {
                         renderRow={this.renderRow}
                     />
                 </View>
-                <Button styleName="full-width secondary" onPress={() =>  this.props.next() }>
+                <Button styleName="full-width secondary" onPress={() =>  {
+                    this.props.sendAnswer(this.props.id);
+                    this.props.next(); 
+                }}>
                     <Text>Suivant</Text>
                     <Icon name="right-arrow" />
                 </Button>

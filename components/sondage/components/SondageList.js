@@ -19,42 +19,49 @@ class SondageList extends Component {
       isLoading: true,
       sondages : [
         {
+        "id_survey": 0,
         title:'Les vernis à ongles',
         image: "../../../assets/images/survey.jpg",
         theme: "Mode",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {
+        "id_survey": 1,
         title:'Les marques de prêt à porter',
         image: "../../../assets/images/survey.jpg",
         theme: "Sport",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {
+        "id_survey": 2,
         title:'Les desserts',
         image: "../../../assets/images/survey.jpg",
         theme: "Sport",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {
+        "id_survey": 3,
         title: 'Les courses de Noël',
         image: "../../../assets/images/survey.jpg",
         theme: "Shopping",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {
+        "id_survey": 4,
         title: 'Un super Sondage',
         image: "../../../assets/images/survey.jpg",
         theme: "Mode",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {
+        "id_survey": 5,
         title:'Encore un autre',
         image: "../../../assets/images/survey.jpg",
         theme: "Sport",
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dapibus eros. Phasellus gravida fringilla diam, congue suscipit sapien. Etiam lobortis facilisis erat tempor ullamcorper. Vestibulum non magna dolor."
         },
         {
+        "id_survey": 6,
         title: 'Un sondage sur pleins de questions',
         image: "../../../assets/images/survey.jpg",
         theme: "Sport",
@@ -68,6 +75,7 @@ class SondageList extends Component {
   renderRow(sondage){
     return(
       <SondagePreview 
+        id={sondage.id_survey}
         title={sondage.title}
         image={sondage.image}
         description={sondage.description}
@@ -82,7 +90,7 @@ class SondageList extends Component {
 
     //TODO: Replace adress with the serveur
     return fetch('https://facebook.github.io/react-native/movies.json')
-    // return fetch('192.168.1.101:1337/app')
+    // return fetch('http://195.154.107.158:1337/app')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
