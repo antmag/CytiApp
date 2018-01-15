@@ -15,9 +15,10 @@ class SondagePage extends Component {
     this.state = {
       filters: [
         { title: 'All', value: 'All' },
-        { title: 'Mode', value: 'Mode' },
-        { title: 'Sport ', value: 'Sport' },
-        { title: 'Shopping', value: 'Shopping' },
+        { title: 'Beauté', value: 'beauty' },
+        { title: 'Sport ', value: 'sport' },
+        { title: 'Shopping', value: 'shopping' },
+        { title: 'Mode', value: 'fashion' },
       ]
     }
     this.setNewFilter = this.setNewFilter.bind(this);
