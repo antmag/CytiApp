@@ -26,6 +26,7 @@ class SondagePreview extends Component {
                     const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
                     this.props.navigation.dispatch(navigate);
                     this.props.dispatch(updateSelectedSondage({
+                        id: this.props.id,
                         title: this.props.title,
                         description: this.props.description,
                         image: this.props.image,
