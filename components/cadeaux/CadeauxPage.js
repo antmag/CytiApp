@@ -20,46 +20,106 @@ class CadeauxPage extends Component {
     }
   }
 
+
+
   componentDidMount() {
-  
-    var a = this.state.contentMap.sondages;
 
-    var myJSONCadeaux = {
-      cadeaux: []
-    };
+/*    return fetch('http://192.168.1.24:1337/cadeaux')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          //TODO: Décommenter la ligne
+          // sondages: responseJson,
+        });
+        var a = responseJson;
+        var myJSONCadeaux = {
+          cadeaux: []
+        };
 
-    var myJSONReductions = {
-      reductions: []
-    };
-    var countCadeaux=0;
-    var countReductions=0;
+        var myJSONReductions = {
+          reductions: []
+        };
 
-    a.map(function(item) {        
-      if(item.type==1){
-        countCadeaux++;
-        myJSONCadeaux.cadeaux.push(
-          item
-        );
-      }
-      else if(item.type==2){
-        countReductions++;
-        myJSONReductions.reductions.push(
-          item
-        );
-      }
-    });
-    console.log(countReductions);
-    console.log(this.state.countReductions);
 
-    this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
+        var countCadeaux=0;
+        var countReductions=0;
 
-    this.props.dispatch(updateAvailablesCadeaux({
-        listCadeaux: myJSONCadeaux,
-    }));
+        a.map(function(item) {        
+          if(item.cadeaux_type==1){
+            countCadeaux++;
+            myJSONCadeaux.cadeaux.push(
+              item
+            );
+          }
+          else if(item.cadeaux_type==2){
+            countReductions++;
+            myJSONReductions.reductions.push(
+              item
+            );
+          }
+        });
+        
+        console.log(typeof myJSONReductions);
 
-    this.props.dispatch(updateAvailablesReductions({
-        listReductions: myJSONReductions,
-    }));
+
+        this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
+
+        this.props.dispatch(updateAvailablesCadeaux({
+            listCadeaux: myJSONCadeaux,
+        }));
+
+        this.props.dispatch(updateAvailablesReductions({
+            listReductions: myJSONReductions,
+        }));
+
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });*/
+
+
+        var a = this.state.contentMap.sondages;
+        var myJSONCadeaux = {
+          cadeaux: []
+        };
+
+        var myJSONReductions = {
+          reductions: []
+        };
+
+
+        var countCadeaux=0;
+        var countReductions=0;
+
+        a.map(function(item) {        
+          if(item.type==1){
+            countCadeaux++;
+            myJSONCadeaux.cadeaux.push(
+              item
+            );
+          }
+          else if(item.type==2){
+            countReductions++;
+            myJSONReductions.reductions.push(
+              item
+            );
+          }
+        });
+        
+        console.log(typeof myJSONReductions);
+
+
+        this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
+
+        this.props.dispatch(updateAvailablesCadeaux({
+            listCadeaux: myJSONCadeaux,
+        }));
+
+        this.props.dispatch(updateAvailablesReductions({
+            listReductions: myJSONReductions,
+        }));
 
   }
 

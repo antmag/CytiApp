@@ -23,9 +23,9 @@ class PhysiqueCadeaux extends Component {
   renderRow(cadeau){
     return(
       <CadeauxElement 
-          title={cadeau.key}
+          title={cadeau.title}
           points={cadeau.points}
-          image={cadeau.image}
+          image={cadeau.url}
           description={cadeau.description}
       />
     );

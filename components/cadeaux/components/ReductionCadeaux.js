@@ -23,9 +23,9 @@ class ReductionCadeaux extends Component {
   renderRow(reduction){
     return(
       <ReductionElement 
-          title={reduction.key}
+          title={reduction.title}
           points={reduction.points}
-          image={reduction.image}
+          image={reduction.url}
           description={reduction.description}
       />
     );

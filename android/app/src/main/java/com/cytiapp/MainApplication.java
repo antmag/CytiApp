@@ -3,8 +3,8 @@ package com.cytiapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.airbnb.android.react.lottie.LottiePackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -30,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            // new FBSDKPackage(),
             new LottiePackage(),
             new PhotoViewPackage(),
             new LinearGradientPackage(),
