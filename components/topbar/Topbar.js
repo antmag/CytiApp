@@ -22,7 +22,6 @@ class Topbar extends Component {
               <Image
                 styleName="small-avatar"
                 //source={{ uri: this.props.userData.profile.picture.data.url}}
-                //source={{ uri: this.props.userData.profile.picture.data.url}}
               />
               <Text>{this.props.userData.profile.first_name}</Text>
               <Button styleName="clear"

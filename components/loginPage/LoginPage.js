@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Platform, Dimensions } from 'react-native';
+import { StyleSheet, Platform, Dimensions, ToastAndroid } from 'react-native';
 import { Image, View, Divider, TextInput, Text, Caption, Icon, Row, TouchableOpacity, Button, Heading, Screen } from '@shoutem/ui';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
@@ -19,7 +19,8 @@ class LoginPage extends Component {
 
     this.state = {
       username : '',
-      password : ''
+      password : '',
+      status : 'wrongUsername',
     }
 
     // //Log out the user when he arrive on the login page
@@ -30,6 +31,89 @@ class LoginPage extends Component {
     // });
 
     this.logInFacebook = this.logInFacebook.bind(this);
+    this.logIn = this.logIn.bind(this);
+
+  }
+
+  logIn(){
+
+    //TODO: Erase following lines when the server is ready
+    if(true){
+      ToastAndroid.showWithGravity(
+        'Please connect with Facebook for now',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      return;
+    }
+
+    if(this.state.username === '' || this.state.password === ''){
+      ToastAndroid.showWithGravity(
+        'Please fill your username and your password',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      return;
+    }
+    
+    const bodyJson = JSON.stringify({
+      username : this.state.username,
+      password : this.state.password
+    });
+    //Send the request to the server
+    fetch('https://facebook.github.io/react-native/movies.json',{
+      method: 'POST',
+      body: bodyJson
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      switch(responseJson.status){
+        case 'wrongUsername':
+          this.setState({
+            username: '',
+            password: ''
+          });
+          ToastAndroid.showWithGravity(
+            "This username doesn't exist",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+          break;
+        case 'wrongPassword':
+          this.setState({
+            username: '',
+            password: ''
+          });
+          ToastAndroid.showWithGravity(
+            'Wrong password',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+          break;
+        case 'connection':
+          this.props.dispatch(setConnectedUser(reponse));
+          this.props.navigation.navigate('Homepage');
+          break;
+        default:
+          this.setState({
+            username: '',
+            password: ''
+          });
+          break;
+      }
+    })
+    .catch((error) => {
+      this.setState({
+        username: '',
+        password: ''
+      });
+      ToastAndroid.showWithGravity(
+        'Something went wrong',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      console.error(error);
+    });
 
   }
 
@@ -93,7 +177,11 @@ class LoginPage extends Component {
 
           <Divider />
 
-          <Button styleName="secondary" style={{width:'90%'}}>
+          <Button 
+            styleName = "secondary" 
+            style = {{width:'90%'}}
+            onPress = { this.logIn }
+          >
             <Text>LOGIN</Text>
           </Button>
 
@@ -115,40 +203,8 @@ class LoginPage extends Component {
 
           <Divider />
 
-          {/* <View style={{height:60}}>
-            <FBLogin style={styles.buttonFb}
-                  ref={(fbLogin) => { this.fbLogin = fbLogin }}
-                  permissions={["email","user_friends"]}
-                  loginBehavior={LoginBehavior[Platform.OS]}
-                  onLogin={function(data){
-                    console.log("Logged in!");
-                    console.log(data.type);
-                    _this.props.dispatch(setConnectedUser(data));
-                    _this.props.navigation.navigate('Homepage');
-                  }}
-                  onLogout={function(){
-                    console.log("Logged out.");
-                  }}
-                  onLoginFound={function(data){
-                    console.log("Existing login found.");
-                  }}
-                  onLoginNotFound={function(){
-                    console.log("No user logged in.");
-                  }}
-                  onError={function(data){
-                    console.log("ERROR");
-                  }}
-                  onCancel={function(){
-                    console.log("User cancelled.");
-                  }}
-                  onPermissionsMissing={function(data){
-                    console.log("Check permissions!");
-                    console.log(data);
-                  }}
-                />
-              </View> */}
-            </View>
-        </Screen>
+        </View>
+      </Screen>
   )}
 }
 
