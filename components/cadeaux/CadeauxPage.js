@@ -20,10 +20,19 @@ class CadeauxPage extends Component {
     }
   }
 
-  componentDidMount() {
-  
-    var a = this.state.contentMap.sondages;
 
+
+  componentDidMount() {
+
+    return fetch('http://192.168.1.24:1337/cadeaux')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          //TODO: Décommenter la ligne
+          // sondages: responseJson,
+        });
+    var a = responseJson;
     var myJSONCadeaux = {
       cadeaux: []
     };
@@ -31,25 +40,27 @@ class CadeauxPage extends Component {
     var myJSONReductions = {
       reductions: []
     };
+
+
     var countCadeaux=0;
     var countReductions=0;
 
     a.map(function(item) {        
-      if(item.type==1){
+      if(item.cadeaux_type==1){
         countCadeaux++;
         myJSONCadeaux.cadeaux.push(
           item
         );
       }
-      else if(item.type==2){
+      else if(item.cadeaux_type==2){
         countReductions++;
         myJSONReductions.reductions.push(
           item
         );
       }
     });
-    console.log(countReductions);
-    console.log(this.state.countReductions);
+        console.log(typeof myJSONReductions);
+
 
     this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
 
@@ -60,6 +71,12 @@ class CadeauxPage extends Component {
     this.props.dispatch(updateAvailablesReductions({
         listReductions: myJSONReductions,
     }));
+
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
   }
 

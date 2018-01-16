@@ -37,7 +37,7 @@ class SelectedReduction extends Component {
                     <Tile>
                       <Image
                         styleName="large-banner"
-                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-7.png' }}
+                        source={{ uri: this.props.selectedReduction.image }}
                       >
                       </Image>
                       <View styleName="content">
