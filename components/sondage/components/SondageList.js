@@ -75,7 +75,7 @@ class SondageList extends Component {
   renderRow(sondage){
     return(
       <SondagePreview 
-        id={sondage.id_survey}
+        id={sondage._id}
         title={sondage.title}
         image={sondage.image}
         description={sondage.description}
@@ -115,8 +115,8 @@ class SondageList extends Component {
               this.animation = animation;
             }}
             style={{
-              width: 100,
-              height: 100
+              width: 200,
+              height: 200
             }}
             loop={true}
             source={anim}
