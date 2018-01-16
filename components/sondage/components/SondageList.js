@@ -75,7 +75,7 @@ class SondageList extends Component {
   renderRow(sondage){
     return(
       <SondagePreview 
-        id={sondage.id_survey}
+        id={sondage._id}
         title={sondage.title}
         image={sondage.image}
         description={sondage.description}
