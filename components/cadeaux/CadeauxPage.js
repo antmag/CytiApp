@@ -23,8 +23,8 @@ class CadeauxPage extends Component {
 
 
   componentDidMount() {
-
-/*    return fetch('http://192.168.1.24:1337/cadeaux')
+/*
+    return fetch('http://195.154.107.158:1337/cadeaux?points=13300')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -33,6 +33,7 @@ class CadeauxPage extends Component {
           // sondages: responseJson,
         });
         var a = responseJson;
+        console.log("MYJSSSSSSOOOONNN"+a);
         var myJSONCadeaux = {
           cadeaux: []
         };
@@ -77,7 +78,7 @@ class CadeauxPage extends Component {
       })
       .catch((error) => {
         console.error(error);
-      });*/
+      });  */
 
 
         var a = this.state.contentMap.sondages;
@@ -120,6 +121,8 @@ class CadeauxPage extends Component {
         this.props.dispatch(updateAvailablesReductions({
             listReductions: myJSONReductions,
         }));
+
+        
 
   }
 
