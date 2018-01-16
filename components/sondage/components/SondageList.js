@@ -75,7 +75,7 @@ class SondageList extends Component {
   renderRow(sondage){
     return(
       <SondagePreview 
-        id={sondage.id_survey}
+        id={sondage._id}
         title={sondage.title}
         image={sondage.image}
         description={sondage.description}
@@ -86,6 +86,7 @@ class SondageList extends Component {
   componentDidMount() {
 
     //Play the loader animation
+
     this.animation.play();
 
     //TODO: Replace adress with the serveur
@@ -134,6 +135,7 @@ class SondageList extends Component {
     );
   }
 }
+
 
 const mapStateToProps = (state, ownProps) => {
   return{

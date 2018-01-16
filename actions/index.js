@@ -26,3 +26,31 @@ export const updateSelectedSondage = (sondage) => {
         obj: sondage
     };
 }
+
+export const updateSelectedReduction = (reduction) => {
+    return {
+        type: 'SET_CURRENT_REDUCTION',
+        obj: reduction
+    };
+}
+
+export const updateSelectedCadeau = (cadeau) => {
+    return {
+        type: 'SET_CURRENT_CADEAU',
+        obj: cadeau
+    };
+}
+
+export const updateAvailablesCadeaux = (listCadeaux) => {
+    return {
+        type: 'SET_AVAILABLES_CADEAU',
+        obj: listCadeaux
+    };
+}
+
+export const updateAvailablesReductions = (listCadeaux) => {
+    return {
+        type: 'SET_AVAILABLES_REDUCTION',
+        obj: listCadeaux
+    };
+}

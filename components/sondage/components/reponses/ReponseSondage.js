@@ -109,11 +109,11 @@ class ReponseSondage extends Component {
     sendUniqueAnswer(id, reponse){
       let reponseJson = JSON.stringify({
         "id_contact": this.props.user.profile.id,
-        "id_survey": this.props.sondage.id,
+        // "id_survey": this.props.sondage.id,
         "id_question": id,
         "id_reponse": [reponse]
       }); 
-      // fetch('http://195.154.107.158:1337/',{
+      // fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
       //   method: 'POST',
       //   body: reponseJson
       // });
@@ -142,11 +142,11 @@ class ReponseSondage extends Component {
 
       let reponseJson = JSON.stringify({
         "id_contact": this.props.user.profile.id,
-        "id_survey": this.props.sondage.id,
+        // "id_survey": this.props.sondage.id,
         "id_question": id,
         "id_reponse": this.state.reponses[id]
       }); 
-      // fetch('http://195.154.107.158:1337/',{
+      // fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
       //   method: 'POST',
       //   body: reponseJson
       // });
@@ -192,16 +192,16 @@ class ReponseSondage extends Component {
     componentDidMount() {
       
       this.animation.play();
-
+      console.log('Je passe ici: ' + this.props.sondage.id);
       //TODO: Replace adress with the serveur
       return fetch('https://facebook.github.io/react-native/movies.json')
-      // return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)
+      // return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id, { method: 'GET'})
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
             isLoading: false,
             //TODO: Décommenter la ligne
-            // reponses: responseJson,
+            // questions: responseJson,
           });
         })
         .catch((error) => {
