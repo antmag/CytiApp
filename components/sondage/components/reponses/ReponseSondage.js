@@ -103,7 +103,7 @@ class ReponseSondage extends Component {
 
     sendUniqueAnswer(id, reponse){
       let reponseJson = JSON.stringify({
-        "id_contact": this.props.user.profile.id,
+        "id_contact": 124567,
         "id_question": id,
         "id_reponse": [reponse]
       }); 
@@ -139,7 +139,7 @@ class ReponseSondage extends Component {
       if(this.state.reponses[id] === undefined) return;
 
       let reponseJson = JSON.stringify({
-        "id_contact": this.props.user.profile.id,
+        "id_contact": 124567,
         "id_question": id,
         "id_reponse": this.state.reponses[id]
       }); 
@@ -161,6 +161,7 @@ class ReponseSondage extends Component {
         template = (<ReponseOuiNon 
                       id = { item._id }
                       next = { () => _carousel.snapToNext()}
+                      reponses = { item.answers }
                       addAnswer = { this.sendUniqueAnswer }
                     />);
       else if (item.type === 'unique')
