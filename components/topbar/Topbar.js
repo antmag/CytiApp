@@ -7,7 +7,6 @@ import {setConnectedUser} from '../../actions';
 
 class Topbar extends Component {
     render() {
-      console.log(this.props.userData[0].username);
       return (
           
         <NavigationBar
