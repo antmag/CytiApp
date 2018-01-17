@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { Caption, Image, View, Icon, Row, Divider, TouchableOpacity, Subtitle, Button, Text } from '@shoutem/ui';
+import { Caption, Image, View, Row, Divider, TouchableOpacity, Subtitle, Card, Title, Tile } from '@shoutem/ui';
 
 import {updateSelectedSondage} from '../../../actions';
 
@@ -22,6 +22,7 @@ class SondagePreview extends Component {
 
         return (
             <TouchableOpacity
+                style={{margin:5}}
                 onPress={() => {
                     const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
                     this.props.navigation.dispatch(navigate);
@@ -34,7 +35,7 @@ class SondagePreview extends Component {
                     }));
                 }}
             >
-                <Row>
+                {/* <Row>
                     <Image
                         styleName="small rounded-corners top"
                         source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
@@ -44,7 +45,17 @@ class SondagePreview extends Component {
                         <Caption>{this.state.description}</Caption>
                     </View>
                 </Row>
-                <Divider styleName="line" />
+                <Divider styleName="line" /> */}
+
+                <Image
+                    styleName="large-banner"
+                    source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
+                >
+                    <Tile>
+                        <Title styleName="md-gutter-bottom">{this.state.title}</Title>
+                        <Caption styleName="sm-gutter-horizontal">{this.state.description}</Caption>
+                    </Tile>
+                </Image>
             </TouchableOpacity>    
         );
     }
