@@ -85,6 +85,9 @@ class SondageList extends Component {
             data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
             renderRow = { this.renderRow }
             onRefresh = { this.refreshSurveyList }
+            style={{
+              listContent : { backgroundColor:'transparent' }
+            }}
           />
       </View>
     );
