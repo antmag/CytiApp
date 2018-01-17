@@ -7,6 +7,7 @@ import {setConnectedUser} from '../../actions';
 
 class Topbar extends Component {
     render() {
+      console.log(this.props.userData[0].username);
       return (
           
         <NavigationBar
@@ -21,9 +22,9 @@ class Topbar extends Component {
             <View styleName="horizontal v-center">
               <Image
                 styleName="small-avatar"
-                //source={{ uri: this.props.userData.profile.picture.data.url}}
+                source={{ uri: this.props.userData[0].url_fb_picture}}
               />
-              <Text>{this.props.userData.profile.first_name}</Text>
+              <Text>{this.props.userData[0].username}</Text>
               <Button styleName="clear"
                       onPress={() => {
                         const navigateBack = NavigationActions.back();

@@ -22,7 +22,52 @@ class CadeauxPage extends Component {
 
   componentDidMount() {
   
-    var a = this.state.contentMap.sondages;
+  return fetch('http://195.154.107.158:1337/cadeaux?points='+this.props.userData[0].points)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          //TODO: Décommenter la ligne
+          // sondages: responseJson,
+        });
+        var a = responseJson;
+        var myJSONCadeaux = {
+          cadeaux: []
+        };
+        var myJSONReductions = {
+          reductions: []
+        };
+        var countCadeaux=0;
+        var countReductions=0;
+        a.map(function(item) {        
+          if(item.cadeaux_type==1){
+            countCadeaux++;
+            myJSONCadeaux.cadeaux.push(
+              item
+            );
+          }
+          else if(item.cadeaux_type==2){
+            countReductions++;
+            myJSONReductions.reductions.push(
+              item
+            );
+          }
+        });
+        
+        console.log(typeof myJSONReductions);
+        this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
+        this.props.dispatch(updateAvailablesCadeaux({
+            listCadeaux: myJSONCadeaux,
+        }));
+        this.props.dispatch(updateAvailablesReductions({
+            listReductions: myJSONReductions,
+        }));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    /*var a = this.state.contentMap.sondages;
 
     var myJSONCadeaux = {
       cadeaux: []
@@ -59,7 +104,7 @@ class CadeauxPage extends Component {
 
     this.props.dispatch(updateAvailablesReductions({
         listReductions: myJSONReductions,
-    }));
+    }));*/
 
   }
 
@@ -92,7 +137,7 @@ class CadeauxPage extends Component {
           <ReducPreview countReductions={this.state.countReductions}/>
         </View>
         <View style={{flex: 1, backgroundColor: 'orange'}}>
-          <Text style={{color: 'white', fontSize: 20}}>165 Points</Text>
+          <Text style={{color: 'white', fontSize: 20}}>{this.props.userData[0].points} Points</Text>
         </View>
       </View>
       
