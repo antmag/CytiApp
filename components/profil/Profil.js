@@ -14,10 +14,10 @@ class Profil extends Component {
   render() {
 
 
-        const data = [ 50, 10, 40, 95, 85, 91, 35, 53, 24, 50]
+        const data = [ 50, 10, 40, 95]
+        const index = ["beauty", "sport" , "shopping" , "mode"]
 
         const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
-
         const pieData = data
             .map((value, index) => ({
                 value,
@@ -38,13 +38,14 @@ class Profil extends Component {
             />
 	      		</View>
 	      		<View style={{ flex: 1 }}>
-              <CompletedSurveys/>
+
+
 	   			</View>
       		</View>
   			<Title style={{alignItems: 'center'}}>Tes Badges</Title>
 	    	<View style={{ flex: 1 , flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 	      		<View style={{ flex: 1}}>
-
+              <CompletedSurveys/>
 	      		</View>
 	      		<View style={{ flex: 1 }}>
 	        		<Text>BONJOUR</Text>
