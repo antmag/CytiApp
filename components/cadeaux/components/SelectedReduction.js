@@ -13,8 +13,13 @@ class SelectedReduction extends Component {
     
     constructor(props){
         super(props);
+        this.removePoints=this.removePoints.bind(this);
+
     }
 
+    removePoints(){
+      console.log("la");
+    }
     render() {
 
         return (
@@ -73,7 +78,7 @@ class SelectedReduction extends Component {
                     <View style={{ flex: 3 }}>
                       <View styleName="horizontal flexible">
                           <Button styleName="full-width" onPress={() => {
-                                this.popupDialog.dismiss();
+                                this.removePoints();
                             }}
                           >
                             <Text>YES</Text>

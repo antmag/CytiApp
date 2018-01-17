@@ -9,22 +9,53 @@ class Profil extends Component {
  
   constructor(props){
     super(props);
+    this.getAllThemes=this.getAllThemes.bind(this);
+    this.changeSizeText=this.changeSizeText.bind(this);
+
   }
 
+  getAllThemes(data, themes, colors){
+    let array_render=[];
+    var maMap=data;
+    var theme=themes;
+    var color=colors;
+    Object.keys(data).forEach(function(k, v){
+        console.log(maMap[k]);
+        array_render.push(
+            <Text style={{color: color[k]}} key={theme[k]}>{theme[k]} : {maMap[k]} sondages complétés</Text>
+        );
+    });
+    return array_render;
+  }
+
+  changeSizeText(data,themes,colors){
+    let array_render=[];
+    var maMap=data;
+    var theme=themes;
+    var color=colors;
+    Object.keys(data).forEach(function(k, v){
+        console.log(maMap[k]);
+        array_render.push(
+            <Text key={theme[k]}>{theme[k]} : {maMap[k]} sondages complétés</Text>
+        );
+    });
+    return array_render;
+ }
+
   render() {
-
-
-        const data = [ 50, 10, 40, 95]
-        const index = ["beauty", "sport" , "shopping" , "mode"]
-
-        const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
+        const data = [ 3, 2, 0, 7];
+        const index = ["beauty", "sport" , "shopping" , "mode"];
+        const colors = ["#262e45", "#ff9800" , "#7db9b3" , "#f2bcfb"];
+        const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7);
         const pieData = data
             .map((value, index) => ({
                 value,
-                color: randomColor(),
+                color: colors[index],
                 key: `pie-${index}`,
-                onPress: () => console.log(`${index} ${value} slice pressed`),
-            }))
+                onPress: () => {},
+            }));
+
+        const display_caption= this.getAllThemes(data,index,colors);
 
     return (
 
@@ -35,12 +66,12 @@ class Profil extends Component {
             <PieChart
                 style={ { height: 200 } }
                 data={ pieData }
+                colors={ colors }
             />
 	      		</View>
 	      		<View style={{ flex: 1 }}>
-
-
-	   			</View>
+            {display_caption}
+	   			  </View>
       		</View>
   			<Title style={{alignItems: 'center'}}>Tes Badges</Title>
 	    	<View style={{ flex: 1 , flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -48,7 +79,7 @@ class Profil extends Component {
               <CompletedSurveys/>
 	      		</View>
 	      		<View style={{ flex: 1 }}>
-	        		<Text>BONJOUR</Text>
+	        		<Text>Development Progress</Text>
 	   			</View>
       		</View>
 	    </View>  

@@ -90,7 +90,7 @@ class CompletedSurveysList extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.props.reductionReducer.listReductions.reductions}
+                    data={this.props.userData[0].surveys}
                     renderRow={this.renderRow}
                   />
                 </View>
@@ -104,7 +104,7 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         reductionReducer : state.reductionReducer.listReductions,
-
+        userData : state.profilReducer.connected,
     }
 }
 

@@ -69,8 +69,8 @@
 		F9431A7F50134224A68D22F1 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB24BAA8F6284669A8CD3A94 /* libRNVectorIcons.a */; };
 		FA5780CDB3BC47C8AF285E76 /* libLottie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCEE278B99A48F38937A373 /* libLottie.a */; };
 		639EF48569D24BA089691632 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B66D8BF119C4F20ACF6AA21 /* libRCTFBSDK.a */; };
-		9544C876A21A41CB873A6888 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6BB68E43A744FB86003F4B /* libRNSVG.a */; };
-		6B4F1894248A4F94B8C78EBD /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C1342645FC4301ABC06F4D /* libRNSVG-tvOS.a */; };
+		79945E9BC44D4FD1BDFF8BD6 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35192E3117914E8AA839122D /* libRNSVG.a */; };
+		C83FF9E8FEFA4919862B2E62 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0EBCFE4C994F468139ECE8 /* libRNSVG-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -457,9 +457,9 @@
 		FD7056B1CE5A448E968299EA /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-MediumItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-MediumItalic.ttf"; sourceTree = "<group>"; };
 		92A4A36C96144315B08C5B08 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDK.xcodeproj"; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1B66D8BF119C4F20ACF6AA21 /* libRCTFBSDK.a */ = {isa = PBXFileReference; name = "libRCTFBSDK.a"; path = "libRCTFBSDK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		E668956DC126487F8817A735 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		AF6BB68E43A744FB86003F4B /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		56C1342645FC4301ABC06F4D /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		075E0E9C6CCF4E09BFDABC3D /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		35192E3117914E8AA839122D /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		9E0EBCFE4C994F468139ECE8 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -499,8 +499,8 @@
 				FA5780CDB3BC47C8AF285E76 /* libLottie.a in Frameworks */,
 				3B8C82A90A884457A5932FA6 /* libLottieReactNative.a in Frameworks */,
 				639EF48569D24BA089691632 /* libRCTFBSDK.a in Frameworks */,
-				9544C876A21A41CB873A6888 /* libRNSVG.a in Frameworks */,
-				6B4F1894248A4F94B8C78EBD /* libRNSVG-tvOS.a in Frameworks */,
+				79945E9BC44D4FD1BDFF8BD6 /* libRNSVG.a in Frameworks */,
+				C83FF9E8FEFA4919862B2E62 /* libRNSVG-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,7 +712,7 @@
 				73078490E4D148AEBDE56E40 /* Lottie.xcodeproj */,
 				BCB6E66FCEB34086BCD43D02 /* LottieReactNative.xcodeproj */,
 				92A4A36C96144315B08C5B08 /* RCTFBSDK.xcodeproj */,
-				E668956DC126487F8817A735 /* RNSVG.xcodeproj */,
+				075E0E9C6CCF4E09BFDABC3D /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1516,7 +1516,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1549,7 +1548,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1662,7 +1660,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1706,7 +1703,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1737,7 +1733,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CytiApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1762,7 +1757,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
