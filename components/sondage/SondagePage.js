@@ -32,7 +32,7 @@ class SondagePage extends Component {
   render() {
     
     return (
-        <View style={{ flex: 1 }}>
+        <View>
             <DropDownMenu
               styleName="horizontal"
               options={this.state.filters}
@@ -41,9 +41,7 @@ class SondagePage extends Component {
               titleProperty="title"
               valueProperty="value"
             />
-            <View style={{ flex: 6 }}>
-              <SondageList />
-            </View>  
+            <SondageList />
         </View>
     );
   }
