@@ -13,10 +13,12 @@ class SondageList extends Component {
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
+    this.refreshSurveyList = this.refreshSurveyList.bind(this);
 
     //TODO: Récuperer la vraie liste des sondages par appel au serveur
     this.state = {
       isLoading: true,
+      refresh: true,
       sondages : [
         {
         "id_survey": 0,
@@ -89,20 +91,26 @@ class SondageList extends Component {
 
     this.animation.play();
 
-    //TODO: Replace adress with the serveur
-    return fetch('https://facebook.github.io/react-native/movies.json')
-    // return fetch('http://195.154.107.158:1337/app')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          //TODO: Décommenter la ligne
-          // sondages: responseJson,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
+    this.refreshSurveyList();
+  }
+
+  refreshSurveyList(){
+    
+    this.setState({isLoading : true});
+    // this.animation.play();
+    
+    fetch('http://195.154.107.158:1337/app')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        isLoading: false,
+        sondages: responseJson,
       });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    // this.setState({isLoading : false});
   }
 
   render() {
@@ -128,8 +136,10 @@ class SondageList extends Component {
     return (
       <View>
           <ListView
+            ref = {(list) => this.list = list}
             data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
-            renderRow={this.renderRow}
+            renderRow = { this.renderRow }
+            onRefresh = { this.refreshSurveyList }
           />
       </View>
     );
