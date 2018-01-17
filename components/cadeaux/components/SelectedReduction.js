@@ -13,8 +13,14 @@ class SelectedReduction extends Component {
     
     constructor(props){
         super(props);
+        this.removePoints=this.removePoints.bind(this);
+
     }
 
+    removePoints(){
+        console.log("la");
+
+    }
     render() {
 
         return (
@@ -73,7 +79,7 @@ class SelectedReduction extends Component {
                     <View style={{ flex: 3 }}>
                       <View styleName="horizontal flexible">
                           <Button styleName="full-width" onPress={() => {
-                                this.popupDialog.dismiss();
+                                this.removePoints();
                             }}
                           >
                             <Text>YES</Text>
@@ -88,7 +94,6 @@ class SelectedReduction extends Component {
                     </View>
                 </PopupDialog>
             </Screen>  
-
         );
     }
 }
@@ -97,6 +102,7 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         selectedReduction: state.reductionReducer.reduction,
+        userData : state.profilReducer.connected,
     }
 }
 
