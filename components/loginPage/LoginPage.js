@@ -140,7 +140,6 @@ class LoginPage extends Component {
           styleName="large"
           style={{
             position:'absolute',
-            zIndex:-1,
             opacity: 0.5,
             height: height*1.1,
           }}

@@ -40,7 +40,6 @@ export default class ReponseUnique extends Component {
         return(
             <Button styleName="full-width" onPress={() => {
                 this.props.addAnswer(this.props.id, reponse._id);
-                // reponse.selected = true;
                 this.props.next();
             }}>
                 <Text>{reponse.txt}</Text>
@@ -50,6 +49,7 @@ export default class ReponseUnique extends Component {
 
     render(){
 
+        console.log(this.props.reponses);
         return (
             <View style={{flex:1}} styleName="v-center">
                 <ListView

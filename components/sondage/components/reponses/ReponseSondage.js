@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native'; 
 
-import { Screen, NavigationBar, Title, Card, View, Divider, Button, Text, Icon, Heading } from '@shoutem/ui';
+import { Screen, NavigationBar, Title, Card, View, Divider, Button, Text, Icon, Heading, Image } from '@shoutem/ui';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import ReponseOuiNon from './ReponseOuiNon';
@@ -12,11 +12,6 @@ import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
 
 import anim from '../../../../assets/animations/loader.json';
-
-// Types de questions possibles:
-// Yes-no
-// Choix multiple parmis liste
-// Choix unique parmis liste 
 
 const { width, height } = Dimensions.get('window');
 let _carousel;
@@ -30,74 +25,74 @@ class ReponseSondage extends Component {
             activeSlide : 0,
             reponses : [],
             questions: [
-                {
-                  "_id" : "0",
-                  "position" : 0,
-                  "txt" : "Te maquilles tu régulièrement ?",
-                  "question_type" : "YesNo",
-                  "mandatory" : true,
-                  "answers" : []
-                },
-                {
-                  "_id" : "1",
-                  "position": 1,
-                  "txt" : "Comment réveiller des yeux fatigués ?",
-                  "question_type" : "unique",
-                  "mandatory" : true,
-                  "answers" : [
-                    {
-                      "_id" : "0",
-                      "id_answer" : "0",
-                      "position": "0",
-                      "txt" : "La solution make-up"
-                    },
-                    {
-                      "_id" : "1",
-                      "id_answer" : "1",
-                      "position": "1",
-                      "txt" : "La solution médicale"
-                    }
-                  ]
-                },
-                {
-                  "_id" : "2",
-                  "position": 2,
-                  "txt" : "Qu'est ce qui est important pour toi ?",
-                  "question_type" : "multiple",
-                  "mandatory" : false,
-                  "answers" : [
-                    {
-                      "_id" : "0",
-                      "id_answer" : "0",
-                      "position": "0",
-                      "txt" : "Le nez"
-                    },
-                    {
-                      "_id" : "1",
-                      "id_answer" : "1",
-                      "position": "1",
-                      "txt" : "La bouche"
-                    },
-                    {
-                      "_id" : "2",
-                      "id_answer" : "2",
-                      "position": "2",
-                      "txt" : "Les yeux"
-                    },
-                    {
-                      "_id" : "3",
-                      "id_answer" : "3",
-                      "position": "3",
-                      "txt" : "Le teint"
-                    },
-                    {
-                      "_id" : "4",
-                      "id_answer" : "4",
-                      "position": "4",
-                      "txt" : "Les cheveux"
-                    }
-                  ]
-                }
+                // {
+                //   "_id" : "0",
+                //   "position" : 0,
+                //   "txt" : "Te maquilles tu régulièrement ?",
+                //   "question_type" : "YesNo",
+                //   "mandatory" : true,
+                //   "answers" : []
+                // },
+                // {
+                //   "_id" : "1",
+                //   "position": 1,
+                //   "txt" : "Comment réveiller des yeux fatigués ?",
+                //   "question_type" : "unique",
+                //   "mandatory" : true,
+                //   "answers" : [
+                //     {
+                //       "_id" : "0",
+                //       "id_answer" : "0",
+                //       "position": "0",
+                //       "txt" : "La solution make-up"
+                //     },
+                //     {
+                //       "_id" : "1",
+                //       "id_answer" : "1",
+                //       "position": "1",
+                //       "txt" : "La solution médicale"
+                //     }
+                //   ]
+                // },
+                // {
+                //   "_id" : "2",
+                //   "position": 2,
+                //   "txt" : "Qu'est ce qui est important pour toi ?",
+                //   "question_type" : "multiple",
+                //   "mandatory" : false,
+                //   "answers" : [
+                //     {
+                //       "_id" : "0",
+                //       "id_answer" : "0",
+                //       "position": "0",
+                //       "txt" : "Le nez"
+                //     },
+                //     {
+                //       "_id" : "1",
+                //       "id_answer" : "1",
+                //       "position": "1",
+                //       "txt" : "La bouche"
+                //     },
+                //     {
+                //       "_id" : "2",
+                //       "id_answer" : "2",
+                //       "position": "2",
+                //       "txt" : "Les yeux"
+                //     },
+                //     {
+                //       "_id" : "3",
+                //       "id_answer" : "3",
+                //       "position": "3",
+                //       "txt" : "Le teint"
+                //     },
+                //     {
+                //       "_id" : "4",
+                //       "id_answer" : "4",
+                //       "position": "4",
+                //       "txt" : "Les cheveux"
+                //     }
+                //   ]
+                // }
               ]
         };
         this._renderItem = this._renderItem.bind(this);
@@ -109,14 +104,17 @@ class ReponseSondage extends Component {
     sendUniqueAnswer(id, reponse){
       let reponseJson = JSON.stringify({
         "id_contact": this.props.user.profile.id,
-        // "id_survey": this.props.sondage.id,
         "id_question": id,
         "id_reponse": [reponse]
       }); 
-      // fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
-      //   method: 'POST',
-      //   body: reponseJson
-      // });
+      fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: reponseJson
+      });
       console.log(reponseJson);
     }
 
@@ -142,34 +140,37 @@ class ReponseSondage extends Component {
 
       let reponseJson = JSON.stringify({
         "id_contact": this.props.user.profile.id,
-        // "id_survey": this.props.sondage.id,
         "id_question": id,
         "id_reponse": this.state.reponses[id]
       }); 
-      // fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
-      //   method: 'POST',
-      //   body: reponseJson
-      // });
+      fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: reponseJson
+      });
       console.log(reponseJson);
     }
 
     _renderItem ({item, index}) {
       
       let template;
-      if(item.question_type === 'YesNo')
+      if(item.type === 'YesNo')
         template = (<ReponseOuiNon 
                       id = { item._id }
                       next = { () => _carousel.snapToNext()}
                       addAnswer = { this.sendUniqueAnswer }
                     />);
-      else if (item.question_type === 'unique')
+      else if (item.type === 'unique')
         template = (<ReponseUnique 
                       id = { item._id }
                       next = { () => _carousel.snapToNext()} 
                       reponses = { item.answers }
                       addAnswer = { this.sendUniqueAnswer }
                     />);
-      else if (item.question_type === 'multiple')
+      else if (item.type === 'multiple')
         template = (<ReponseMultiple 
                       id = { item._id }
                       next={ () => _carousel.snapToNext()} 
@@ -179,7 +180,7 @@ class ReponseSondage extends Component {
                     />);
 
       return (
-          <Card style={{width : width * 0.85, flex : 1, marginTop : 50, marginBottom : 50}}>
+          <Card style={{width : width * 0.85, flex : 1, marginTop : 30, marginBottom : 0}}>
             <View styleName="content">
               <Title styleName="md-gutter-bottom h-center">{item.txt}</Title>
               <Divider styleName="line" />
@@ -192,17 +193,15 @@ class ReponseSondage extends Component {
     componentDidMount() {
       
       this.animation.play();
-      console.log('Je passe ici: ' + this.props.sondage.id);
-      //TODO: Replace adress with the serveur
-      return fetch('https://facebook.github.io/react-native/movies.json')
-      // return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id, { method: 'GET'})
+
+      return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
             isLoading: false,
-            //TODO: Décommenter la ligne
-            // questions: responseJson,
+            questions: responseJson,
           });
+          console.log(this.state.questions);
         })
         .catch((error) => {
           console.error(error);
@@ -214,6 +213,17 @@ class ReponseSondage extends Component {
       if(this.state.isLoading){
         return(
           <Screen>
+
+            <Image
+              styleName="large"
+              style={{
+                position:'absolute',
+                opacity: 0,
+                height: height*1.1,
+              }}
+              source={require('../../../../assets/images/surveyBackground.jpg')}
+            />
+
             <NavigationBar
                 styleName="inline"
                 hasHistory
@@ -246,6 +256,17 @@ class ReponseSondage extends Component {
 
       return(
           <Screen>
+
+            <Image
+              styleName="large"
+              style={{
+                position:'absolute',
+                opacity: 0,
+                height: height*1.1,
+              }}
+              source={require('../../../../assets/images/surveyBackground.jpg')}
+            />
+
               <NavigationBar
                   styleName="inline"
                   hasHistory
@@ -277,6 +298,14 @@ class ReponseSondage extends Component {
                 dotsLength = { this.state.questions.length }
                 tappableDots = { true }
               />
+
+              <Button 
+                styleName="secondary md-gutter-bottom" 
+                style={{width:width * 0.85, marginLeft:'auto', marginRight:'auto'}}
+                onPress = { () => {} }
+              >
+                <Text>Terminer le sondage</Text>
+              </Button>
           </Screen>  
         );
     }
