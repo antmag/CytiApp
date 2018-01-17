@@ -33,7 +33,6 @@ class CadeauxPage extends Component {
           // sondages: responseJson,
         });
         var a = responseJson;
-        console.log("MYJSSSSSSOOOONNN"+a);
         var myJSONCadeaux = {
           cadeaux: []
         };

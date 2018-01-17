@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import { Screen, NavigationBar, Caption, View, ListView, Heading,Button, Icon, Title, Subtitle, Tile, Text, Image , TouchableOpacity} from '@shoutem/ui';
 import PopupDialog, { SlideAnimation, DialogTitle } from 'react-native-popup-dialog';
- 
+import {setConnectedUser} from '../../../actions'
+
 const slideAnimation = new SlideAnimation({
   slideFrom: 'bottom',
 });
@@ -13,7 +14,29 @@ class SelectedCadeau extends Component {
     
     constructor(props){
         super(props);
+        this.removePoints=this.removePoints.bind(this);
+
     }
+
+
+    removePoints(points){
+
+      var cloneOfA = JSON.parse(JSON.stringify(this.props.userData));
+      var newPoints = Number(this.props.userData[0].points) - Number(points);
+      cloneOfA[0]={};
+      cloneOfA[0]._id=this.props.userData[0]._id;
+      cloneOfA[0].id_facebook=this.props.userData[0].id_facebook;
+      cloneOfA[0].username=this.props.userData[0].username;
+      cloneOfA[0].login=this.props.userData[0].login;
+      cloneOfA[0].mdp=this.props.userData[0].mdp;
+      cloneOfA[0].owner=this.props.userData[0].owner;
+      cloneOfA[0].points=newPoints;
+      cloneOfA[0].url_fb_picture=this.props.userData[0].url_fb_picture;
+      cloneOfA[0].surveys=this.props.userData[0].surveys;
+      console.log(cloneOfA);
+      console.log(this.props.userData[0]);
+      this.props.dispatch(setConnectedUser(cloneOfA));
+}
 
     render() {
 
@@ -73,6 +96,7 @@ class SelectedCadeau extends Component {
                     <View style={{ flex: 3 }}>
                       <View styleName="horizontal flexible">
                           <Button styleName="full-width" onPress={() => {
+                                this.removePoints(this.props.selectedCadeau.points);
                                 this.popupDialog.dismiss();
                             }}
                           >
@@ -97,7 +121,8 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         selectedCadeau: state.cadeauReducer.cadeau,
-    
+        userData : state.profilReducer.connected,
+     
     }
 }
 
