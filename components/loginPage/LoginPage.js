@@ -102,6 +102,7 @@ class LoginPage extends Component {
           break;
       }
     })
+    
     .catch((error) => {
       this.setState({
         username: '',
@@ -119,10 +120,22 @@ class LoginPage extends Component {
 
   logInFacebook(){
     let _this = this;
-    FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, data){
+    FBLoginManager.loginWithPermissions(["email","user_friends","public_profile"], function(error, data){
       if (!error) {
-        _this.props.dispatch(setConnectedUser(data));
-        _this.props.navigation.navigate('Homepage');
+        console.log(data);
+        return fetch('http://195.154.107.158:1337/profil/'+JSON.parse(data.profile).id+'?username='+JSON.parse(data.profile).first_name+'&url='+"https://graph.facebook.com/"+JSON.parse(data.profile).id+"/picture?type=large")
+          .then((response) => response.json())
+          .then((responseJson) => {
+            
+             _this.props.dispatch(setConnectedUser(responseJson));
+             _this.props.navigation.navigate('Homepage');
+
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        
+
       } else {
         console.log("Error: ", error);
       }
@@ -133,7 +146,7 @@ class LoginPage extends Component {
 
     const resizeMode = 'contain';
     
-    return (
+    return ( 
       <Screen styleName="full-screen">
 
         <Image
