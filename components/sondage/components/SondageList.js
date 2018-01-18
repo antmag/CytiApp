@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { ListView, View, Text, Spinner } from '@shoutem/ui';
 import Animation from 'lottie-react-native';
 
 import SondagePreview from './SondagePreview';
 
 import anim from '../../../assets/animations/loader.json';
+
+const { height, width } = Dimensions.get('window');
 
 class SondageList extends Component {
 
@@ -46,7 +48,16 @@ class SondageList extends Component {
     
     this.setState({isLoading : true});
     
-    fetch('http://195.154.107.158:1337/app')
+    fetch('http://195.154.107.158:1337/app',{
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        "id_user" : this.props.user[0]._id
+      })
+    })
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({
@@ -86,7 +97,7 @@ class SondageList extends Component {
             renderRow = { this.renderRow }
             onRefresh = { this.refreshSurveyList }
             style={{
-              listContent : { backgroundColor:'transparent' }
+              listContent : { backgroundColor:'transparent', paddingBottom:90}
             }}
           />
       </View>
@@ -98,15 +109,9 @@ class SondageList extends Component {
 const mapStateToProps = (state, ownProps) => {
   return{
     filter : state.filterReducer.selectedFilter,
+    user: state.profilReducer.connected
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-});
 
 export default connect(mapStateToProps)(SondageList);
 

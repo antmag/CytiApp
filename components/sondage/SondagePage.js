@@ -32,17 +32,15 @@ class SondagePage extends Component {
   render() {
     
     return (
-        <View style={{flex : 1}}>
+        <View>
             <DropDownMenu
-              styleName="horizontal"
               options={this.state.filters}
               selectedOption={this.state.selectedFilter ? this.state.selectedFilter : this.state.filters[0]}
               onOptionSelected={(filter) => {this.setNewFilter(filter)}}
               titleProperty="title"
               valueProperty="value"
-              style={{marginBottom:5}}
+              style={{marginLeft:5, MarginRight:5}}
             />
-            <Divider styleName="line"/>
             <SondageList />
         </View>
     );

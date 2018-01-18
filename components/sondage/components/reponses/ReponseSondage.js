@@ -156,6 +156,7 @@ class ReponseSondage extends Component {
             />
 
             <NavigationBar
+                style={{elevation:4}}
                 styleName="inline"
                 hasHistory
                 centerComponent={
@@ -187,18 +188,8 @@ class ReponseSondage extends Component {
 
       return(
           <Screen>
-
-            <Image
-              styleName="large"
-              style={{
-                position:'absolute',
-                opacity: 0,
-                height: height*1.1,
-              }}
-              source={require('../../../../assets/images/surveyBackground.jpg')}
-            />
-
               <NavigationBar
+                  style={{elevation:4}}
                   styleName="inline"
                   hasHistory
                   centerComponent={
@@ -241,9 +232,11 @@ class ReponseSondage extends Component {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                      "id_user" : this.props.user._id
+                      "id_user" : this.props.user[0]._id
                     })
                   });
+                  const navigateBack = NavigationActions.back()
+                  this.props.navigation.dispatch(navigateBack);
                 } }
               >
                 <Text>Terminer le sondage</Text>

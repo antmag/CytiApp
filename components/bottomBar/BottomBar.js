@@ -82,8 +82,8 @@ const BottomBar = TabNavigator({
         display: 'none',
       },
       style: {
-        shadowOffset: {width:0,heigth:100},
-        backgroundColor: 'white',
+        backgroundColor : 'transparent',
+        elevation : 2,
       }
     },
 });

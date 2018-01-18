@@ -21,22 +21,27 @@ class SondagePreview extends Component {
     render() {
 
         return (
-            // <TouchableOpacity
-            //     style={{margin:5}}
-            //     onPress={() => {
-            //         const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
-            //         this.props.navigation.dispatch(navigate);
-            //         this.props.dispatch(updateSelectedSondage({
-            //             id: this.props.id,
-            //             title: this.props.title,
-            //             description: this.props.description,
-            //             image: this.props.image,
-            //             duree: this.props.duree,
-            //         }));
-            //     }}
-            // >
-            <View style={{margin:5, backgroundColor:'transparent'}}>
+            <TouchableOpacity
+                style={{width:'99%', backgroundColor:'transparent'}}
+                onPress={() => {
+                    const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
+                    this.props.navigation.dispatch(navigate);
+                    this.props.dispatch(updateSelectedSondage({
+                        id: this.props.id,
+                        title: this.props.title,
+                        description: this.props.description,
+                        image: this.props.image,
+                        duree: this.props.duree,
+                    }));
+                }}
+            >
                 <Image
+                    style={{
+                        backgroundColor:'white',
+                        // width:'99%',
+                        margin : 5,
+                        elevation : 2
+                    }}
                     styleName="large-banner"
                     source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
                 >
@@ -45,8 +50,7 @@ class SondagePreview extends Component {
                         <Caption styleName="sm-gutter-horizontal">{this.state.description}</Caption>
                     </Tile>
                 </Image>
-            </View>    
-            // </TouchableOpacity>    
+            </TouchableOpacity>    
         );
     }
 }
