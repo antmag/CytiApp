@@ -25,7 +25,7 @@ class PhysiqueCadeaux extends Component {
       <CadeauxElement 
           title={cadeau.title}
           points={cadeau.points}
-          image={cadeau.image}
+          image={cadeau.url}
           description={cadeau.description}
       />
     );

@@ -25,10 +25,11 @@ class ReductionCadeaux extends Component {
       <ReductionElement 
           title={reduction.title}
           points={reduction.points}
-          image={reduction.image}
+          image={reduction.url}
           description={reduction.description}
       />
     );
+
   }
 
   componentDidMount() {
@@ -104,6 +105,7 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         reductionReducer : state.reductionReducer.listReductions,
+      userData : state.profilReducer.connected,
 
     }
 }

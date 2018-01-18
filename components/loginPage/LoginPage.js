@@ -120,10 +120,10 @@ class LoginPage extends Component {
 
   logInFacebook(){
     let _this = this;
-    FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, data){
+    FBLoginManager.loginWithPermissions(["email","user_friends","public_profile"], function(error, data){
       if (!error) {
         console.log(data);
-        return fetch('http://195.154.107.158:1337/profil/'+JSON.parse(data.profile).id+'?username='+JSON.parse(data.profile).first_name+'&url='+JSON.parse(data.profile).picture.data.url)
+        return fetch('http://195.154.107.158:1337/profil/'+JSON.parse(data.profile).id+'?username='+JSON.parse(data.profile).first_name+'&url='+"https://graph.facebook.com/"+JSON.parse(data.profile).id+"/picture?type=large")
           .then((response) => response.json())
           .then((responseJson) => {
             
@@ -153,7 +153,6 @@ class LoginPage extends Component {
           styleName="large"
           style={{
             position:'absolute',
-            zIndex:-1,
             opacity: 0.5,
             height: height*1.1,
           }}
@@ -165,7 +164,12 @@ class LoginPage extends Component {
           <Caption>Capitalise Your Time</Caption>
         </View>
         <View styleName="vertical h-center">
-          <Row style={{width:'90%'}} styleName="small">
+          <Row style={{
+              width:'90%',
+              elevation : 2
+            }}
+            styleName="small"
+          >
             <Icon name="friends" />
             <TextInput
               style={{flex:1}}
@@ -177,7 +181,12 @@ class LoginPage extends Component {
 
           <Divider />
 
-          <Row style={{width:'90%'}} styleName="small">
+          <Row style={{
+              width:'90%',
+              elevation : 2
+            }} 
+            styleName="small"
+          >
             <Icon name="lock" />
             <TextInput
               style={{flex:1}}
@@ -191,8 +200,11 @@ class LoginPage extends Component {
           <Divider />
 
           <Button 
+            style = {{
+              width:'90%',
+              elevation : 2
+            }}
             styleName = "secondary" 
-            style = {{width:'90%'}}
             onPress = { this.logIn }
           >
             <Text>LOGIN</Text>
