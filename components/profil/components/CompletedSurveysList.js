@@ -93,7 +93,7 @@ class CompletedSurveysList extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.props.completedSurveysReducer.completedSurveys.surveys}
+                    data={this.props.completedSurveysReducer.completedSurveys}
                     renderRow={this.renderRow}
                   />
                 </View>

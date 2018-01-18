@@ -19,7 +19,7 @@ class CompletedSurveys extends Component {
                 }}
           >
           <View style={{}}>
-           <Text>completed surveys</Text>
+           <Text>{this.props.completedSurveysReducer.totalCompletedSurveys} completed surveys</Text>
            <Icon name="plus-button"/>
           </View>
         </TouchableOpacity>
@@ -32,6 +32,7 @@ class CompletedSurveys extends Component {
 const mapStateToProps = (state, ownProps) => {
     return{
       navigation : state.navigationReducer.navigator,
+      completedSurveysReducer : state.profilReducer.completedSurveys,
     }
   }
 

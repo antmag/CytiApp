@@ -51,7 +51,13 @@ componentDidMount() {
         });
         console.log(responseJson.beauty);
         this.props.dispatch(updateCompletedSurveys({
-            completedSurveys: responseJson,
+            completedSurveys: responseJson.surveys,
+            totalCompletedSurveys: responseJson.total,
+            modeCompletedSurveys: responseJson.mode,
+            shoppingCompletedSurveys: responseJson.shopping,
+            sportCompletedSurveys: responseJson.sport,
+            beautyCompletedSurveys: responseJson.beauty,
+
         }));
 
       })
@@ -61,8 +67,14 @@ componentDidMount() {
 }
 
   render() {
-    console.log(this.props.completedSurveysReducer.surveys);
-        const data = [ 3, 2, 0, 7];
+        console.log(this.props.completedSurveysReducer.totalCompletedSurveys);
+        const data = [ 
+                        this.props.completedSurveysReducer.beautyCompletedSurveys,
+                        this.props.completedSurveysReducer.sportCompletedSurveys,
+                        this.props.completedSurveysReducer.shoppingCompletedSurveys,
+                        this.props.completedSurveysReducer.modeCompletedSurveys,
+                    ];
+
         const index = ["beauty", "sport" , "shopping" , "mode"];
         const colors = ["#262e45", "#ff9800" , "#7db9b3" , "#f2bcfb"];
         const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7);
