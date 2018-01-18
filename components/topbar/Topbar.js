@@ -7,20 +7,23 @@ import {setConnectedUser} from '../../actions';
 
 class Topbar extends Component {
     render() {
-      console.log(this.props.userData[0].username);
       return (
           
         <NavigationBar
-          styleName="inline"
-          leftComponent={
-            <View styleName="vertical v-center">
-              <Heading>CYTi</Heading>
-              <Caption>Capitalize Your Time</Caption>
-            </View>
-          }
+          style={{
+            container : {elevation : 4}
+          }}
+          styleName="inline no-border"
+          //leftComponent={
+            // <View styleName="vertical v-center">
+            //   <Heading>CYTi</Heading>
+            //   <Caption>Capitalize Your Time</Caption>
+            // </View>
+          //}
           rightComponent={
             <View styleName="horizontal v-center">
               <Image
+                style={{marginRight:5}}
                 styleName="small-avatar"
                 source={{ uri: this.props.userData[0].url_fb_picture}}
               />

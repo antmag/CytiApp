@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Animated, Button } from 'react-native';
-import { DropDownMenu } from '@shoutem/ui';
+import { Dimensions } from 'react-native';
+import { DropDownMenu, View, Divider } from '@shoutem/ui';
 
 import Filter from './components/Filter';
 import SondageList from './components/SondageList';
@@ -32,18 +32,16 @@ class SondagePage extends Component {
   render() {
     
     return (
-        <View style={{ flex: 1 }}>
+        <View>
             <DropDownMenu
-              styleName="horizontal"
               options={this.state.filters}
               selectedOption={this.state.selectedFilter ? this.state.selectedFilter : this.state.filters[0]}
               onOptionSelected={(filter) => {this.setNewFilter(filter)}}
               titleProperty="title"
               valueProperty="value"
+              style={{marginLeft:5, MarginRight:5}}
             />
-            <View style={{ flex: 6 }}>
-              <SondageList />
-            </View>  
+            <SondageList />
         </View>
     );
   }

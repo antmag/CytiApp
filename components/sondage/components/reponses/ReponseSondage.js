@@ -24,76 +24,7 @@ class ReponseSondage extends Component {
             isLoading : true,
             activeSlide : 0,
             reponses : [],
-            questions: [
-                // {
-                //   "_id" : "0",
-                //   "position" : 0,
-                //   "txt" : "Te maquilles tu régulièrement ?",
-                //   "question_type" : "YesNo",
-                //   "mandatory" : true,
-                //   "answers" : []
-                // },
-                // {
-                //   "_id" : "1",
-                //   "position": 1,
-                //   "txt" : "Comment réveiller des yeux fatigués ?",
-                //   "question_type" : "unique",
-                //   "mandatory" : true,
-                //   "answers" : [
-                //     {
-                //       "_id" : "0",
-                //       "id_answer" : "0",
-                //       "position": "0",
-                //       "txt" : "La solution make-up"
-                //     },
-                //     {
-                //       "_id" : "1",
-                //       "id_answer" : "1",
-                //       "position": "1",
-                //       "txt" : "La solution médicale"
-                //     }
-                //   ]
-                // },
-                // {
-                //   "_id" : "2",
-                //   "position": 2,
-                //   "txt" : "Qu'est ce qui est important pour toi ?",
-                //   "question_type" : "multiple",
-                //   "mandatory" : false,
-                //   "answers" : [
-                //     {
-                //       "_id" : "0",
-                //       "id_answer" : "0",
-                //       "position": "0",
-                //       "txt" : "Le nez"
-                //     },
-                //     {
-                //       "_id" : "1",
-                //       "id_answer" : "1",
-                //       "position": "1",
-                //       "txt" : "La bouche"
-                //     },
-                //     {
-                //       "_id" : "2",
-                //       "id_answer" : "2",
-                //       "position": "2",
-                //       "txt" : "Les yeux"
-                //     },
-                //     {
-                //       "_id" : "3",
-                //       "id_answer" : "3",
-                //       "position": "3",
-                //       "txt" : "Le teint"
-                //     },
-                //     {
-                //       "_id" : "4",
-                //       "id_answer" : "4",
-                //       "position": "4",
-                //       "txt" : "Les cheveux"
-                //     }
-                //   ]
-                // }
-              ]
+            questions: []
         };
         this._renderItem = this._renderItem.bind(this);
         this.addMultipleAnswer = this.addMultipleAnswer.bind(this);
@@ -139,7 +70,7 @@ class ReponseSondage extends Component {
       if(this.state.reponses[id] === undefined) return;
 
       let reponseJson = JSON.stringify({
-        "id_contact": 124567,
+        "id_contact": this.props.user._id,
         "id_question": id,
         "id_reponse": this.state.reponses[id]
       }); 
@@ -151,7 +82,6 @@ class ReponseSondage extends Component {
         },
         body: reponseJson
       });
-      console.log(reponseJson);
     }
 
     _renderItem ({item, index}) {
@@ -195,6 +125,7 @@ class ReponseSondage extends Component {
       
       this.animation.play();
 
+      // Cherche les questions relatives au sondage
       return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)
         .then((response) => response.json())
         .then((responseJson) => {
@@ -202,7 +133,6 @@ class ReponseSondage extends Component {
             isLoading: false,
             questions: responseJson,
           });
-          console.log(this.state.questions);
         })
         .catch((error) => {
           console.error(error);
@@ -226,6 +156,7 @@ class ReponseSondage extends Component {
             />
 
             <NavigationBar
+                style={{elevation:4}}
                 styleName="inline"
                 hasHistory
                 centerComponent={
@@ -257,18 +188,8 @@ class ReponseSondage extends Component {
 
       return(
           <Screen>
-
-            <Image
-              styleName="large"
-              style={{
-                position:'absolute',
-                opacity: 0,
-                height: height*1.1,
-              }}
-              source={require('../../../../assets/images/surveyBackground.jpg')}
-            />
-
               <NavigationBar
+                  style={{elevation:4}}
                   styleName="inline"
                   hasHistory
                   centerComponent={
@@ -303,7 +224,20 @@ class ReponseSondage extends Component {
               <Button 
                 styleName="secondary md-gutter-bottom" 
                 style={{width:width * 0.85, marginLeft:'auto', marginRight:'auto'}}
-                onPress = { () => {} }
+                onPress = { () => {
+                  fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/finish',{
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      "id_user" : this.props.user[0]._id
+                    })
+                  });
+                  const navigateBack = NavigationActions.back()
+                  this.props.navigation.dispatch(navigateBack);
+                } }
               >
                 <Text>Terminer le sondage</Text>
               </Button>
