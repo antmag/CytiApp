@@ -4,8 +4,7 @@ import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image
 import CadeauxPreview from './components/CadeauxPreview';
 import ReducPreview from './components/ReducPreview';
 import * as contentMapTmp from './components/sondages.json';
-import {updateAvailablesCadeaux} from '../../actions';
-import {updateAvailablesReductions} from '../../actions';
+import {updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux} from '../../actions';
 
 
 class CadeauxPage extends Component {
@@ -15,8 +14,6 @@ class CadeauxPage extends Component {
     this.state = {
       isLoading: true,
       contentMap:contentMapTmp,
-      countCadeaux : 0,
-      countReductions :0,
     }
   }
 
@@ -57,21 +54,24 @@ class CadeauxPage extends Component {
         });
         
         console.log(typeof myJSONReductions);
-        this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
         this.props.dispatch(updateAvailablesCadeaux({
             listCadeaux: myJSONCadeaux,
         }));
         this.props.dispatch(updateAvailablesReductions({
             listReductions: myJSONReductions,
         }));
+        this.props.dispatch(updateCounterReductions({
+              counterReductions: countReductions,
+        }));
+        this.props.dispatch(updateCounterCadeaux({
+              counterCadeaux: countCadeaux,
+        }));
       })
       .catch((error) => {
         console.error(error);
       });
-
-
-
   }
+
 
   render() {
 
@@ -96,10 +96,10 @@ class CadeauxPage extends Component {
       </View>*/
       <View style={{ flex: 1 , flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
         <View style={{ flex: 2}}>
-          <CadeauxPreview countCadeaux={this.state.countCadeaux}/>
+          <CadeauxPreview countCadeaux={this.props.cadeauxReducer.counterCadeaux}/>
         </View>
         <View style={{ flex: 2}}>
-          <ReducPreview countReductions={this.state.countReductions}/>
+          <ReducPreview countReductions={this.props.reductionReducer.counterReductions}/>
         </View>
         <View style={{flex: 1, backgroundColor: 'orange'}}>
           <Text style={{color: 'white', fontSize: 20}}>{this.props.userData[0].points} Points</Text>
@@ -113,6 +113,9 @@ class CadeauxPage extends Component {
   const mapStateToProps = (state, ownProps) => {
     return{
       userData : state.profilReducer.connected,
+      reductionReducer : state.reductionReducer.counterReductions,
+      cadeauxReducer : state.cadeauReducer.counterCadeaux,
+
     }
   }
 

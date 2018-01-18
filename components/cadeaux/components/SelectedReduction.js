@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import { Screen, NavigationBar, Caption, View, ListView, Heading,Button, Icon, Title, Tile, Subtitle, Text, Image , TouchableOpacity} from '@shoutem/ui';
 import PopupDialog, { SlideAnimation, DialogTitle } from 'react-native-popup-dialog';
-import {setConnectedUser} from '../../../actions'
+import {setConnectedUser, updateAvailablesReductions, updateAvailablesCadeaux, updateCounterReductions, updateCounterCadeaux } from '../../../actions'
 const slideAnimation = new SlideAnimation({
   slideFrom: 'bottom',
 });
@@ -34,7 +34,61 @@ class SelectedReduction extends Component {
       console.log(cloneOfA);
       console.log(this.props.userData[0]);
       this.props.dispatch(setConnectedUser(cloneOfA));
-}
+      return fetch('http://195.154.107.158:1337/profil/removePoints/page?id='+this.props.userData[0]._id+"&points="+newPoints)
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                isLoading: false,
+                //TODO: Décommenter la ligne
+                // sondages: responseJson,
+              });
+              var a = responseJson;
+              var myJSONCadeaux = {
+                cadeaux: []
+              };
+              var myJSONReductions = {
+                reductions: []
+              };
+              var countCadeaux=0;
+              var countReductions=0;
+              a.map(function(item) {        
+                if(item.cadeaux_type==1){
+                  countCadeaux++;
+                  myJSONCadeaux.cadeaux.push(
+                    item
+                  );
+                }
+                else if(item.cadeaux_type==2){
+                  countReductions++;
+                  myJSONReductions.reductions.push(
+                    item
+                  );
+                }
+              });
+              
+              console.log(typeof myJSONReductions);
+              this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
+              this.props.dispatch(updateAvailablesCadeaux({
+                  listCadeaux: myJSONCadeaux,
+              }));
+              this.props.dispatch(updateAvailablesReductions({
+                  listReductions: myJSONReductions,
+              }));
+              this.props.dispatch(updateCounterReductions({
+                  counterReductions: countReductions,
+              }));
+              this.props.dispatch(updateCounterCadeaux({
+                  updateCounterCadeaux: countCadeaux,
+              }));
+
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+
+        }
+
+
     render() {
 
         return (
