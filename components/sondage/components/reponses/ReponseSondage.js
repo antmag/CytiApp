@@ -238,7 +238,7 @@ class ReponseSondage extends Component {
                   });
 
                   
-                  fetch('http://192.168.1.24:1337/profil/surveys/page?id_user='+this.props.user[0]._id)
+                  fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.user[0]._id)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
