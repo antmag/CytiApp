@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { Caption, Image, View, Row, Divider, TouchableOpacity, Subtitle, Card, Title, Tile } from '@shoutem/ui';
+import { Caption, Image, View, TouchableOpacity, Title, Tile } from '@shoutem/ui';
 
 import {updateSelectedSondage} from '../../../actions';
 
@@ -22,7 +22,7 @@ class SondagePreview extends Component {
 
         return (
             <TouchableOpacity
-                style={{margin:5}}
+                style={{width:'99%', backgroundColor:'transparent'}}
                 onPress={() => {
                     const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
                     this.props.navigation.dispatch(navigate);
@@ -35,19 +35,13 @@ class SondagePreview extends Component {
                     }));
                 }}
             >
-                {/* <Row>
-                    <Image
-                        styleName="small rounded-corners top"
-                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
-                    />
-                    <View styleName="vertical stretch space-between">
-                        <Subtitle>{this.state.title}</Subtitle>
-                        <Caption>{this.state.description}</Caption>
-                    </View>
-                </Row>
-                <Divider styleName="line" /> */}
-
                 <Image
+                    style={{
+                        backgroundColor:'white',
+                        // width:'99%',
+                        margin : 5,
+                        elevation : 2
+                    }}
                     styleName="large-banner"
                     source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
                 >

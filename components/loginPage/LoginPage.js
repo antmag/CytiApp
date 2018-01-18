@@ -164,7 +164,12 @@ class LoginPage extends Component {
           <Caption>Capitalise Your Time</Caption>
         </View>
         <View styleName="vertical h-center">
-          <Row style={{width:'90%'}} styleName="small">
+          <Row style={{
+              width:'90%',
+              elevation : 2
+            }}
+            styleName="small"
+          >
             <Icon name="friends" />
             <TextInput
               style={{flex:1}}
@@ -176,7 +181,12 @@ class LoginPage extends Component {
 
           <Divider />
 
-          <Row style={{width:'90%'}} styleName="small">
+          <Row style={{
+              width:'90%',
+              elevation : 2
+            }} 
+            styleName="small"
+          >
             <Icon name="lock" />
             <TextInput
               style={{flex:1}}
@@ -190,8 +200,11 @@ class LoginPage extends Component {
           <Divider />
 
           <Button 
+            style = {{
+              width:'90%',
+              elevation : 2
+            }}
             styleName = "secondary" 
-            style = {{width:'90%'}}
             onPress = { this.logIn }
           >
             <Text>LOGIN</Text>
