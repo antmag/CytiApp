@@ -12,6 +12,7 @@ import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
 
 import anim from '../../../../assets/animations/loader.json';
+import {updateCompletedSurveys} from '../../../../actions';
 
 const { width, height } = Dimensions.get('window');
 let _carousel;
@@ -235,6 +236,30 @@ class ReponseSondage extends Component {
                       "id_user" : this.props.user[0]._id
                     })
                   });
+
+                  
+                  fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.user[0]._id)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+        });
+        console.log(responseJson.beauty);
+        this.props.dispatch(updateCompletedSurveys({
+            completedSurveys: responseJson.surveys,
+            totalCompletedSurveys: responseJson.total,
+            modeCompletedSurveys: responseJson.mode,
+            shoppingCompletedSurveys: responseJson.shopping,
+            sportCompletedSurveys: responseJson.sport,
+            beautyCompletedSurveys: responseJson.beauty,
+
+        }));
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
                   const navigateBack = NavigationActions.back()
                   this.props.navigation.dispatch(navigateBack);
                 } }

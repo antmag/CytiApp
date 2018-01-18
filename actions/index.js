@@ -68,3 +68,11 @@ export const updateCounterCadeaux = (counterCadeaux) => {
         obj: counterCadeaux
     };
 }
+
+export const updateCompletedSurveys = (completedSurveys) => {
+    return {
+        type: 'UPDATE_COMPLETED_SURVEYS',
+        obj: completedSurveys
+    };
+}
+

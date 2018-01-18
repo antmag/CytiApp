@@ -7,6 +7,8 @@ import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
 import SondagePage from '../sondage/SondagePage';
 import CadeauxPage from '../cadeaux/CadeauxPage';
 
+import Profil from '../profil/Profil';
+
 const Cadeaux = () => (
   <CadeauxPage />
 );
@@ -15,10 +17,8 @@ const Sondages = () => (
   <SondagePage />
 );
 
-const Profil = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Profil</Text>
-  </View>
+const profil = () => (
+  <Profil />
 );
 
 const BottomBar = TabNavigator({
@@ -54,7 +54,7 @@ const BottomBar = TabNavigator({
     },
   },
   Profil: {
-    screen: Profil,
+    screen: profil,
     navigationOptions: {
       tabBarLabel: 'Profil',
       tabBarIcon: ({ tintColor, focused }) => (
