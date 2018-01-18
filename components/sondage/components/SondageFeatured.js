@@ -6,7 +6,7 @@ import { Caption, Image, View, TouchableOpacity, Title, Tile } from '@shoutem/ui
 
 import {updateSelectedSondage} from '../../../actions';
 
-class SondagePreview extends Component {
+class SondageFeatured extends Component {
     
     constructor(props){
         super(props);
@@ -38,7 +38,6 @@ class SondagePreview extends Component {
                 <Image
                     style={{
                         backgroundColor:'white',
-                        // width:'99%',
                         margin : 5,
                         elevation : 2
                     }}
@@ -61,4 +60,4 @@ const mapStateToProps = (state, ownProps) => {
     }
   }
 
-export default connect(mapStateToProps)(SondagePreview);
+export default connect(mapStateToProps)(SondageFeatured);

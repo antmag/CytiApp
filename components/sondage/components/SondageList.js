@@ -4,7 +4,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { ListView, View, GridRow, TouchableOpacity, Card, Image, Subtitle, Caption } from '@shoutem/ui';
 import Animation from 'lottie-react-native';
 
-import SondagePreview from './SondagePreview';
+import SondageFeatured from './SondageFeatured';
+import SondageCard from './SondageCard';
 
 import anim from '../../../assets/animations/loader.json';
 
@@ -42,7 +43,7 @@ class SondageList extends Component {
 
     if (index === '0') {
       return (
-        <SondagePreview 
+        <SondageFeatured
          id={rowData[0]._id}
          title={rowData[0].title}
          image={rowData[0].image}
@@ -53,20 +54,13 @@ class SondageList extends Component {
 
     const cellViews = rowData.map((sondage, id) => {
     return (
-        <TouchableOpacity key={id} styleName="flexible" style={{padding:5}}>
-          <Card styleName="flexible" style={{backgroundColor:'white',elevation:2,overflow:'visible'}}>
-            <Image
-              styleName="medium-wide"
-              source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png'  }}
-            />
-            <View styleName="content">
-              <Subtitle numberOfLines={3}>{sondage.title}</Subtitle>
-              <View styleName="horizontal">
-                <Caption styleName="collapsible" numberOfLines={2}>{sondage.description}</Caption>
-              </View>
-            </View>
-          </Card>
-        </TouchableOpacity>
+        <SondageCard
+          idRow={id}
+          id={sondage._id}
+          title={sondage.title}
+          image={sondage.image}
+          description={sondage.description}
+        />
       );
     });
     return (
