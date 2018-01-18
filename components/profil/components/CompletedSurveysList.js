@@ -5,6 +5,7 @@ import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
 import anim from '../../../assets/animations/surveyCheck.json';
 import ReductionElement from '../../cadeaux/components/ReductionElement';
+import {updateCompletedSurveys} from '../../../actions';
 
 class CompletedSurveysList extends Component {
  
@@ -50,6 +51,7 @@ class CompletedSurveysList extends Component {
       .catch((error) => {
         console.error(error);
       });
+
   }
 
 
@@ -90,7 +92,7 @@ class CompletedSurveysList extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.props.userData[0].surveys}
+                    data={this.props.completedSurveysReducer.completedSurveys}
                     renderRow={this.renderRow}
                   />
                 </View>
@@ -105,6 +107,7 @@ const mapStateToProps = (state, ownProps) => {
         navigation : state.navigationReducer.navigator,
         reductionReducer : state.reductionReducer.listReductions,
         userData : state.profilReducer.connected,
+        completedSurveysReducer : state.profilReducer.completedSurveys,
     }
 }
 

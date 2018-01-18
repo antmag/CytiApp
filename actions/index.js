@@ -54,3 +54,11 @@ export const updateAvailablesReductions = (listCadeaux) => {
         obj: listCadeaux
     };
 }
+
+export const updateCompletedSurveys = (completedSurveys) => {
+    return {
+        type: 'UPDATE_COMPLETED_SURVEYS',
+        obj: completedSurveys
+    };
+}
+

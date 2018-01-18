@@ -4,6 +4,7 @@ import { NavigationBar, Caption, View, Heading, Icon, Title, Image, Text, Divide
 import CompletedSurveys from './components/CompletedSurveys';
 import { PieChart, StackedBarChart } from 'react-native-svg-charts'
 import { Circle, G, Line } from 'react-native-svg'
+import {updateCompletedSurveys} from '../../actions';
 
 class Profil extends Component {
  
@@ -41,6 +42,26 @@ class Profil extends Component {
     });
     return array_render;
  }
+
+componentDidMount() {
+    return fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.userData[0]._id)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          //TODO: Décommenter la ligne
+          // sondages: responseJson,
+        });
+        var a = responseJson;
+        this.props.dispatch(updateCompletedSurveys({
+            completedSurveys: a,
+        }));
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+}
 
   render() {
         const data = [ 3, 2, 0, 7];
