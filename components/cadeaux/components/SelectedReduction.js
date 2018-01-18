@@ -78,14 +78,13 @@ class SelectedReduction extends Component {
                   counterReductions: countReductions,
               }));
               this.props.dispatch(updateCounterCadeaux({
-                  updateCounterCadeaux: countCadeaux,
+                  counterCadeaux: countCadeaux,
               }));
 
             })
             .catch((error) => {
               console.error(error);
             });
-
         }
 
 
