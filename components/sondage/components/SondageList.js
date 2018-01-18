@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Dimensions } from 'react-native';
-import { ListView, View, Text, Spinner } from '@shoutem/ui';
+import { ListView, View, GridRow, TouchableOpacity, Card, Image, Subtitle, Caption } from '@shoutem/ui';
 import Animation from 'lottie-react-native';
 
 import SondagePreview from './SondagePreview';
@@ -25,14 +25,54 @@ class SondageList extends Component {
 
   }
 
-  renderRow(sondage){
-    return(
-      <SondagePreview 
-        id={sondage._id}
-        title={sondage.title}
-        image={sondage.image}
-        description={sondage.description}
-      />
+  // renderRow(sondage){
+  //   return(
+  //     <SondagePreview 
+  //       id={sondage._id}
+  //       title={sondage.title}
+  //       image={sondage.image}
+  //       description={sondage.description}
+  //     />
+  //   );
+  // }
+
+  renderRow(rowData, sectionId, index) {
+    // rowData contains grouped data for one row,
+    // so we need to remap it into cells and pass to GridRow
+
+    if (index === '0') {
+      return (
+        <SondagePreview 
+         id={rowData[0]._id}
+         title={rowData[0].title}
+         image={rowData[0].image}
+         description={rowData[0].description}
+       />
+      );
+    }
+
+    const cellViews = rowData.map((sondage, id) => {
+    return (
+        <TouchableOpacity key={id} styleName="flexible" style={{padding:5}}>
+          <Card styleName="flexible" style={{backgroundColor:'white',elevation:2,overflow:'visible'}}>
+            <Image
+              styleName="medium-wide"
+              source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png'  }}
+            />
+            <View styleName="content">
+              <Subtitle numberOfLines={3}>{sondage.title}</Subtitle>
+              <View styleName="horizontal">
+                <Caption styleName="collapsible" numberOfLines={2}>{sondage.description}</Caption>
+              </View>
+            </View>
+          </Card>
+        </TouchableOpacity>
+      );
+    });
+    return (
+      <GridRow columns={2}>
+        {cellViews}
+      </GridRow>
     );
   }
 
@@ -89,11 +129,22 @@ class SondageList extends Component {
         </View>  
       );
     }
+
+    let isFirstArticle = true;
+    const groupedData = GridRow.groupByRows(this.state.sondages, 2, () => {
+      if (isFirstArticle) {
+        isFirstArticle = false;
+        return 2;
+      }
+
+      return 1;
+    });
     
     return (
       <View>
           <ListView
-            data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
+            //data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
+            data = {groupedData}
             renderRow = { this.renderRow }
             onRefresh = { this.refreshSurveyList }
             style={{
