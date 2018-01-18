@@ -11,6 +11,7 @@ class CadeauxPage extends Component {
  
   constructor(props){
     super(props);
+    this.props.totalCompletedSurveys=this.totalCompletedSurveys;
     this.state = {
       contentMap:contentMapTmp,
     }

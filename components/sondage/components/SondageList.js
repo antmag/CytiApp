@@ -44,6 +44,7 @@ class SondageList extends Component {
     if (index === '0') {
       return (
         <SondageFeatured
+          key={rowData[0]._id}
          id={rowData[0]._id}
          title={rowData[0].title}
          image={rowData[0].image}
@@ -55,6 +56,7 @@ class SondageList extends Component {
     const cellViews = rowData.map((sondage, id) => {
     return (
         <SondageCard
+        key={id}
           idRow={id}
           id={sondage._id}
           title={sondage.title}

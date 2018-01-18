@@ -24,6 +24,7 @@ class CompletedSurveysList extends Component {
   renderRow(reduction){
     return(
       <ReductionElement 
+          key={reduction.title}
           title={reduction.title}
           points={reduction.points}
           image={reduction.url}
@@ -92,7 +93,7 @@ class CompletedSurveysList extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.props.completedSurveysReducer.completedSurveys}
+                    data={this.props.completedSurveysReducer.completedSurveys.surveys}
                     renderRow={this.renderRow}
                   />
                 </View>

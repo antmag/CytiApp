@@ -21,7 +21,6 @@ class Profil extends Component {
     var theme=themes;
     var color=colors;
     Object.keys(data).forEach(function(k, v){
-        console.log(maMap[k]);
         array_render.push(
             <Text style={{color: color[k]}} key={theme[k]}>{theme[k]} : {maMap[k]} sondages complétés</Text>
         );
@@ -44,17 +43,15 @@ class Profil extends Component {
  }
 
 componentDidMount() {
-    return fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.userData[0]._id)
+    return fetch('http://192.168.1.24:1337/profil/surveys/page?id_user='+this.props.userData[0]._id)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           isLoading: false,
-          //TODO: Décommenter la ligne
-          // sondages: responseJson,
         });
-        var a = responseJson;
+        console.log(responseJson.beauty);
         this.props.dispatch(updateCompletedSurveys({
-            completedSurveys: a,
+            completedSurveys: responseJson,
         }));
 
       })
@@ -64,6 +61,7 @@ componentDidMount() {
 }
 
   render() {
+    console.log(this.props.completedSurveysReducer.surveys);
         const data = [ 3, 2, 0, 7];
         const index = ["beauty", "sport" , "shopping" , "mode"];
         const colors = ["#262e45", "#ff9800" , "#7db9b3" , "#f2bcfb"];
@@ -97,7 +95,7 @@ componentDidMount() {
   			<Title style={{alignItems: 'center'}}>Tes Badges</Title>
 	    	<View style={{ flex: 1 , flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 	      		<View style={{ flex: 1}}>
-              <CompletedSurveys/>
+              <CompletedSurveys totalCompletedSurveys={this.props.completedSurveysReducer.completedSurveys}/>
 	      		</View>
 	      		<View style={{ flex: 1 }}>
 	        		<Text>Development Progress</Text>
@@ -111,6 +109,7 @@ componentDidMount() {
   const mapStateToProps = (state, ownProps) => {
     return{
       userData : state.profilReducer.connected,
+      completedSurveysReducer : state.profilReducer.completedSurveys,
     }
   }
 

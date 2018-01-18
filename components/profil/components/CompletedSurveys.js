@@ -10,7 +10,6 @@ class CompletedSurveys extends Component {
   }
 
   render() {
-    
     return (
 
           <TouchableOpacity
@@ -20,7 +19,7 @@ class CompletedSurveys extends Component {
                 }}
           >
           <View style={{}}>
-           <Text>8 completed surveys</Text>
+           <Text>completed surveys</Text>
            <Icon name="plus-button"/>
           </View>
         </TouchableOpacity>
