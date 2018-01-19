@@ -4,7 +4,7 @@ import { Screen, NavigationBar, Caption, View, ListView, Heading, Icon, Title, B
 import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
 import anim from '../../../assets/animations/surveyCheck.json';
-import ReductionElement from '../../cadeaux/components/ReductionElement';
+import CompletedSurveyElement from './CompletedSurveyElement';
 import {updateCompletedSurveys} from '../../../actions';
 
 class CompletedSurveysList extends Component {
@@ -23,7 +23,7 @@ class CompletedSurveysList extends Component {
   
   renderRow(reduction){
     return(
-      <ReductionElement 
+      <CompletedSurveyElement 
           key={reduction.title}
           title={reduction.title}
           points={reduction.points}
