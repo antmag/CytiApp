@@ -34,7 +34,7 @@ class SondageCard extends Component {
                     }));
                 }}
             >
-                <Card styleName="flexible" style={{backgroundColor:'white',elevation:2,overflow:'visible'}}>
+                <Card styleName="flexible" style={{backgroundColor:'white',elevation:2}}>
                     <Image
                         styleName="medium-wide"
                         source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png'  }}

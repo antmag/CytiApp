@@ -32,7 +32,7 @@ class SondagePage extends Component {
   render() {
     
     return (
-        <View>
+        <View style={{width:'100%'}}>
             <DropDownMenu
               options={this.state.filters}
               selectedOption={this.state.selectedFilter ? this.state.selectedFilter : this.state.filters[0]}

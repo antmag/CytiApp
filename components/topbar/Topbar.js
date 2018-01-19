@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image } from '@shoutem/ui';
+import { NavigationBar, View, Icon, Title, Button, Text, Image } from '@shoutem/ui';
 
 import {setConnectedUser} from '../../actions';
 
@@ -14,12 +14,12 @@ class Topbar extends Component {
             container : {elevation : 4}
           }}
           styleName="inline no-border"
-          //leftComponent={
-            // <View styleName="vertical v-center">
-            //   <Heading>CYTi</Heading>
-            //   <Caption>Capitalize Your Time</Caption>
-            // </View>
-          //}
+          leftComponent={
+            <Image
+              styleName="medium-wide"
+              source={require('../../assets/images/logo.png')}
+            />
+          }
           rightComponent={
             <View styleName="horizontal v-center">
               <Image
