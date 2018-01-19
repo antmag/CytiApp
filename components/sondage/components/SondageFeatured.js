@@ -22,7 +22,7 @@ class SondageFeatured extends Component {
 
         return (
             <TouchableOpacity
-                style={{width:'99%', backgroundColor:'transparent'}}
+                style={{width:'99%', backgroundColor:'white'}}
                 onPress={() => {
                     const navigate = NavigationActions.navigate({routeName:'ReponseSondage'});
                     this.props.navigation.dispatch(navigate);

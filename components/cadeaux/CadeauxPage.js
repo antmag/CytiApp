@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Tile, Title, Subtitle, Overlay } from '@shoutem/ui';
+import {NavigationActions} from 'react-navigation';
+import { View, Text, Tile, Title, Subtitle, Overlay, Divider, Caption, TouchableOpacity } from '@shoutem/ui';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import CadeauxPreview from './components/CadeauxPreview';
 import ReducPreview from './components/ReducPreview';
+
 import * as contentMapTmp from './components/sondages.json';
 import {updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux} from '../../actions';
-
 
 class CadeauxPage extends Component {
  
   constructor(props){
     super(props);
-    this.props.totalCompletedSurveys=this.totalCompletedSurveys;
     this.state = {
       contentMap:contentMapTmp,
     }
   }
-
-
 
   componentDidMount() {
   
@@ -49,7 +49,6 @@ class CadeauxPage extends Component {
           }
         });
         
-        console.log(typeof myJSONReductions);
         this.props.dispatch(updateAvailablesCadeaux({
             listCadeaux: myJSONCadeaux,
         }));
@@ -72,19 +71,52 @@ class CadeauxPage extends Component {
   render() {
 
     return (
-      <View style={{ flex: 1 , flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-        <View style={{ flex: 2}}>
-          <CadeauxPreview countCadeaux={this.props.cadeauxReducer.counterCadeaux}/>
+      <View style={{flex:1}}>
+
+        <View >
+
+          <TouchableOpacity
+            onPress={() => {
+              const navigate = NavigationActions.navigate({routeName:'PhysiqueCadeaux'});
+              this.props.navigation.dispatch(navigate);
+            }}
+          >
+              <View styleName="horizontal h-center v-center" style={{paddingLeft:10}}>
+                <Icon name="gift" size={90} color='rgba(0, 0, 0, 0.7)'/>
+                <Tile styleName="text-centric">
+                  <Title styleName="md-gutter-bottom">Echangez vos points contre des cadeaux</Title>
+                  <Caption>{this.props.cadeauxReducer.counterCadeaux} cadeaux actuellement disponibles</Caption>
+                </Tile>
+              </View>
+          </TouchableOpacity>
+
+          <Divider styleName="line small center" />
+
+          <TouchableOpacity
+            onPress={() => {
+              const navigate = NavigationActions.navigate({routeName:'ReductionCadeaux'});
+              this.props.navigation.dispatch(navigate);
+            }}
+          >
+            <View styleName="horizontal h-center v-center" style={{paddingRight:10}}>
+              <Tile styleName="text-centric"> 
+                <Title styleName="md-gutter-bottom">Profitez de réductions</Title>
+                <Caption>{this.props.reductionReducer.counterReductions} réductions actuellement disponibles</Caption>
+              </Tile>
+              <Icon name="ticket" size={85} color='rgba(0, 0, 0, 0.7)'/>
+            </View>  
+          </TouchableOpacity>
         </View>
-        <View style={{ flex: 2}}>
-          <ReducPreview countReductions={this.props.reductionReducer.counterReductions}/>
-        </View>
-        <Tile styleName="text-centric">
+
+        <Divider styleName="line small center" style={{marginTop:10}} />
+        
+        <Tile styleName="text-centric" style={{flex:1}}>
           <Title styleName="md-gutter-bottom">PROGRESSION ACTUELLE</Title>
           <Overlay styleName="solid-dark">
             <Subtitle styleName="sm-gutter-horizontal">{this.props.userData[0].points} points</Subtitle>
           </Overlay>
         </Tile>
+
       </View>
       
     );
@@ -93,6 +125,7 @@ class CadeauxPage extends Component {
 
   const mapStateToProps = (state, ownProps) => {
     return{
+      navigation : state.navigationReducer.navigator,
       userData : state.profilReducer.connected,
       reductionReducer : state.reductionReducer.counterReductions,
       cadeauxReducer : state.cadeauReducer.counterCadeaux,

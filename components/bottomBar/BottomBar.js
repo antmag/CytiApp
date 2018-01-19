@@ -2,7 +2,7 @@ import React from 'react';
 //import { View, Text, Platform } from 'react-native';
 import { View, Text, Platform, Icon, NavigationBar } from '@shoutem/ui';
 import { TabNavigator } from 'react-navigation'; // 1.0.0-beta.14
-// import Icon from 'react-native-vector-icons/FontAwesome'; // 4.4.2
+import Icons from 'react-native-vector-icons/SimpleLineIcons'; // 4.4.2
 
 import SondagePage from '../sondage/SondagePage';
 import CadeauxPage from '../cadeaux/CadeauxPage';
@@ -27,13 +27,12 @@ const BottomBar = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Cadeaux',
       tabBarIcon: ({ tintColor, focused }) => (
-        // <Icon
-        //   //name={Platform.OS == "ios" ? 'ios-ribbon' : 'md-ribbon'}
-        //   name="gift"
-        //   size={30}
-        //   style={{ color: tintColor }}
-        // />
-        <Icon name="gift" />
+        <Icons
+          name="present"
+          size={20}
+          color={tintColor}
+        />
+        // <Icon name="gift" />
 
       ),
     },
@@ -43,13 +42,12 @@ const BottomBar = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Sondages',
       tabBarIcon: ({ tintColor, focused }) => (
-        // <Icon
-        //   //name={Platform.OS == "ios" ? 'ios-paper' : 'md-paper'}
-        //   name="pencil-square-o"
-        //   size={30}
-        //   style={{ color: tintColor }}
-        // />
-        <Icon name="page" />
+        <Icons
+          name="book-open"
+          size={20}
+          color={tintColor}
+        />
+        // <Icon name="page" />
       ),
     },
   },
@@ -58,13 +56,12 @@ const BottomBar = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Profil',
       tabBarIcon: ({ tintColor, focused }) => (
-        // <Icon
-        //   //name={Platform.OS == "ios" ? 'ios-person' : 'md-person'}
-        //   name="user-o"
-        //   size={30}
-        //   style={{ color: tintColor }}
-        // />
-        <Icon name="user-profile" />
+        <Icons
+          name="user"
+          size={20}
+          color={tintColor}
+        />
+        // <Icon name="user-profile" />
       ),
     },
   },
@@ -75,15 +72,15 @@ const BottomBar = TabNavigator({
     tabBarOptions: {
       labelStyle: {
         fontSize: 12,
-        color: 'black',
+        color: 'white',
       },
       showIcon: true,
       indicatorStyle:{
         display: 'none',
       },
       style: {
-        backgroundColor : 'transparent',
-        elevation : 2,
+        backgroundColor : 'rgba(0, 0, 0, 0.7)',
+        elevation : 0,
       }
     },
 });
