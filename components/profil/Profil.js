@@ -69,10 +69,10 @@ componentDidMount() {
   render() {
         console.log(this.props.completedSurveysReducer.totalCompletedSurveys);
         const data = [ 
-                        this.props.completedSurveysReducer.beautyCompletedSurveys,
-                        this.props.completedSurveysReducer.sportCompletedSurveys,
-                        this.props.completedSurveysReducer.shoppingCompletedSurveys,
-                        this.props.completedSurveysReducer.modeCompletedSurveys,
+                        Number(this.props.completedSurveysReducer.beautyCompletedSurveys),
+                        Number(this.props.completedSurveysReducer.sportCompletedSurveys),
+                        Number(this.props.completedSurveysReducer.shoppingCompletedSurveys),
+                        Number(this.props.completedSurveysReducer.modeCompletedSurveys)
                     ];
 
         const index = ["beauty", "sport" , "shopping" , "mode"];
@@ -106,12 +106,7 @@ componentDidMount() {
       		</View>
   			<Title style={{alignItems: 'center'}}>Tes Badges</Title>
 	    	<View style={{ flex: 1 , flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-	      		<View style={{ flex: 1}}>
-              <CompletedSurveys totalCompletedSurveys={this.props.completedSurveysReducer.completedSurveys}/>
-	      		</View>
-	      		<View style={{ flex: 1 }}>
-	        		<Text>Development Progress</Text>
-	   			</View>
+              <CompletedSurveys/>
       		</View>
 	    </View>  
     );
