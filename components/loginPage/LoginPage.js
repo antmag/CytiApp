@@ -120,6 +120,8 @@ class LoginPage extends Component {
 
   logInFacebook(){
     let _this = this;
+    FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web); // defaults to Native
+
     FBLoginManager.loginWithPermissions(["email","user_friends","public_profile"], function(error, data){
       if (!error) {
 
