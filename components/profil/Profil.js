@@ -91,7 +91,7 @@ componentDidMount() {
     return (
 
 	   	<View style={{ flex: 1 , flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-   			<Title style={{alignItems: 'center'}}>Tes Stats</Title>
+   			<Title style={{alignItems: 'center'}}>Mes Stats</Title>
 	    	<View style={{ flex: 1 , flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 	      		<View style={{ flex: 1}}>
             <PieChart
@@ -104,7 +104,7 @@ componentDidMount() {
             {display_caption}
 	   			  </View>
       		</View>
-  			<Title style={{alignItems: 'center'}}>Tes Badges</Title>
+          <Divider styleName="line" />
 	    	<View style={{ flex: 1 , flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <CompletedSurveys/>
       		</View>

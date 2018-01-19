@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavigationBar, Caption, View, Heading, Title, Button, Text, Image, TouchableOpacity , Icon} from '@shoutem/ui';
+import { NavigationBar, Caption, View, Heading, Title, Button, Text, Overlay, Subtitle, Tile, Image, TouchableOpacity , Icon} from '@shoutem/ui';
 import {NavigationActions} from 'react-navigation';
 
 class CompletedSurveys extends Component {
@@ -19,8 +19,12 @@ class CompletedSurveys extends Component {
                 }}
           >
           <View style={{}}>
-           <Text>{this.props.completedSurveysReducer.totalCompletedSurveys} completed surveys</Text>
-           <Icon name="plus-button"/>
+            <Tile styleName="text-centric">
+              <Title styleName="md-gutter-bottom">{this.props.completedSurveysReducer.totalCompletedSurveys} SONDAGES DEJA COMPLETES GRACE A CYTi</Title>
+              <Overlay styleName="solid-dark">
+                <Subtitle styleName="sm-gutter-horizontal">Voir</Subtitle>
+              </Overlay>
+            </Tile>
           </View>
         </TouchableOpacity>
     );
