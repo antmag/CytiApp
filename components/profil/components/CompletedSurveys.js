@@ -13,19 +13,17 @@ class CompletedSurveys extends Component {
     return (
 
           <TouchableOpacity
-                onPress={() => {
-                    const navigate = NavigationActions.navigate({routeName:'CompletedSurveysList'});
-                    this.props.navigation.dispatch(navigate);
-                }}
+            onPress={() => {
+              const navigate = NavigationActions.navigate({routeName:'CompletedSurveysList'});
+              this.props.navigation.dispatch(navigate);
+            }}
           >
-          <View style={{}}>
             <Tile styleName="text-centric">
               <Title styleName="md-gutter-bottom">{this.props.completedSurveysReducer.totalCompletedSurveys} SONDAGES DEJA COMPLETES GRACE A CYTi</Title>
               <Overlay styleName="solid-dark">
-                <Subtitle styleName="sm-gutter-horizontal">Voir</Subtitle>
+                <Subtitle styleName="md-gutter-horizontal">Voir</Subtitle>
               </Overlay>
             </Tile>
-          </View>
         </TouchableOpacity>
     );
   }
