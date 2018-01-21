@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import { DropDownMenu, View, Divider } from '@shoutem/ui';
 
-import Filter from './components/Filter';
 import SondageList from './components/SondageList';
 
 import {updateFilter} from '../../actions';
