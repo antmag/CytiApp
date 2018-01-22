@@ -81,13 +81,13 @@ class CadeauxPage extends Component {
               this.props.navigation.dispatch(navigate);
             }}
           >
-              <View styleName="horizontal h-center v-center" style={{paddingLeft:10}}>
-                <Icon name="gift" size={90} color='rgba(0, 0, 0, 0.7)'/>
-                <Tile styleName="text-centric">
-                  <Title styleName="md-gutter-bottom">Echangez vos points contre des cadeaux</Title>
-                  <Caption>{this.props.cadeauxReducer.counterCadeaux} cadeaux actuellement disponibles</Caption>
-                </Tile>
-              </View>
+            <View styleName="horizontal h-center v-center" style={{paddingLeft:10}}>
+              <Icon name="gift" size={90} color='rgba(0, 0, 0, 0.7)'/>
+              <Tile styleName="text-centric">
+                <Title styleName="md-gutter-bottom">Echangez vos points contre des cadeaux</Title>
+                <Caption>{this.props.cadeauxReducer.counterCadeaux} cadeaux actuellement disponibles</Caption>
+              </Tile>
+            </View>
           </TouchableOpacity>
 
           <Divider styleName="line small center" />

@@ -35,7 +35,7 @@ class ReponseSondage extends Component {
 
     sendUniqueAnswer(id, reponse){
       let reponseJson = JSON.stringify({
-        "id_contact": 124567,
+        "id_contact": this.props.user[0]._id,
         "id_question": id,
         "id_reponse": [reponse]
       }); 
@@ -47,7 +47,6 @@ class ReponseSondage extends Component {
         },
         body: reponseJson
       });
-      console.log(reponseJson);
     }
 
     addMultipleAnswer(id, reponse){
@@ -83,9 +82,8 @@ class ReponseSondage extends Component {
     sendMultipleAnswer(id){
 
       if(this.state.reponses[id] === undefined) return;
-
       let reponseJson = JSON.stringify({
-        "id_contact": this.props.user._id,
+        "id_contact": this.props.user[0]._id,
         "id_question": id,
         "id_reponse": this.state.reponses[id]
       }); 
