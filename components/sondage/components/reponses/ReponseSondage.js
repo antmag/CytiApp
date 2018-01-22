@@ -244,7 +244,7 @@ class ReponseSondage extends Component {
                 carouselRef = { _carousel }
                 activeDotIndex = {this.state.activeSlide }
                 dotsLength = { this.state.questions.length }
-                tappableDots = { false }
+                tappableDots = { true }
               />
 
               <Button 
