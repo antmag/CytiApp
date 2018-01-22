@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet } from 'react-native';
-import { ListView, View, Text, Spinner } from '@shoutem/ui';
+import { StyleSheet, Dimensions } from 'react-native';
+import { ListView, View, GridRow, TouchableOpacity, Card, Image, Subtitle, Caption } from '@shoutem/ui';
 import Animation from 'lottie-react-native';
 
-import SondagePreview from './SondagePreview';
+import SondageFeatured from './SondageFeatured';
+import SondageCard from './SondageCard';
 
 import anim from '../../../assets/animations/loader.json';
+
+const { height, width } = Dimensions.get('window');
 
 class SondageList extends Component {
 
@@ -23,14 +26,38 @@ class SondageList extends Component {
 
   }
 
-  renderRow(sondage){
-    return(
-      <SondagePreview 
-        id={sondage._id}
-        title={sondage.title}
-        image={sondage.image}
-        description={sondage.description}
-      />
+  renderRow(rowData, sectionId, index) {
+    // rowData contains grouped data for one row,
+    // so we need to remap it into cells and pass to GridRow
+
+    if (index === '0') {
+      return (
+        <SondageFeatured
+          key={rowData[0]._id}
+         id={rowData[0]._id}
+         title={rowData[0].title}
+         image={rowData[0].image}
+         description={rowData[0].description}
+       />
+      );
+    }
+
+    const cellViews = rowData.map((sondage, id) => {
+    return (
+        <SondageCard
+        key={id}
+          idRow={id}
+          id={sondage._id}
+          title={sondage.title}
+          image={sondage.image}
+          description={sondage.description}
+        />
+      );
+    });
+    return (
+      <GridRow columns={2}>
+        {cellViews}
+      </GridRow>
     );
   }
 
@@ -46,7 +73,16 @@ class SondageList extends Component {
     
     this.setState({isLoading : true});
     
-    fetch('http://195.154.107.158:1337/app')
+    fetch('http://195.154.107.158:1337/app',{
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        "id_user" : this.props.user[0]._id
+      })
+    })
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({
@@ -78,15 +114,30 @@ class SondageList extends Component {
         </View>  
       );
     }
+
+    if(this.props.filter && (this.props.filter !== "All"))
+      var filteredSondage = this.state.sondages.filter(sondage => sondage.theme == this.props.filter);
+    else
+      var filteredSondage = this.state.sondages;
+
+    let isFirstArticle = true;
+    const groupedData = GridRow.groupByRows(filteredSondage, 2, () => {
+      if (isFirstArticle) {
+        isFirstArticle = false;
+        return 2;
+      }
+      return 1;
+    });
     
     return (
       <View>
           <ListView
-            data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
+            //data={(this.props.filter && (this.props.filter !== "All")) ? this.state.sondages.filter(sondage => sondage.theme == this.props.filter) : this.state.sondages}
+            data = {groupedData}
             renderRow = { this.renderRow }
             onRefresh = { this.refreshSurveyList }
             style={{
-              listContent : { backgroundColor:'transparent' }
+              listContent : { backgroundColor:'transparent', paddingBottom:90}
             }}
           />
       </View>
@@ -98,15 +149,9 @@ class SondageList extends Component {
 const mapStateToProps = (state, ownProps) => {
   return{
     filter : state.filterReducer.selectedFilter,
+    user: state.profilReducer.connected
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-});
 
 export default connect(mapStateToProps)(SondageList);
 

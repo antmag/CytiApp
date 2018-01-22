@@ -16,7 +16,7 @@ import ReductionCadeaux from './components/cadeaux/components/ReductionCadeaux';
 import PhysiqueCadeaux from './components/cadeaux/components/PhysiqueCadeaux';
 import SelectedReduction from './components/cadeaux/components/SelectedReduction';
 import SelectedCadeau from './components/cadeaux/components/SelectedCadeau';
-
+import CompletedSurveysList from './components/profil/components/CompletedSurveysList';
 
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';
@@ -43,6 +43,9 @@ const Navigator = StackNavigator({
   },
   SelectedReduction:{
     screen: SelectedReduction,
+  },
+  CompletedSurveysList:{
+    screen: CompletedSurveysList,
   },
   SelectedCadeau:{
     screen: SelectedCadeau,

@@ -12,6 +12,7 @@ import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
 
 import anim from '../../../../assets/animations/loader.json';
+import {updateCompletedSurveys} from '../../../../actions';
 
 const { width, height } = Dimensions.get('window');
 let _carousel;
@@ -111,7 +112,7 @@ class ReponseSondage extends Component {
                     />);
 
       return (
-          <Card style={{width : width * 0.85, flex : 1, marginTop : 30, marginBottom : 0}}>
+          <Card style={{width : width * 0.85, flex : 1, marginTop : 30, marginBottom : 0, elevation:2}}>
             <View styleName="content">
               <Title styleName="md-gutter-bottom h-center">{item.txt}</Title>
               <Divider styleName="line" />
@@ -144,18 +145,8 @@ class ReponseSondage extends Component {
       if(this.state.isLoading){
         return(
           <Screen>
-
-            <Image
-              styleName="large"
-              style={{
-                position:'absolute',
-                opacity: 0,
-                height: height*1.1,
-              }}
-              source={require('../../../../assets/images/surveyBackground.jpg')}
-            />
-
             <NavigationBar
+                style={{elevation:4}}
                 styleName="inline"
                 hasHistory
                 centerComponent={
@@ -187,18 +178,8 @@ class ReponseSondage extends Component {
 
       return(
           <Screen>
-
-            <Image
-              styleName="large"
-              style={{
-                position:'absolute',
-                opacity: 0,
-                height: height*1.1,
-              }}
-              source={require('../../../../assets/images/surveyBackground.jpg')}
-            />
-
               <NavigationBar
+                  style={{elevation:4}}
                   styleName="inline"
                   hasHistory
                   centerComponent={
@@ -241,9 +222,34 @@ class ReponseSondage extends Component {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                      "id_user" : this.props.user._id
+                      "id_user" : this.props.user[0]._id
                     })
                   });
+
+                  
+                  fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.user[0]._id)
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    this.setState({
+                      isLoading: false,
+                    });
+                    this.props.dispatch(updateCompletedSurveys({
+                        completedSurveys: responseJson.surveys,
+                        totalCompletedSurveys: responseJson.total,
+                        modeCompletedSurveys: responseJson.mode,
+                        shoppingCompletedSurveys: responseJson.shopping,
+                        sportCompletedSurveys: responseJson.sport,
+                        beautyCompletedSurveys: responseJson.beauty,
+
+                    }));
+
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+
+                  const navigateBack = NavigationActions.back()
+                  this.props.navigation.dispatch(navigateBack);
                 } }
               >
                 <Text>Terminer le sondage</Text>

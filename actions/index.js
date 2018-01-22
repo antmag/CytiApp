@@ -54,3 +54,25 @@ export const updateAvailablesReductions = (listCadeaux) => {
         obj: listCadeaux
     };
 }
+
+export const updateCounterReductions = (counterReductions) => {
+    return {
+        type: 'SET_COUNTER_REDUCTION',
+        obj: counterReductions
+    };
+}
+
+export const updateCounterCadeaux = (counterCadeaux) => {
+    return {
+        type: 'SET_COUNTER_CADEAU',
+        obj: counterCadeaux
+    };
+}
+
+export const updateCompletedSurveys = (completedSurveys) => {
+    return {
+        type: 'UPDATE_COMPLETED_SURVEYS',
+        obj: completedSurveys
+    };
+}
+

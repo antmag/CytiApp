@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image } from '@shoutem/ui';
+import { NavigationBar, View, Icon, Title, Button, Text, Image } from '@shoutem/ui';
 
 import {setConnectedUser} from '../../actions';
 
@@ -10,16 +10,20 @@ class Topbar extends Component {
       return (
           
         <NavigationBar
-          styleName="inline"
+          style={{
+            container : {elevation : 4}
+          }}
+          styleName="inline no-border"
           leftComponent={
-            <View styleName="vertical v-center">
-              <Heading>CYTi</Heading>
-              <Caption>Capitalize Your Time</Caption>
-            </View>
+            <Image
+              styleName="medium-wide"
+              source={require('../../assets/images/logo.png')}
+            />
           }
           rightComponent={
             <View styleName="horizontal v-center">
               <Image
+                style={{marginRight:5}}
                 styleName="small-avatar"
                 source={{ uri: this.props.userData[0].url_fb_picture}}
               />

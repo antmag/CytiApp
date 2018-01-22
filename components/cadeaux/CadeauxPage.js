@@ -1,37 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavigationBar, Caption, View, Heading, Icon, Title, Button, Text, Image } from '@shoutem/ui';
+import {NavigationActions} from 'react-navigation';
+import { View, Text, Tile, Title, Subtitle, Overlay, Divider, Caption, TouchableOpacity } from '@shoutem/ui';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import CadeauxPreview from './components/CadeauxPreview';
 import ReducPreview from './components/ReducPreview';
-import * as contentMapTmp from './components/sondages.json';
-import {updateAvailablesCadeaux} from '../../actions';
-import {updateAvailablesReductions} from '../../actions';
 
+import * as contentMapTmp from './components/sondages.json';
+import {updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux} from '../../actions';
 
 class CadeauxPage extends Component {
  
   constructor(props){
     super(props);
     this.state = {
-      isLoading: true,
       contentMap:contentMapTmp,
-      countCadeaux : 0,
-      countReductions :0,
     }
   }
-
-
 
   componentDidMount() {
   
   return fetch('http://195.154.107.158:1337/cadeaux?points='+this.props.userData[0].points)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          //TODO: Décommenter la ligne
-          // sondages: responseJson,
-        });
+        
         var a = responseJson;
         var myJSONCadeaux = {
           cadeaux: []
@@ -56,54 +49,74 @@ class CadeauxPage extends Component {
           }
         });
         
-        console.log(typeof myJSONReductions);
-        this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
         this.props.dispatch(updateAvailablesCadeaux({
             listCadeaux: myJSONCadeaux,
         }));
         this.props.dispatch(updateAvailablesReductions({
             listReductions: myJSONReductions,
         }));
+        this.props.dispatch(updateCounterReductions({
+              counterReductions: countReductions,
+        }));
+        this.props.dispatch(updateCounterCadeaux({
+              counterCadeaux: countCadeaux,
+        }));
       })
       .catch((error) => {
         console.error(error);
       });
-
-
-
   }
+
 
   render() {
 
     return (
-/*      <View style={{ flex: 1}}>
-        <View style={{ flex: 3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <CadeauxPreview/>
-          <ReducPreview/>
+      <View style={{flex:1}}>
+
+        <View >
+
+          <TouchableOpacity
+            onPress={() => {
+              const navigate = NavigationActions.navigate({routeName:'PhysiqueCadeaux'});
+              this.props.navigation.dispatch(navigate);
+            }}
+          >
+              <View styleName="horizontal h-center v-center" style={{paddingLeft:10}}>
+                <Icon name="gift" size={90} color='rgba(0, 0, 0, 0.7)'/>
+                <Tile styleName="text-centric">
+                  <Title styleName="md-gutter-bottom">Echangez vos points contre des cadeaux</Title>
+                  <Caption>{this.props.cadeauxReducer.counterCadeaux} cadeaux actuellement disponibles</Caption>
+                </Tile>
+              </View>
+          </TouchableOpacity>
+
+          <Divider styleName="line small center" />
+
+          <TouchableOpacity
+            onPress={() => {
+              const navigate = NavigationActions.navigate({routeName:'ReductionCadeaux'});
+              this.props.navigation.dispatch(navigate);
+            }}
+          >
+            <View styleName="horizontal h-center v-center" style={{paddingRight:10}}>
+              <Tile styleName="text-centric"> 
+                <Title styleName="md-gutter-bottom">Profitez de réductions</Title>
+                <Caption>{this.props.reductionReducer.counterReductions} réductions actuellement disponibles</Caption>
+              </Tile>
+              <Icon name="ticket" size={85} color='rgba(0, 0, 0, 0.7)'/>
+            </View>  
+          </TouchableOpacity>
         </View>
-        <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-              <Image 
-                style={{ height: 80,
-                  width: 80,
-                  borderRadius: 50,
-                  marginBottom: 20}}
-                source={{ uri: this.props.userData.profile.picture.data.url}}
-              />
-        </View>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'orange'}}>
-          <Text style={{color: 'white', fontSize: 20}}>165 Points</Text>
-        </View>
-      </View>*/
-      <View style={{ flex: 1 , flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-        <View style={{ flex: 2}}>
-          <CadeauxPreview countCadeaux={this.state.countCadeaux}/>
-        </View>
-        <View style={{ flex: 2}}>
-          <ReducPreview countReductions={this.state.countReductions}/>
-        </View>
-        <View style={{flex: 1, backgroundColor: 'orange'}}>
-          <Text style={{color: 'white', fontSize: 20}}>{this.props.userData[0].points} Points</Text>
-        </View>
+
+        <Divider styleName="line small center" style={{marginTop:10}} />
+        
+        <Tile styleName="text-centric" style={{flex:1}}>
+          <Title styleName="md-gutter-bottom">PROGRESSION ACTUELLE</Title>
+          <Overlay styleName="solid-dark">
+            <Subtitle styleName="sm-gutter-horizontal">{this.props.userData[0].points} points</Subtitle>
+          </Overlay>
+        </Tile>
+
       </View>
       
     );
@@ -112,7 +125,11 @@ class CadeauxPage extends Component {
 
   const mapStateToProps = (state, ownProps) => {
     return{
+      navigation : state.navigationReducer.navigator,
       userData : state.profilReducer.connected,
+      reductionReducer : state.reductionReducer.counterReductions,
+      cadeauxReducer : state.cadeauReducer.counterCadeaux,
+
     }
   }
 

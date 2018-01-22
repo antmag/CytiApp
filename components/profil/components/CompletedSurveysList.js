@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Screen, NavigationBar, Caption, View, ListView, Heading, Icon, Title, Button, Text, Image , TouchableOpacity} from '@shoutem/ui';
 import {NavigationActions} from 'react-navigation';
 import Animation from 'lottie-react-native';
-import anim from '../../../assets/animations/trophy.json';
-import ReductionElement from './ReductionElement';
+import anim from '../../../assets/animations/surveyCheck.json';
+import CompletedSurveyElement from './CompletedSurveyElement';
+import {updateCompletedSurveys} from '../../../actions';
 
-class ReductionCadeaux extends Component {
+class CompletedSurveysList extends Component {
  
   constructor(props){
     super(props);
@@ -22,14 +23,14 @@ class ReductionCadeaux extends Component {
   
   renderRow(reduction){
     return(
-      <ReductionElement 
+      <CompletedSurveyElement 
+          key={reduction.title}
           title={reduction.title}
           points={reduction.points}
           image={reduction.url}
           description={reduction.description}
       />
     );
-
   }
 
   componentDidMount() {
@@ -51,6 +52,7 @@ class ReductionCadeaux extends Component {
       .catch((error) => {
         console.error(error);
       });
+
   }
 
 
@@ -81,7 +83,7 @@ class ReductionCadeaux extends Component {
                     hasHistory
                     centerComponent={
                         <Title styleName="bold h-center" numberOfLines={1}>
-                            Availables vouchers
+                            Completed Surveys
                         </Title>
                     }
                     navigateBack={ () => {
@@ -91,7 +93,7 @@ class ReductionCadeaux extends Component {
                 />
                 <View>
                   <ListView 
-                    data={this.props.reductionReducer.listReductions.reductions}
+                    data={this.props.completedSurveysReducer.completedSurveys}
                     renderRow={this.renderRow}
                   />
                 </View>
@@ -105,9 +107,9 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         reductionReducer : state.reductionReducer.listReductions,
-      userData : state.profilReducer.connected,
-
+        userData : state.profilReducer.connected,
+        completedSurveysReducer : state.profilReducer.completedSurveys,
     }
 }
 
-export default connect(mapStateToProps)(ReductionCadeaux);
+export default connect(mapStateToProps)(CompletedSurveysList);
