@@ -173,10 +173,18 @@ class LoginPage extends Component {
           source={require('../../assets/images/loginBackground.jpg')}
         /> 
 
-        <View styleName="vertical h-center v-center" style={{flex:1}}>
+        <View  styleName="vertical h-center v-center" style={{flex:1}}>
+          <Image
+            styleName="medium-wide"
+            style={{width:'90%',height:147}}
+            source={require('../../assets/images/logo-transparent.png')}
+          />  
+        </View>  
+
+        {/* <View styleName="vertical h-center v-center" style={{flex:1}}>
           <Heading styleName="bold">CYTi</Heading>
           <Caption>Capitalise Your Time</Caption>
-        </View>
+        </View> */}
         <View styleName="vertical h-center">
           <Row style={{
               width:'90%',

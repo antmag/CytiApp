@@ -28,11 +28,12 @@ class Topbar extends Component {
                 source={{ uri: this.props.userData[0].url_fb_picture}}
               />
               <Text>{this.props.userData[0].username}</Text>
-              <Button styleName="clear"
-                      onPress={() => {
-                        const navigateBack = NavigationActions.back();
-                        this.props.navigation.dispatch(navigateBack); 
-                      }}
+              <Button 
+                styleName="clear"
+                onPress={() => {
+                  const navigateBack = NavigationActions.back();
+                  this.props.navigation.dispatch(navigateBack);
+                }}
               >
                 <Icon name="exit-to-app" />
               </Button>  
