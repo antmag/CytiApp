@@ -50,6 +50,7 @@ class ReponseUnique extends Component {
                 <Button style={{backgroundColor:'#FFFFFF'}} styleName="full-width" onPress={() => {
                     this.disableOthers(reponse._id, this.props.index, this.props.answerSelected);
                     this.props.addAnswer(this.props.id, reponse._id);
+                    this.props.next();
                 }}>
                     <Text>{reponse.txt}</Text>
                 </Button>    
@@ -69,7 +70,7 @@ class ReponseUnique extends Component {
                     cloneOfA[this.props.index].answers[reponse.position].value=this.props.answerSelected[this.props.index].answers[reponse.position].value;
                     this.props.dispatch(updateCurrentAnswer(cloneOfA));
                     //this.props.addAnswer(this.props.id, reponse._id, this.props.index);
-                    //this.props.next();
+                    
                 }}>
                     <Text>{reponse.txt}</Text>
                 </Button>   
