@@ -76,3 +76,9 @@ export const updateCompletedSurveys = (completedSurveys) => {
     };
 }
 
+export const updateCurrentAnswer = (answer) => {
+    return {
+        type: 'UPDATE_ANSWER',
+        obj: answer
+    };
+}

@@ -12,7 +12,7 @@ import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
 
 import anim from '../../../../assets/animations/loader.json';
-import {updateCompletedSurveys,setConnectedUser, updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux} from '../../../../actions';
+import {updateCompletedSurveys,setConnectedUser, updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux, updateCurrentAnswer} from '../../../../actions';
 
 const { width, height } = Dimensions.get('window');
 let _carousel;
@@ -65,7 +65,21 @@ class ReponseSondage extends Component {
         this.state.reponses[id].push(reponse);
       }
     }
+    addMultipleAnswer(id, reponse){
+      //Si le tableau n'existe pas on le créé
+      if(this.state.reponses[id] === undefined){
+        this.state.reponses[id] = [];
+        this.state.reponses[id].push(reponse);
+        return;
+      }
 
+      let index = this.state.reponses[id].indexOf(reponse);
+      if(index !== -1){
+        this.state.reponses[id].splice(index,1);
+      } else {
+        this.state.reponses[id].push(reponse);
+      }
+    }
     sendMultipleAnswer(id){
 
       if(this.state.reponses[id] === undefined) return;
@@ -94,6 +108,7 @@ class ReponseSondage extends Component {
                       next = { () => _carousel.snapToNext()}
                       reponses = { item.answers }
                       addAnswer = { this.sendUniqueAnswer }
+                      index={index}
                     />);
       else if (item.type === 'unique')
         template = (<ReponseUnique 
@@ -101,6 +116,7 @@ class ReponseSondage extends Component {
                       next = { () => _carousel.snapToNext()} 
                       reponses = { item.answers }
                       addAnswer = { this.sendUniqueAnswer }
+                      index={index}
                     />);
       else if (item.type === 'multiple')
         template = (<ReponseMultiple 
@@ -109,6 +125,7 @@ class ReponseSondage extends Component {
                       reponses = { item.answers } 
                       addAnswer = { this.addMultipleAnswer }
                       sendAnswer = { this.sendMultipleAnswer }
+                      index={index}
                     />);
 
       return (
@@ -130,14 +147,33 @@ class ReponseSondage extends Component {
       return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)
         .then((response) => response.json())
         .then((responseJson) => {
-          this.setState({
-            isLoading: false,
-            questions: responseJson,
-          });
+
+            var maMap=responseJson;
+            var maMap2;
+            Object.keys(responseJson).forEach(function(k, v){
+
+              maMap2=maMap[k].answers;
+
+              Object.keys(maMap[k].answers).forEach(function(kk, vv){
+
+                maMap2[kk].slid=k;
+                maMap2[kk].status=0;
+
+              });
+
+            });
+
+            this.props.dispatch(updateCurrentAnswer(maMap));
+
+            this.setState({
+              isLoading: false,
+              questions: maMap,
+            });
         })
         .catch((error) => {
           console.error(error);
         });
+
     }
 
     render() {
