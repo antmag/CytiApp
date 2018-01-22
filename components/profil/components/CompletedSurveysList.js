@@ -95,6 +95,9 @@ class CompletedSurveysList extends Component {
                   <ListView 
                     data={this.props.completedSurveysReducer.completedSurveys}
                     renderRow={this.renderRow}
+                    style={{
+                      listContent : { backgroundColor:'transparent', paddingBottom:90}
+                    }}
                   />
                 </View>
             </Screen>  
