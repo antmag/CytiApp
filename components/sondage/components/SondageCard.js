@@ -14,7 +14,8 @@ class SondageCard extends Component {
             title : this.props.title,
             description : this.props.description,
             image : this.props.image,
-            duree : this.props.duree
+            duree : this.props.duree,
+            points : this.props.points
         };
     }
 
@@ -31,6 +32,7 @@ class SondageCard extends Component {
                         description: this.props.description,
                         image: this.props.image,
                         duree: this.props.duree,
+                        points : this.props.points,
                     }));
                 }}
             >

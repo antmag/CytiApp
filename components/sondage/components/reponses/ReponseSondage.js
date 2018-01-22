@@ -12,7 +12,7 @@ import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
 
 import anim from '../../../../assets/animations/loader.json';
-import {updateCompletedSurveys} from '../../../../actions';
+import {updateCompletedSurveys,setConnectedUser, updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux} from '../../../../actions';
 
 const { width, height } = Dimensions.get('window');
 let _carousel;
@@ -243,6 +243,68 @@ class ReponseSondage extends Component {
 
                     }));
 
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+
+                var cloneOfA = JSON.parse(JSON.stringify(this.props.user));
+                var newPoints = Number(this.props.user[0].points) + Number(this.props.sondage.points);
+                cloneOfA[0]={};
+                cloneOfA[0]._id=this.props.user[0]._id;
+                cloneOfA[0].id_facebook=this.props.user[0].id_facebook;
+                cloneOfA[0].username=this.props.user[0].username;
+                cloneOfA[0].login=this.props.user[0].login;
+                cloneOfA[0].mdp=this.props.user[0].mdp;
+                cloneOfA[0].owner=this.props.
+                user[0].owner;
+                cloneOfA[0].points=newPoints;
+                cloneOfA[0].url_fb_picture=this.props.user[0].url_fb_picture;
+                cloneOfA[0].surveys=this.props.user[0].surveys;
+                console.log(Number(this.props.sondage.points));
+                console.log(this.props.user[0]);
+                this.props.dispatch(setConnectedUser(cloneOfA));
+
+                fetch('http://195.154.107.158:1337/cadeaux?points='+this.props.user[0].points)
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    
+                    var a = responseJson;
+                    var myJSONCadeaux = {
+                      cadeaux: []
+                    };
+                    var myJSONReductions = {
+                      reductions: []
+                    };
+                    var countCadeaux=0;
+                    var countReductions=0;
+                    a.map(function(item) {        
+                      if(item.cadeaux_type==1){
+                        countCadeaux++;
+                        myJSONCadeaux.cadeaux.push(
+                          item
+                        );
+                      }
+                      else if(item.cadeaux_type==2){
+                        countReductions++;
+                        myJSONReductions.reductions.push(
+                          item
+                        );
+                      }
+                    });
+                    
+                    this.props.dispatch(updateAvailablesCadeaux({
+                        listCadeaux: myJSONCadeaux,
+                    }));
+                    this.props.dispatch(updateAvailablesReductions({
+                        listReductions: myJSONReductions,
+                    }));
+                    this.props.dispatch(updateCounterReductions({
+                          counterReductions: countReductions,
+                    }));
+                    this.props.dispatch(updateCounterCadeaux({
+                          counterCadeaux: countCadeaux,
+                    }));
                   })
                   .catch((error) => {
                     console.error(error);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Heading, Divider} from '@shoutem/ui';
+import { View, Button, Heading, Divider, TouchableOpacity} from '@shoutem/ui';
 
 export default class ReponseOuiNon extends Component {
 
@@ -11,6 +11,7 @@ export default class ReponseOuiNon extends Component {
 
         return(
             <View styleName="vertical flexible" style={{flex : 1}}>
+
                 <Button styleName="full-width" onPress={() =>  {
                     this.props.addAnswer(this.props.id, this.props.reponses[0]._id);
                     this.props.next(); 
