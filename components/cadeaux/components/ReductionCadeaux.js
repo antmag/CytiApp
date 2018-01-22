@@ -93,6 +93,9 @@ class ReductionCadeaux extends Component {
                   <ListView 
                     data={this.props.reductionReducer.listReductions.reductions}
                     renderRow={this.renderRow}
+                    style={{
+                      listContent : { backgroundColor:'transparent', paddingBottom:90}
+                    }}
                   />
                 </View>
             </Screen>  

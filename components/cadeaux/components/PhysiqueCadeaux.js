@@ -96,6 +96,9 @@ class PhysiqueCadeaux extends Component {
                   <ListView 
                     data={this.props.cadeauxReducer.listCadeaux.cadeaux}
                     renderRow={this.renderRow}
+                    style={{
+                      listContent : { backgroundColor:'transparent', paddingBottom:90}
+                    }}
                   />
                 </View>
             </Screen>  
