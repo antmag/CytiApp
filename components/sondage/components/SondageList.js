@@ -26,17 +26,6 @@ class SondageList extends Component {
 
   }
 
-  // renderRow(sondage){
-  //   return(
-  //     <SondagePreview 
-  //       id={sondage._id}
-  //       title={sondage.title}
-  //       image={sondage.image}
-  //       description={sondage.description}
-  //     />
-  //   );
-  // }
-
   renderRow(rowData, sectionId, index) {
     // rowData contains grouped data for one row,
     // so we need to remap it into cells and pass to GridRow
@@ -49,6 +38,7 @@ class SondageList extends Component {
          title={rowData[0].title}
          image={rowData[0].image}
          description={rowData[0].description}
+         points={rowData[0].points}
        />
       );
     }
@@ -62,6 +52,7 @@ class SondageList extends Component {
           title={sondage.title}
           image={sondage.image}
           description={sondage.description}
+          points={rowData[0].points}
         />
       );
     });
@@ -126,13 +117,17 @@ class SondageList extends Component {
       );
     }
 
+    if(this.props.filter && (this.props.filter !== "All"))
+      var filteredSondage = this.state.sondages.filter(sondage => sondage.theme == this.props.filter);
+    else
+      var filteredSondage = this.state.sondages;
+
     let isFirstArticle = true;
-    const groupedData = GridRow.groupByRows(this.state.sondages, 2, () => {
+    const groupedData = GridRow.groupByRows(filteredSondage, 2, () => {
       if (isFirstArticle) {
         isFirstArticle = false;
         return 2;
       }
-
       return 1;
     });
     

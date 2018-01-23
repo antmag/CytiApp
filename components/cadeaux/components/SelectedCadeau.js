@@ -69,7 +69,6 @@ class SelectedCadeau extends Component {
                 }
               });
               
-              console.log(typeof myJSONReductions);
               this.setState({countReductions:countReductions, countCadeaux:countCadeaux});
               this.props.dispatch(updateAvailablesCadeaux({
                   listCadeaux: myJSONCadeaux,
@@ -84,13 +83,10 @@ class SelectedCadeau extends Component {
                   counterCadeaux: countCadeaux,
               }));
 
-              console.log(countCadeaux);
-              console.log(countReductions);
             })
             .catch((error) => {
               console.error(error);
             });
-
         }
 
     render() {
