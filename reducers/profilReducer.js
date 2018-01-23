@@ -1,5 +1,4 @@
 const profilReducer= (state={connected:{}, completedSurveys:{}, statCompletedSurveys:{}},action) => {
-	 console.log(action);
 	 switch (action.type) {
 	 	case 'UPDATE_CONNECTED_USER':
 	 		const newState1={connected:action.obj, completedSurveys:state.completedSurveys, statCompletedSurveys:state.statCompletedSurveys};

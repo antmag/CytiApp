@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { Caption, Image, View, Icon, Row, Divider, TouchableOpacity, Subtitle, Button, Text, Tile, Title } from '@shoutem/ui';
+import { Caption, Image, View, Tile, Title, Heading, Button, Icon, Text, Overlay } from '@shoutem/ui';
 
 import {updateSelectedCadeau} from '../../../actions';
 
-class ReductionElement extends Component {
+class CadeauxElement extends Component {
     
     constructor(props){
         super(props);
         this.state = {
+            largueur : this.props.largueur,
             title : this.props.title,
             points: this.props.points,
             description : this.props.description,
@@ -21,38 +21,36 @@ class ReductionElement extends Component {
     render() {
 
         return (
-            <View>
-
-                <TouchableOpacity
-                        onPress={() => {
-                            const navigate = NavigationActions.navigate({routeName:'SelectedCadeau'});
-                            this.props.navigation.dispatch(navigate);
-                            this.props.dispatch(updateSelectedCadeau({
-                            title: this.props.title,
-                            points:this.props.points,
-                            description: this.props.description,
-                            image: this.props.image,
-                        }));
-                        }}
+            <Tile
+                style={{margin:5,marginTop:40,elevation:2, width:this.state.largueur}}
+            >
+                <Image
+                    styleName="large"
+                    source={{ uri: this.state.image }}
+                    style={{width : this.state.largueur}} 
                 >
-                <Row>
-                    <Tile>
-                      <Image
-                        styleName="large-banner"
-                        source={{ uri: this.state.image }}
-                      >
-                      </Image>
-                      <View styleName="content">
-                        <Title>{this.state.title}</Title>
-                        <View styleName="horizontal space-between">
-                          <Caption>{this.state.points} points</Caption>
-                        </View>
-                      </View>
-                    </Tile>
-                </Row>
-                </TouchableOpacity>
-                <Divider styleName="line" />
-            </View>
+                    <Overlay styleName="solid-bright">
+                        <Heading styleName="sm-gutter-top">{this.state.points} points</Heading>
+                    </Overlay>
+                </Image>
+                <View styleName="content h-center v-center">
+                    <Title styleName="md-gutter-top">{this.state.title}</Title>
+                    <Caption
+                        numberOfLines={4}
+                        styleName="sm-gutter-top"
+                    >
+                        {this.state.description}
+                    </Caption>
+                    <Button 
+                        styleName="md-gutter-top secondary"
+                        onPress={() => {
+                            this.props.afficherModal(this.state.title, this.state.points);
+                        }}
+                    >
+                        <Icon name="cart" /><Text>COMMANDER</Text>
+                    </Button>
+                </View>    
+            </Tile>
         );
     }
 }
@@ -63,4 +61,4 @@ const mapStateToProps = (state, ownProps) => {
     }
   }
 
-export default connect(mapStateToProps)(ReductionElement);
+export default connect(mapStateToProps)(CadeauxElement);

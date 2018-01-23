@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import { DropDownMenu, View, Divider } from '@shoutem/ui';
 
-import Filter from './components/Filter';
 import SondageList from './components/SondageList';
 
 import {updateFilter} from '../../actions';
@@ -32,7 +31,7 @@ class SondagePage extends Component {
   render() {
     
     return (
-        <View style={{width:'100%'}}>
+        <View>
             <DropDownMenu
               options={this.state.filters}
               selectedOption={this.state.selectedFilter ? this.state.selectedFilter : this.state.filters[0]}

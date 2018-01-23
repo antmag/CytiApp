@@ -1,59 +1,62 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {ListView, View, Button, Text, Icon} from '@shoutem/ui';
+import {updateCurrentAnswer} from '../../../../actions';
 
-export default class ReponseMultiple extends Component {
+
+class ReponseMultiple extends Component {
 
     constructor(props){
         super(props);
-        
-        // //Setup the answers
-        // let reponseList = [];
-        // let reponseListLength = Object.keys(this.props.reponses).length;
-        // for(let i=0;i<reponseListLength;i++){
-        //     reponseList.push({
-        //         value : this.props.reponses[i],
-        //         selected : false
-        //     });
-        // }
-        
-        // this.state = {
-        //     reponses : reponseList
-        // }
 
         this.renderRow = this.renderRow.bind(this);
     }
 
+
     renderRow(reponse){
-        
-        if(reponse.selected){
+
+        if(reponse.status == 0){
             return(
-                <Button styleName="full-width muted" onPress={() => {
-                    //TODO: change the answer
-                    // this.state.reponses[reponse.value.id_answer].selected = false;
-                    // this.setState(this.state);
-                    // setOpacityTo(1);
-                    // console.log('Unselect');
-                    // console.log('State: ' + this.state.reponses[reponse.value.id_answer].selected);
+                <Button style={{backgroundColor:'#FFFFFF'}} styleName="full-width" onPress={() => {
+                    var cloneOfA = JSON.parse(JSON.stringify(this.props.answerSelected));                    
+                    //cloneOfA[this.props.index]={};
+
+                    cloneOfA[this.props.index].answers[reponse.position]={};
+                    cloneOfA[this.props.index].answers[reponse.position]._id=this.props.answerSelected[this.props.index].answers[reponse.position]._id;
+                    cloneOfA[this.props.index].answers[reponse.position].id_question=this.props.answerSelected[this.props.index].answers[reponse.position].id_question;
+                    cloneOfA[this.props.index].answers[reponse.position].id_survey=this.props.answerSelected[this.props.index].answers[reponse.position].id_survey;
+                    cloneOfA[this.props.index].answers[reponse.position].position=this.props.answerSelected[this.props.index].answers[reponse.position].position;
+                    cloneOfA[this.props.index].answers[reponse.position].status=1;
+                    cloneOfA[this.props.index].answers[reponse.position].txt=this.props.
+                    answerSelected[this.props.index].answers[reponse.position].txt;
+                    cloneOfA[this.props.index].answers[reponse.position].value=this.props.answerSelected[this.props.index].answers[reponse.position].value;
+                    this.props.dispatch(updateCurrentAnswer(cloneOfA));
                     this.props.addAnswer(this.props.id, reponse._id);
                 }}>
                     <Text>{reponse.txt}</Text>
-                </Button>
+                </Button>    
+            );
+        }else if(reponse.status == 1){
+            return(
+                <Button style={{backgroundColor:'#ABABAB'}} styleName="full-width" onPress={() => {
+                    var cloneOfA = JSON.parse(JSON.stringify(this.props.answerSelected));
+                    cloneOfA[this.props.index].answers[reponse.position]={};
+                    cloneOfA[this.props.index].answers[reponse.position]._id=this.props.answerSelected[this.props.index].answers[reponse.position]._id;
+                    cloneOfA[this.props.index].answers[reponse.position].id_question=this.props.answerSelected[this.props.index].answers[reponse.position].id_question;
+                    cloneOfA[this.props.index].answers[reponse.position].id_survey=this.props.answerSelected[this.props.index].answers[reponse.position].id_survey;
+                    cloneOfA[this.props.index].answers[reponse.position].position=this.props.answerSelected[this.props.index].answers[reponse.position].position;
+                    cloneOfA[this.props.index].answers[reponse.position].status=0;
+                    cloneOfA[this.props.index].answers[reponse.position].txt=this.props.
+                    answerSelected[this.props.index].answers[reponse.position].txt;
+                    cloneOfA[this.props.index].answers[reponse.position].value=this.props.answerSelected[this.props.index].answers[reponse.position].value;
+                    this.props.dispatch(updateCurrentAnswer(cloneOfA));
+                    this.props.addAnswer(this.props.id, reponse._id);
+                }}>
+                    <Text>{reponse.txt}</Text>
+                </Button>    
             );
         }
-        
-        return(
-            <Button styleName="full-width" onPress={() => {
-                //TODO: change the answer
-                // this.state.reponses[reponse.value.id_answer].selected = true;
-                // this.setState(this.state);
-                // setOpacityTo(0);
-                // console.log('Select');
-                // console.log('State: ' + this.state.reponses[reponse.value.id_answer].selected);
-                this.props.addAnswer(this.props.id, reponse._id);
-            }}>
-                <Text>{reponse.txt}</Text>
-            </Button>    
-        );
+
     }
 
     render(){
@@ -62,7 +65,7 @@ export default class ReponseMultiple extends Component {
             <View style={{flex:1}}>
                 <View style={{flex:6, paddingBottom:5}}>
                     <ListView
-                        data={this.props.reponses}
+                        data={this.props.answerSelected[this.props.index].answers}
                         renderRow={this.renderRow}
                     />
                 </View>
@@ -77,3 +80,12 @@ export default class ReponseMultiple extends Component {
         );
     }
 }
+
+  const mapStateToProps = (state, ownProps) => {
+    return{
+      userData : state.profilReducer.connected,
+      answerSelected : state.sondageReducer.answer,
+    }
+  }
+
+export default connect(mapStateToProps)(ReponseMultiple);

@@ -8,6 +8,9 @@ import SondageFeatured from './SondageFeatured';
 import SondageCard from './SondageCard';
 
 import anim from '../../../assets/animations/loader.json';
+import {updateListSondage} from '../../../actions';
+
+
 
 const { height, width } = Dimensions.get('window');
 
@@ -20,22 +23,9 @@ class SondageList extends Component {
 
     this.state = {
       isLoading: true,
-      refresh: true,
-      sondages : []
-    }
+      refresh: true    }
 
   }
-
-  // renderRow(sondage){
-  //   return(
-  //     <SondagePreview 
-  //       id={sondage._id}
-  //       title={sondage.title}
-  //       image={sondage.image}
-  //       description={sondage.description}
-  //     />
-  //   );
-  // }
 
   renderRow(rowData, sectionId, index) {
     // rowData contains grouped data for one row,
@@ -47,8 +37,9 @@ class SondageList extends Component {
           key={rowData[0]._id}
          id={rowData[0]._id}
          title={rowData[0].title}
-         image={rowData[0].image}
+         image={rowData[0].picture_url}
          description={rowData[0].description}
+         points={rowData[0].points}
        />
       );
     }
@@ -56,12 +47,13 @@ class SondageList extends Component {
     const cellViews = rowData.map((sondage, id) => {
     return (
         <SondageCard
-        key={id}
+        key={sondage._id}
           idRow={id}
           id={sondage._id}
           title={sondage.title}
           image={sondage.image}
           description={sondage.description}
+          points={rowData[0].points}
         />
       );
     });
@@ -98,8 +90,9 @@ class SondageList extends Component {
     .then((responseJson) => {
       this.setState({
         isLoading: false,
-        sondages: responseJson,
       });
+      this.props.dispatch(updateListSondage(responseJson));
+
     })
     .catch((error) => {
       console.error(error);
@@ -126,13 +119,19 @@ class SondageList extends Component {
       );
     }
 
+    if(this.props.filter && (this.props.filter !== "All")){
+      var filteredSondage = this.props.listSondages.filter(sondage => sondage.theme == this.props.filter);
+    }
+    else{
+      var filteredSondage = this.props.listSondages;
+    }
+
     let isFirstArticle = true;
-    const groupedData = GridRow.groupByRows(this.state.sondages, 2, () => {
+    const groupedData = GridRow.groupByRows(filteredSondage, 2, () => {
       if (isFirstArticle) {
         isFirstArticle = false;
         return 2;
       }
-
       return 1;
     });
     
@@ -156,7 +155,8 @@ class SondageList extends Component {
 const mapStateToProps = (state, ownProps) => {
   return{
     filter : state.filterReducer.selectedFilter,
-    user: state.profilReducer.connected
+    user: state.profilReducer.connected,
+    listSondages : state.sondageReducer.listSondage,
   }
 }
 

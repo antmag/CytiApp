@@ -120,10 +120,10 @@ class LoginPage extends Component {
 
   logInFacebook(){
     let _this = this;
-    FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web); // defaults to Native
-
+    FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web);
     FBLoginManager.loginWithPermissions(["email","user_friends","public_profile"], function(error, data){
       if (!error) {
+        console.log(data);
 
           fetch('http://195.154.107.158:1337/profil/checkUser/facebookConnexion/',{
                     method: 'POST',
@@ -173,10 +173,18 @@ class LoginPage extends Component {
           source={require('../../assets/images/loginBackground.jpg')}
         /> 
 
-        <View styleName="vertical h-center v-center" style={{flex:1}}>
+        <View  styleName="vertical h-center v-center" style={{flex:1}}>
+          <Image
+            styleName="medium-wide"
+            style={{width:'90%',height:147}}
+            source={require('../../assets/images/logo-transparent.png')}
+          />  
+        </View>  
+
+        {/* <View styleName="vertical h-center v-center" style={{flex:1}}>
           <Heading styleName="bold">CYTi</Heading>
           <Caption>Capitalise Your Time</Caption>
-        </View>
+        </View> */}
         <View styleName="vertical h-center">
           <Row style={{
               width:'90%',

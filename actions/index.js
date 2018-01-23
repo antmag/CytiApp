@@ -76,3 +76,17 @@ export const updateCompletedSurveys = (completedSurveys) => {
     };
 }
 
+export const updateCurrentAnswer = (answer) => {
+    return {
+        type: 'UPDATE_ANSWER',
+        obj: answer
+    };
+}
+
+
+export const updateListSondage = (sondage) => {
+    return {
+        type: 'UPDATE_LIST_SONDAGE',
+        obj: sondage
+    };
+}

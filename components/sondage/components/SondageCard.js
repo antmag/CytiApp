@@ -14,7 +14,8 @@ class SondageCard extends Component {
             title : this.props.title,
             description : this.props.description,
             image : this.props.image,
-            duree : this.props.duree
+            duree : this.props.duree,
+            points : this.props.points
         };
     }
 
@@ -31,13 +32,14 @@ class SondageCard extends Component {
                         description: this.props.description,
                         image: this.props.image,
                         duree: this.props.duree,
+                        points : this.props.points,
                     }));
                 }}
             >
                 <Card styleName="flexible" style={{backgroundColor:'white',elevation:2}}>
                     <Image
                         styleName="medium-wide"
-                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png'  }}
+                        source={{ uri: this.state.image  }}
                     />
                     <View styleName="content">
                         <Subtitle numberOfLines={3}>{this.state.title}</Subtitle>
