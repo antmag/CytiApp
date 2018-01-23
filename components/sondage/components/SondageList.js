@@ -37,7 +37,7 @@ class SondageList extends Component {
           key={rowData[0]._id}
          id={rowData[0]._id}
          title={rowData[0].title}
-         image={rowData[0].image}
+         image={rowData[0].picture_url}
          description={rowData[0].description}
          points={rowData[0].points}
        />

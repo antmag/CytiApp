@@ -22,7 +22,7 @@ class CadeauxElement extends Component {
 
         return (
             <Tile
-                style={{margin:5,marginTop:40,elevation:2}}
+                style={{margin:5,marginTop:40,elevation:2, width:this.state.largueur}}
             >
                 <Image
                     styleName="large"
@@ -35,18 +35,15 @@ class CadeauxElement extends Component {
                 </Image>
                 <View styleName="content h-center v-center">
                     <Title styleName="md-gutter-top">{this.state.title}</Title>
-                    <Caption styleName="sm-gutter-top">{this.state.description}</Caption>
+                    <Caption
+                        numberOfLines={4}
+                        styleName="sm-gutter-top"
+                    >
+                        {this.state.description}
+                    </Caption>
                     <Button 
                         styleName="md-gutter-top secondary"
                         onPress={() => {
-                            // const navigate = NavigationActions.navigate({routeName:'SelectedCadeau'});
-                            // this.props.navigation.dispatch(navigate);
-                            // this.props.dispatch(updateSelectedCadeau({
-                            //     title: this.state.title,
-                            //     points:this.state.points,
-                            //     description: this.state.description,
-                            //     image: this.state.image,
-                            // }));
                             this.props.afficherModal(this.state.title, this.state.points);
                         }}
                     >

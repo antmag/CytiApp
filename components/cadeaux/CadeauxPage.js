@@ -4,9 +4,6 @@ import {NavigationActions} from 'react-navigation';
 import { View, Text, Tile, Title, Subtitle, Overlay, Divider, Caption, TouchableOpacity } from '@shoutem/ui';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import CadeauxPreview from './components/CadeauxPreview';
-import ReducPreview from './components/ReducPreview';
-
 import * as contentMapTmp from './components/sondages.json';
 import {updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux} from '../../actions';
 
@@ -110,7 +107,7 @@ class CadeauxPage extends Component {
 
         <Divider styleName="line small center" style={{marginTop:10}} />
         
-        <Tile styleName="text-centric" style={{flex:1}}>
+        <Tile styleName="text-centric">
           <Title styleName="md-gutter-bottom">PROGRESSION ACTUELLE</Title>
           <Overlay styleName="solid-dark">
             <Subtitle styleName="sm-gutter-horizontal">{this.props.userData[0].points} points</Subtitle>
