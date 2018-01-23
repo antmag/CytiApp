@@ -44,7 +44,7 @@ class SondageFeatured extends Component {
                         elevation : 2
                     }}
                     styleName="large-banner"
-                    source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
+                    source={{ uri: this.state.image }}
                 >
                     <Tile>
                         <Title styleName="md-gutter-bottom">{this.state.title}</Title>

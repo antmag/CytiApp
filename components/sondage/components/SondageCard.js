@@ -39,7 +39,7 @@ class SondageCard extends Component {
                 <Card styleName="flexible" style={{backgroundColor:'white',elevation:2}}>
                     <Image
                         styleName="medium-wide"
-                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png'  }}
+                        source={{ uri: this.state.image  }}
                     />
                     <View styleName="content">
                         <Subtitle numberOfLines={3}>{this.state.title}</Subtitle>
