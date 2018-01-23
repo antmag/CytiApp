@@ -27,7 +27,7 @@ class CompletedSurveysList extends Component {
           key={reduction.title}
           title={reduction.title}
           points={reduction.points}
-          image={reduction.url}
+          image={reduction.picture_url}
           description={reduction.description}
       />
     );
