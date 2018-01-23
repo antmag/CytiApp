@@ -25,7 +25,7 @@ class CompletedSurveyElement extends Component {
                 <Row>
                     <Image
                         styleName="small rounded-corners"
-                        source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
+                        source={{ uri: this.state.image }}
                     />
                     <View styleName="vertical stretch space-between">
                     <Subtitle>{this.state.title}</Subtitle>
