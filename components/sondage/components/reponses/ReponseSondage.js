@@ -297,7 +297,7 @@ class ReponseSondage extends Component {
                 cloneOfA[0].surveys=this.props.user[0].surveys;
                 this.props.dispatch(setConnectedUser(cloneOfA));
 
-                fetch('http://195.154.107.158:1337/cadeaux?points='+this.props.user[0].points)
+                fetch('http://195.154.107.158:1337/cadeaux?points='+newPoints)
                   .then((response) => response.json())
                   .then((responseJson) => {
                     
