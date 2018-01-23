@@ -123,7 +123,7 @@ class LoginPage extends Component {
     FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web);
     FBLoginManager.loginWithPermissions(["email","user_friends","public_profile"], function(error, data){
       if (!error) {
-        console.log(data);
+        //console.log(data);
 
           fetch('http://195.154.107.158:1337/profil/checkUser/facebookConnexion/',{
                     method: 'POST',

@@ -82,3 +82,11 @@ export const updateCurrentAnswer = (answer) => {
         obj: answer
     };
 }
+
+
+export const updateListSondage = (sondage) => {
+    return {
+        type: 'UPDATE_LIST_SONDAGE',
+        obj: sondage
+    };
+}
