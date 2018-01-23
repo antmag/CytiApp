@@ -52,7 +52,7 @@ componentDidMount() {
         this.props.dispatch(updateCompletedSurveys({
             completedSurveys: responseJson.surveys,
             totalCompletedSurveys: responseJson.total,
-            modeCompletedSurveys: responseJson.mode,
+            modeCompletedSurveys: responseJson.fashion,
             shoppingCompletedSurveys: responseJson.shopping,
             sportCompletedSurveys: responseJson.sport,
             beautyCompletedSurveys: responseJson.beauty,
@@ -73,7 +73,7 @@ componentDidMount() {
         Number(this.props.completedSurveysReducer.modeCompletedSurveys)
     ];
 
-    const index = ["beauty", "sport" , "shopping" , "mode"];
+    const index = ["beauty", "sport" , "shopping" , "fashion"];
     const colors = ["#262e45", "#ff9800" , "#7db9b3" , "#f2bcfb"];
     const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7);
     const pieData = data
