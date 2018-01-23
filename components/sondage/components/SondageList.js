@@ -47,7 +47,7 @@ class SondageList extends Component {
     const cellViews = rowData.map((sondage, id) => {
     return (
         <SondageCard
-        key={id}
+        key={sondage._id}
           idRow={id}
           id={sondage._id}
           title={sondage.title}
