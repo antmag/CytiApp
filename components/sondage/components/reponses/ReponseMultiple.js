@@ -50,7 +50,7 @@ class ReponseMultiple extends Component {
                     answerSelected[this.props.index].answers[reponse.position].txt;
                     cloneOfA[this.props.index].answers[reponse.position].value=this.props.answerSelected[this.props.index].answers[reponse.position].value;
                     this.props.dispatch(updateCurrentAnswer(cloneOfA));
-                    //this.props.addAnswer(this.props.id, reponse._id);
+                    this.props.addAnswer(this.props.id, reponse._id);
                 }}>
                     <Text>{reponse.txt}</Text>
                 </Button>    
