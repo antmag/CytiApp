@@ -53,7 +53,7 @@ class SondageList extends Component {
           title={sondage.title}
           image={sondage.image}
           description={sondage.description}
-          points={rowData[0].points}
+          points={sondage.points}
         />
       );
     });

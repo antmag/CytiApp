@@ -249,6 +249,23 @@ class ReponseSondage extends Component {
                 styleName="secondary md-gutter-bottom" 
                 style={{width:width * 0.85, marginLeft:'auto', marginRight:'auto'}}
                 onPress = { () => {
+                  var functionVar = this.props.user[0];
+                  var newPoints = Number(functionVar.points) + Number(this.props.sondage.points);
+                                  var cloneOfA = JSON.parse(JSON.stringify(this.props.user));
+                
+                cloneOfA[0]={};
+                cloneOfA[0]._id=functionVar._id;
+                cloneOfA[0].id_facebook=functionVar.id_facebook;
+                cloneOfA[0].username=functionVar.username;
+                cloneOfA[0].login=functionVar.login;
+                cloneOfA[0].mdp=functionVar.mdp;
+                cloneOfA[0].owner=this.props.
+                user[0].owner;
+                cloneOfA[0].points=newPoints;
+                cloneOfA[0].url_fb_picture=functionVar.url_fb_picture;
+                cloneOfA[0].surveys=functionVar.surveys;
+                  console.log("USERID"+this.props.user[0]._id);
+
                   fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/finish',{
                     method: 'POST',
                     headers: {
@@ -256,46 +273,29 @@ class ReponseSondage extends Component {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                      "id_user" : this.props.user[0]._id
+                      "id_user" : functionVar._id
                     })
-                  });
-
-                  
-                  fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.user[0]._id)
-                  .then((response) => response.json())
+                  }).then((response) => response.json())
                   .then((responseJson) => {
-                    this.setState({
-                      isLoading: false,
-                    });
+                    
                     this.props.dispatch(updateCompletedSurveys({
                         completedSurveys: responseJson.surveys,
                         totalCompletedSurveys: responseJson.total,
-                        modeCompletedSurveys: responseJson.mode,
+                        modeCompletedSurveys: responseJson.fashion,
                         shoppingCompletedSurveys: responseJson.shopping,
                         sportCompletedSurveys: responseJson.sport,
                         beautyCompletedSurveys: responseJson.beauty,
 
                     }));
 
+                   console.log("REPONSE"+responseJson);
                   })
                   .catch((error) => {
                     console.error(error);
                   });
 
-                var cloneOfA = JSON.parse(JSON.stringify(this.props.user));
-                var newPoints = Number(this.props.user[0].points) + Number(this.props.sondage.points);
-                cloneOfA[0]={};
-                cloneOfA[0]._id=this.props.user[0]._id;
-                cloneOfA[0].id_facebook=this.props.user[0].id_facebook;
-                cloneOfA[0].username=this.props.user[0].username;
-                cloneOfA[0].login=this.props.user[0].login;
-                cloneOfA[0].mdp=this.props.user[0].mdp;
-                cloneOfA[0].owner=this.props.
-                user[0].owner;
-                cloneOfA[0].points=newPoints;
-                cloneOfA[0].url_fb_picture=this.props.user[0].url_fb_picture;
-                cloneOfA[0].surveys=this.props.user[0].surveys;
-                this.props.dispatch(setConnectedUser(cloneOfA));
+
+               
 
                 fetch('http://195.154.107.158:1337/cadeaux?points='+newPoints)
                   .then((response) => response.json())
@@ -342,16 +342,21 @@ class ReponseSondage extends Component {
                     console.error(error);
                   });
 
+
+
                   var sondage_id=this.props.sondage.id;
-                  var cloneOfA = JSON.parse(JSON.stringify(this.props.listSondages));
+                  var cloneOfB = JSON.parse(JSON.stringify(this.props.listSondages));
 
                   this.props.listSondages.forEach(function(result, index) {
                     if(result["_id"] == sondage_id) {
                       //Remove from array
-                      cloneOfA.splice(index, 1);
+                      cloneOfB.splice(index, 1);
                     }    
                   });
-                this.props.dispatch(updateListSondage(cloneOfA));
+                this.props.dispatch(updateListSondage(cloneOfB));
+
+
+                   this.props.dispatch(setConnectedUser(cloneOfA));
                   const navigateBack = NavigationActions.back();
                   this.props.navigation.dispatch(navigateBack);
                 } }
