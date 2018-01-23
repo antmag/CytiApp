@@ -12,7 +12,7 @@ import ReponseUnique from './ReponseUnique';
 import ReponseMultiple from './ReponseMultiple';
 
 import anim from '../../../../assets/animations/loader.json';
-import {updateCompletedSurveys,setConnectedUser, updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux, updateCurrentAnswer} from '../../../../actions';
+import {updateCompletedSurveys,setConnectedUser, updateAvailablesReductions, updateCounterReductions, updateCounterCadeaux, updateAvailablesCadeaux, updateCurrentAnswer, updateListSondage} from '../../../../actions';
 
 const { width, height } = Dimensions.get('window');
 let _carousel;
@@ -295,8 +295,6 @@ class ReponseSondage extends Component {
                 cloneOfA[0].points=newPoints;
                 cloneOfA[0].url_fb_picture=this.props.user[0].url_fb_picture;
                 cloneOfA[0].surveys=this.props.user[0].surveys;
-                console.log(Number(this.props.sondage.points));
-                console.log(this.props.user[0]);
                 this.props.dispatch(setConnectedUser(cloneOfA));
 
                 fetch('http://195.154.107.158:1337/cadeaux?points='+this.props.user[0].points)
@@ -344,7 +342,17 @@ class ReponseSondage extends Component {
                     console.error(error);
                   });
 
-                  const navigateBack = NavigationActions.back()
+                  var sondage_id=this.props.sondage.id;
+                  var cloneOfA = JSON.parse(JSON.stringify(this.props.listSondages));
+
+                  this.props.listSondages.forEach(function(result, index) {
+                    if(result["_id"] == sondage_id) {
+                      //Remove from array
+                      cloneOfA.splice(index, 1);
+                    }    
+                  });
+                this.props.dispatch(updateListSondage(cloneOfA));
+                  const navigateBack = NavigationActions.back();
                   this.props.navigation.dispatch(navigateBack);
                 } }
               >
@@ -359,7 +367,8 @@ const mapStateToProps = (state, ownProps) => {
     return{
         navigation : state.navigationReducer.navigator,
         sondage: state.sondageReducer.sondage,
-        user: state.profilReducer.connected
+        user: state.profilReducer.connected,
+        listSondages : state.sondageReducer.listSondage,
     }
 }
 

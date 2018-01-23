@@ -8,6 +8,9 @@ import SondageFeatured from './SondageFeatured';
 import SondageCard from './SondageCard';
 
 import anim from '../../../assets/animations/loader.json';
+import {updateListSondage} from '../../../actions';
+
+
 
 const { height, width } = Dimensions.get('window');
 
@@ -20,9 +23,7 @@ class SondageList extends Component {
 
     this.state = {
       isLoading: true,
-      refresh: true,
-      sondages : []
-    }
+      refresh: true    }
 
   }
 
@@ -89,8 +90,9 @@ class SondageList extends Component {
     .then((responseJson) => {
       this.setState({
         isLoading: false,
-        sondages: responseJson,
       });
+      this.props.dispatch(updateListSondage(responseJson));
+
     })
     .catch((error) => {
       console.error(error);
@@ -117,10 +119,12 @@ class SondageList extends Component {
       );
     }
 
-    if(this.props.filter && (this.props.filter !== "All"))
-      var filteredSondage = this.state.sondages.filter(sondage => sondage.theme == this.props.filter);
-    else
-      var filteredSondage = this.state.sondages;
+    if(this.props.filter && (this.props.filter !== "All")){
+      var filteredSondage = this.props.listSondages.filter(sondage => sondage.theme == this.props.filter);
+    }
+    else{
+      var filteredSondage = this.props.listSondages;
+    }
 
     let isFirstArticle = true;
     const groupedData = GridRow.groupByRows(filteredSondage, 2, () => {
@@ -151,7 +155,8 @@ class SondageList extends Component {
 const mapStateToProps = (state, ownProps) => {
   return{
     filter : state.filterReducer.selectedFilter,
-    user: state.profilReducer.connected
+    user: state.profilReducer.connected,
+    listSondages : state.sondageReducer.listSondage,
   }
 }
 
