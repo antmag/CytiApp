@@ -73,8 +73,8 @@ class ReponseMultiple extends Component {
                     this.props.sendAnswer(this.props.id);
                     this.props.next(); 
                 }}>
-                    <Text>Suivant</Text>
-                    <Icon name="right-arrow" />
+                    <Text>Validez vos choix</Text>
+                    {/* <Icon name="right-arrow" /> */}
                 </Button>
             </View>    
         );
