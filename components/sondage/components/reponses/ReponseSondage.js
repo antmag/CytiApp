@@ -39,7 +39,7 @@ class ReponseSondage extends Component {
         "id_question": id,
         "id_reponse": [reponse]
       }); 
-      fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
+      fetch('http://cyti.club/app/' + this.props.sondage.id + '/new_answer',{
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -87,7 +87,7 @@ class ReponseSondage extends Component {
         "id_question": id,
         "id_reponse": this.state.reponses[id]
       }); 
-      fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/new_answer',{
+      fetch('http://cyti.club/app/' + this.props.sondage.id + '/new_answer',{
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -142,7 +142,7 @@ class ReponseSondage extends Component {
       this.animation.play();
 
       // Cherche les questions relatives au sondage
-      return fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id)
+      return fetch('http://cyti.club/app/' + this.props.sondage.id)
         .then((response) => response.json())
         .then((responseJson) => {
 
@@ -266,7 +266,7 @@ class ReponseSondage extends Component {
                 cloneOfA[0].surveys=functionVar.surveys;
                   console.log("USERID"+this.props.user[0]._id);
 
-                  fetch('http://195.154.107.158:1337/app/' + this.props.sondage.id + '/finish',{
+                  fetch('http://cyti.club/app/' + this.props.sondage.id + '/finish',{
                     method: 'POST',
                     headers: {
                       Accept: 'application/json',
@@ -297,7 +297,7 @@ class ReponseSondage extends Component {
 
                
 
-                fetch('http://195.154.107.158:1337/cadeaux?points='+newPoints)
+                fetch('http://cyti.club/cadeaux?points='+newPoints)
                   .then((response) => response.json())
                   .then((responseJson) => {
                     

@@ -12,6 +12,7 @@ import { StackNavigator } from 'react-navigation';
 import Main from './components/Main';
 import ReponseSondage from './components/sondage/components/reponses/ReponseSondage';
 import LoginPage from './components/loginPage/LoginPage';
+import LoginPageCampagne from './components/loginPage/LoginPageCampagne';
 import ReductionCadeaux from './components/cadeaux/components/ReductionCadeaux';
 import PhysiqueCadeaux from './components/cadeaux/components/PhysiqueCadeaux';
 import CompletedSurveysList from './components/profil/components/CompletedSurveysList';
@@ -25,7 +26,8 @@ const store = createStore(globalReducer);
 
 const Navigator = StackNavigator({
   Login: {
-    screen: LoginPage,
+    // screen: LoginPage,
+    screen: LoginPageCampagne, //TODO : Replace it with the true Login Page
   },
   Homepage:{
     screen: Main,

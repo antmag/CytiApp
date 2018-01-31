@@ -18,7 +18,7 @@ class CadeauxPage extends Component {
 
   componentDidMount() {
   
-  return fetch('http://195.154.107.158:1337/cadeaux?points='+this.props.userData[0].points)
+  return fetch('http://cyti.club/cadeaux?points='+this.props.userData[0].points)
       .then((response) => response.json())
       .then((responseJson) => {
         

@@ -85,7 +85,7 @@ class ReductionCadeaux extends Component {
     cloneOfA[0].url_fb_picture=this.props.userData[0].url_fb_picture;
     cloneOfA[0].surveys=this.props.userData[0].surveys;
     this.props.dispatch(setConnectedUser(cloneOfA));
-    return fetch('http://195.154.107.158:1337/profil/removePoints/page?id='+this.props.userData[0]._id+"&points="+newPoints)
+    return fetch('http://cyti.club/profil/removePoints/page?id='+this.props.userData[0]._id+"&points="+newPoints)
       .then((response) => response.json())
       .then((responseJson) => {
         var a = responseJson;

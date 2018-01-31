@@ -43,7 +43,7 @@ class Profil extends Component {
  }
 
 componentDidMount() {
-    return fetch('http://195.154.107.158:1337/profil/surveys/page?id_user='+this.props.userData[0]._id)
+    return fetch('http://cyti.club/profil/surveys/page?id_user='+this.props.userData[0]._id)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

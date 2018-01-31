@@ -76,7 +76,7 @@ class SondageList extends Component {
     
     this.setState({isLoading : true});
     
-    fetch('http://195.154.107.158:1337/app',{
+    fetch('http://cyti.club/app',{
       method: 'POST',
       headers: {
         Accept: 'application/json',

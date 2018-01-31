@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Platform, Dimensions, ToastAndroid } from 'react-native';
-import { Image, View, Divider, TextInput, Text, Caption, Icon, Row, TouchableOpacity, Button, Heading, Screen } from '@shoutem/ui';
+import { Image, View, Divider, TextInput, Text, Caption, Icon, Row, TouchableOpacity, Button, Heading, Screen, DropDownMenu } from '@shoutem/ui';
 import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
 
 import {setConnectedUser} from '../../actions';
@@ -21,6 +21,21 @@ class LoginPage extends Component {
       username : '',
       password : '',
       status : 'wrongUsername',
+      année: [
+        { title: 'Année 3', value: 'Année 3' },
+        { title: 'Année 4', value: 'Année 4' },
+        { title: 'Césure', value: 'Césure' },
+        { title: 'Année 5', value: 'Année 5' },
+      ],
+      filiere : [
+        { title: 'Sciences du numérique', value: 'Sciences du numérique' },
+        { title: 'Chimie - Procédés', value: 'Chimie - Procédés' },
+        { title: 'Informatique et réseaux de Communications', value: 'Informatique et réseaux de Communications' },
+      ],
+      sexe : [
+        { title: 'Homme', value: 'Homme' },
+        { title: 'Femme', value: 'Femme' },
+      ]
     }
 
     // //Log out the user when he arrive on the login page
@@ -31,90 +46,6 @@ class LoginPage extends Component {
     // });
 
     this.logInFacebook = this.logInFacebook.bind(this);
-    this.logIn = this.logIn.bind(this);
-
-  }
-
-  logIn(){
-
-    //TODO: Erase following lines when the server is ready
-    if(true){
-      ToastAndroid.showWithGravity(
-        'Please connect with Facebook for now',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-      return;
-    }
-
-    if(this.state.username === '' || this.state.password === ''){
-      ToastAndroid.showWithGravity(
-        'Please fill your username and your password',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-      return;
-    }
-    
-    const bodyJson = JSON.stringify({
-      username : this.state.username,
-      password : this.state.password
-    });
-    //Send the request to the server
-    fetch('https://facebook.github.io/react-native/movies.json',{
-      method: 'POST',
-      body: bodyJson
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      switch(responseJson.status){
-        case 'wrongUsername':
-          this.setState({
-            username: '',
-            password: ''
-          });
-          ToastAndroid.showWithGravity(
-            "This username doesn't exist",
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER
-          );
-          break;
-        case 'wrongPassword':
-          this.setState({
-            username: '',
-            password: ''
-          });
-          ToastAndroid.showWithGravity(
-            'Wrong password',
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER
-          );
-          break;
-        case 'connection':
-          this.props.dispatch(setConnectedUser(reponse));
-          this.props.navigation.navigate('Homepage');
-          break;
-        default:
-          this.setState({
-            username: '',
-            password: ''
-          });
-          break;
-      }
-    })
-    
-    .catch((error) => {
-      this.setState({
-        username: '',
-        password: ''
-      });
-      ToastAndroid.showWithGravity(
-        'Something went wrong',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-      console.error(error);
-    });
 
   }
 
@@ -123,8 +54,6 @@ class LoginPage extends Component {
     FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web);
     FBLoginManager.loginWithPermissions(["email","user_friends","public_profile"], function(error, data){
       if (!error) {
-        console.log(data);
-
           fetch('http://cyti.club/profil/checkUser/facebookConnexion/',{
                     method: 'POST',
                     headers: {
@@ -134,7 +63,11 @@ class LoginPage extends Component {
                     body: JSON.stringify({
                       "id_facebook" : JSON.parse(data.profile).id,
                       "username" : JSON.parse(data.profile).first_name,
-                      "url": "https://graph.facebook.com/"+JSON.parse(data.profile).id+"/picture?type=large"
+                      "url": "https://graph.facebook.com/"+JSON.parse(data.profile).id+"/picture?type=large",
+                      "annee" : _this.state.selectedAnnee,
+                      "filiere" : _this.state.selectedFiliere,
+                      "sexe" : _this.state.selectedSexe
+
 
                     })
                   })
@@ -173,18 +106,10 @@ class LoginPage extends Component {
           source={require('../../assets/images/loginBackground.jpg')}
         /> 
 
-        <View  styleName="vertical h-center v-center" style={{flex:1}}>
-          <Image
-            styleName="medium-wide"
-            style={{width:'90%',height:147}}
-            source={require('../../assets/images/logo-transparent.png')}
-          />  
+        <View styleName="vertical h-center v-center" style={{flex:1}}>
+          <Heading styleName="bold">Campagne BDE 2018</Heading>
         </View>  
 
-        {/* <View styleName="vertical h-center v-center" style={{flex:1}}>
-          <Heading styleName="bold">CYTi</Heading>
-          <Caption>Capitalise Your Time</Caption>
-        </View> */}
         <View styleName="vertical h-center">
           <Row style={{
               width:'90%',
@@ -192,12 +117,13 @@ class LoginPage extends Component {
             }}
             styleName="small"
           >
-            <Icon name="friends" />
-            <TextInput
-              style={{flex:1}}
-              placeholder={'Username or email'}
-              onChangeText={(text) => this.setState({username:text})}
-              value={this.state.username}
+            <Text>Année d'étude: </Text>
+            <DropDownMenu
+              options={this.state.année}
+              selectedOption={this.state.selectedAnnee ? this.state.selectedAnnee : this.state.année[0]}
+              onOptionSelected={(annee) => this.setState({ selectedAnnee: annee })}
+              titleProperty="title"
+              valueProperty="value"
             />
           </Row>
 
@@ -209,13 +135,31 @@ class LoginPage extends Component {
             }} 
             styleName="small"
           >
-            <Icon name="lock" />
-            <TextInput
-              style={{flex:1}}
-              placeholder={'Password'}
-              secureTextEntry
-              onChangeText={(text) => this.setState({password:text})}
-              value={this.state.password}
+            <Text>Filière: </Text>
+            <DropDownMenu
+              options={this.state.filiere}
+              selectedOption={this.state.selectedFiliere ? this.state.selectedFiliere : this.state.filiere[0]}
+              onOptionSelected={(filiere) => this.setState({ selectedFiliere: filiere })}
+              titleProperty="title"
+              valueProperty="value"
+            />
+          </Row>
+
+          <Divider />
+
+          <Row style={{
+              width:'90%',
+              elevation : 2
+            }} 
+            styleName="small"
+          >
+            <Text>Sexe: </Text>
+            <DropDownMenu
+              options={this.state.sexe}
+              selectedOption={this.state.selectedSexe ? this.state.selectedSexe : this.state.sexe[0]}
+              onOptionSelected={(sexe) => this.setState({ selectedSexe: sexe })}
+              titleProperty="title"
+              valueProperty="value"
             />
           </Row>
 
@@ -227,14 +171,14 @@ class LoginPage extends Component {
               elevation : 2
             }}
             styleName = "secondary" 
-            onPress = { this.logIn }
+            onPress = {this.logInFacebook}
           >
             <Text>LOGIN</Text>
           </Button>
 
           <Divider />
 
-          <View styleName="horizontal h-center space-between" style={{width:'70%'}}>
+          {/* <View styleName="horizontal h-center space-between" style={{width:'70%'}}>
             <TouchableOpacity
               onPress = {this.logInFacebook}
             >
@@ -246,7 +190,7 @@ class LoginPage extends Component {
             <TouchableOpacity>
               <Icon name="instagram" />
             </TouchableOpacity>  
-          </View>  
+          </View>   */}
 
           <Divider />
 
